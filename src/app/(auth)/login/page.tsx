@@ -62,7 +62,9 @@ const Login = () => {
               <Input.Password />
             </Form.Item>
             <Form.Item label={null}>
-              <a className="font-light text-gray-700 mb-5 underline">Esqueceu sua senha?</a>
+              <Link href={"/passwordrecovery"} className="font-light text-gray-700 mb-5 underline">
+                Esqueceu sua senha?
+              </Link>
             </Form.Item>
             <Form.Item label={null}>
               <button type="submit" className="bg-primary text-white w-full py-[5px] rounded-lg">
