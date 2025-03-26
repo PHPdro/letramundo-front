@@ -32,7 +32,7 @@ const PasswordRecovery = () => {
             <Image alt="brinquedo" src="/toy.png" width={64} height={81} />
           </div>
           <div className="absolute bottom-5 z-0">
-            <Image alt="brinquedo" src="/tapete.svg" width={482} height={90} />
+            <Image alt="tapete" src="/tapete.svg" width={482} height={90} />
           </div>
         </div>
         <div className="p-12 lg:w-[40%] sm:w-full md:w-full">
@@ -61,13 +61,6 @@ const PasswordRecovery = () => {
           </p>
         </div>
       </div>
-      {/* <Image
-        className="absolute -bottom-[200px] -left-10"
-        alt="logo"
-        src="/splash-orange.svg"
-        width={400}
-        height={300}
-      /> */}
       <div className="flex justify-start">
         <div className="bg-[#f4a460] absolute bottom-0 h-40 w-40 rounded-tr-full" />
         <div className="bg-[#fbe5a5] absolute bottom-0 left-[120px] h-28 w-56 rounded-t-full" />

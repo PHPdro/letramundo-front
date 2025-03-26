@@ -62,7 +62,7 @@ const Login = () => {
               <Input.Password />
             </Form.Item>
             <Form.Item label={null}>
-              <Link href={"/passwordrecovery"} className="font-light text-gray-700 mb-5 underline">
+              <Link href={"/recuperarsenha"} className="font-light text-gray-700 mb-5 underline">
                 Esqueceu sua senha?
               </Link>
             </Form.Item>
@@ -74,7 +74,7 @@ const Login = () => {
           </Form>
           <p className="text-sm font-light text-center">
             Não possui conta?{" "}
-            <Link href={"/signup"}>
+            <Link href={"/cadastrar"}>
               <span className="text-primary underline">Cadastre-se</span>
             </Link>
           </p>
