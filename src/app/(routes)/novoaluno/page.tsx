@@ -1,7 +1,6 @@
 "use client";
 import { NavBar } from "@/components/Navbar";
 import { Form, Select, Input } from "antd";
-import Link from "next/link";
 
 const NewStudent = () => {
   const onFinish = (values: any) => {
