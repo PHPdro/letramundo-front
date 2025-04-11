@@ -1,14 +1,22 @@
 "use client";
+import { request } from "@/api/config";
 import { CheckCircleIcon } from "@heroicons/react/16/solid";
-import { Form, Input } from "antd";
+import { Form, Input, message } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 
 const Login = () => {
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+  const onFinish = async (values: any) => {
+    try {
+      const response = await request({
+        endpoint: "api/login",
+        data: values,
+        method: "POST",
+      });
+    } catch (error) {
+      message.error("Erro ao fazer login, verifique suas credenciais.");
+    }
   };
-
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
@@ -54,7 +62,7 @@ const Login = () => {
             layout="vertical"
             style={{ width: "100%" }}
           >
-            <Form.Item label="Email" name="username" rules={[{ required: true, message: "Digite o email!" }]}>
+            <Form.Item label="Email" name="email" rules={[{ required: true, message: "Digite o email!" }]}>
               <Input type="email" />
             </Form.Item>
 
