@@ -22,6 +22,8 @@ const toggleLoader = (loaderStateSetter: ((state: boolean) => void) | undefined,
     loaderStateSetter(state);
   }
 };
+axios.defaults.withCredentials = true;
+axios.defaults.withXSRFToken = true;
 var logoutMessageSent = false;
 export const request = async ({
   method = "get",
@@ -45,9 +47,6 @@ export const request = async ({
       // Authorization: `Bearer ${token}`,
       ...headers,
     },
-    withCredentials: true,
-    xsrfCookieName: "XSRF-TOKEN",
-    xsrfHeaderName: "X-XSRF-TOKEN",
   };
 
   let result;
