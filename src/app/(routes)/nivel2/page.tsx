@@ -4,10 +4,18 @@ import { Progress } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 
-const Nivel1 = () => {
+const Nivel2 = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [start, setStart] = useState(false);
   const [progress, setProgress] = useState(0);
+
+  const updateProgress = () => {
+    const audio = audioRef.current;
+    if (audio) {
+      const percent = (audio.currentTime / audio.duration) * 120;
+      setProgress(percent);
+    }
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -16,7 +24,16 @@ const Nivel1 = () => {
         if (start) {
           audio
             .play()
-            .then(() => {})
+            .then(() => {
+              updateProgress();
+              audio.addEventListener("timeupdate", updateProgress);
+              audio.addEventListener("ended", () => {
+                setProgress(0);
+                audio.currentTime = 0;
+                audio.pause();
+                setStart(false);
+              });
+            })
             .catch((err) => {
               console.error("Autoplay failed:", err);
             });
@@ -26,9 +43,9 @@ const Nivel1 = () => {
   }, [start]);
   return (
     <div className="h-screen bg-[#b6d5f0]">
-      {/* <audio ref={audioRef}>
+      <audio ref={audioRef}>
         <source src="/audios/a.m4a" type="audio/mpeg" />
-      </audio> */}
+      </audio>
       <div className="p-10">
         <div className="flex justify-start">
           <Link href="/inicio">
@@ -65,10 +82,10 @@ const Nivel1 = () => {
       </div>
       <div className="absolute right-64 top-72 flex flex-col justify-center align-middle gap-8 z-10 items-end">
         <button className="flex justify-center items-center bg-white p-11 rounded-full w-[110px] h-[110px] text-center font-medium text-2xl">
-          A
+          VA
         </button>
         <button className="flex justify-center items-center bg-white p-11 rounded-full w-[110px] h-[110px] text-center font-medium text-2xl">
-          U
+          VO
         </button>
       </div>
       <div className="z-0">
@@ -88,4 +105,4 @@ const Nivel1 = () => {
   );
 };
 
-export default Nivel1;
+export default Nivel2;

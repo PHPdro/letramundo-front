@@ -1,14 +1,35 @@
 "use client";
+import { createStudent } from "@/api/student";
 import { NavBar } from "@/components/Navbar";
-import { Form, Select, Input } from "antd";
+import { useFetchThemes } from "@/hooks/useGetThemes";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Form, Select, Input, message } from "antd";
+import { useRouter } from "next/navigation";
 
 const NewStudent = () => {
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
-  };
+  const queryClient = useQueryClient();
+  const route = useRouter();
+  const { themes } = useFetchThemes();
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
+  const mutation = useMutation({
+    mutationFn: createStudent,
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: ["students"] });
+      message.success("Aluno(a) cadastrado com sucesso!");
+      route.push("/inicio");
+    },
+    onError: () => {
+      message.error("Erro ao cadastrar aluno(a)");
+    },
+  });
+
+  const onFinish = async (values: any) => {
+    await mutation.mutate({
+      name: values.name,
+      year: values.year,
+      class: values.class,
+      theme_id: values.theme_id,
+    });
   };
 
   return (
@@ -21,7 +42,6 @@ const NewStudent = () => {
             <Form
               name="basic"
               onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
               autoComplete="off"
               layout="vertical"
               style={{ width: "100%" }}
@@ -29,23 +49,23 @@ const NewStudent = () => {
               <Form.Item
                 style={{ marginBottom: 10 }}
                 label="Nome"
-                name="username"
-                rules={[{ required: true, message: "Digite o email!" }]}
+                name="name"
+                rules={[{ required: true, message: "Digite o nome" }]}
               >
                 <Input type="text" />
               </Form.Item>
               <Form.Item
                 style={{ marginBottom: 10 }}
                 label="Série"
-                name="email"
-                rules={[{ required: true, message: "Digite a série!" }]}
+                name="year"
+                rules={[{ required: true, message: "Digite a série" }]}
               >
                 <Input type="text" />
               </Form.Item>
               <Form.Item
                 style={{ marginBottom: 10 }}
                 label="Turma"
-                name="institute"
+                name="class"
                 rules={[{ required: true, message: "Digite a turma" }]}
               >
                 <Input type="text" />
@@ -53,17 +73,15 @@ const NewStudent = () => {
               <Form.Item
                 style={{ marginBottom: 10 }}
                 label="Tema"
-                name="password"
-                rules={[{ required: true, message: "Digite a senha!" }]}
+                name="theme_id"
+                rules={[{ required: true, message: "Selecione o tema" }]}
               >
-                <Select />
-              </Form.Item>
-              <Form.Item
-                label="Nível"
-                name="password"
-                rules={[{ required: true, message: "Digite a senha!" }]}
-              >
-                <Select />
+                <Select
+                  options={themes.map((theme: any) => ({
+                    label: theme.name,
+                    value: theme.id,
+                  }))}
+                />
               </Form.Item>
               <Form.Item label={null}>
                 <button type="submit" className="bg-primary text-white w-full py-[5px] rounded-lg">

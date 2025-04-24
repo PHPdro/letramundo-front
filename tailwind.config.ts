@@ -13,6 +13,7 @@ export default {
         foreground: "var(--foreground)",
         primary: "#f4a460",
         secondary: "#ffd3a0",
+        purple: "#983f94",
       },
     },
   },

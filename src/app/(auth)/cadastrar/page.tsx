@@ -1,12 +1,28 @@
 "use client";
+import { createUser } from "@/api/user";
 import { CheckCircleIcon } from "@heroicons/react/16/solid";
-import { Form, Input, Select } from "antd";
+import { useMutation } from "@tanstack/react-query";
+import { Form, Input, message } from "antd";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const SignUp = () => {
+  const route = useRouter();
+  const mutation = useMutation({
+    mutationFn: createUser,
+    onSuccess: async (response) => {
+      message.success("Usuário cadastrado com sucesso!");
+      localStorage.setItem("auth", response.data.token);
+      route.push("/inicio");
+    },
+    onError: () => {
+      message.error("Erro ao cadastrar usuário");
+    },
+  });
+
   const onFinish = (values: any) => {
-    console.log("Success:", values);
+    mutation.mutate(values);
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -56,7 +72,7 @@ const SignUp = () => {
             <Form.Item
               style={{ marginBottom: 15 }}
               label="Nome"
-              name="username"
+              name="name"
               rules={[{ required: true, message: "Digite o email!" }]}
             >
               <Input type="text" />
@@ -71,21 +87,17 @@ const SignUp = () => {
             </Form.Item>
             <Form.Item
               style={{ marginBottom: 15 }}
-              label="Instituição de Ensino"
-              name="institute"
-              rules={[{ required: true, message: "Selecione a instituição" }]}
-            >
-              <Select />
-            </Form.Item>
-            <Form.Item
-              style={{ marginBottom: 15 }}
               label="Senha"
               name="password"
               rules={[{ required: true, message: "Digite a senha!" }]}
             >
               <Input.Password />
             </Form.Item>
-            <Form.Item label="Senha" name="password" rules={[{ required: true, message: "Digite a senha!" }]}>
+            <Form.Item
+              label="Confirmar senha"
+              name="password_confirmation"
+              rules={[{ required: true, message: "Digite a senha!" }]}
+            >
               <Input.Password />
             </Form.Item>
             <Form.Item label={null}>
