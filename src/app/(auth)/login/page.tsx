@@ -1,14 +1,26 @@
 "use client";
+import { request } from "@/api/config";
 import { CheckCircleIcon } from "@heroicons/react/16/solid";
-import { Form, Input } from "antd";
+import { Form, Input, message } from "antd";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+  const route = useRouter();
+  const onFinish = async (values: any) => {
+    try {
+      const response = await request({
+        endpoint: "login",
+        data: values,
+        method: "POST",
+      });
+      localStorage.setItem("auth", response.data.token);
+      route.push("/inicio");
+    } catch (error) {
+      message.error("Erro ao fazer login, verifique suas credenciais.");
+    }
   };
-
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
@@ -54,7 +66,7 @@ const Login = () => {
             layout="vertical"
             style={{ width: "100%" }}
           >
-            <Form.Item label="Email" name="username" rules={[{ required: true, message: "Digite o email!" }]}>
+            <Form.Item label="Email" name="email" rules={[{ required: true, message: "Digite o email!" }]}>
               <Input type="email" />
             </Form.Item>
 

@@ -1,39 +1,12 @@
 import { Pagination } from "antd";
 import Image from "next/image";
+import Link from "next/link";
 
-export const CustomTable = () => {
-  const alunos = [
-    {
-      nome: "Aluno Teste",
-      nivel: 5,
-      turma: "5º B",
-      avatar: "/avatar.png",
-    },
-    {
-      nome: "Aluno Teste 2",
-      nivel: 5,
-      turma: "5º B",
-      avatar: "/avatar.png",
-    },
-    {
-      nome: "Aluno Teste 3",
-      nivel: 5,
-      turma: "5º B",
-      avatar: "/avatar.png",
-    },
-    {
-      nome: "Aluno Teste 4",
-      nivel: 5,
-      turma: "5º B",
-      avatar: "/avatar.png",
-    },
-    {
-      nome: "Aluno Teste 5",
-      nivel: 5,
-      turma: "5º B",
-      avatar: "/avatar.png",
-    },
-  ];
+interface CustomTableProps {
+  data: any;
+}
+
+export const CustomTable = ({ data }: CustomTableProps) => {
   return (
     <div>
       <table className="min-w-full border-separate border-spacing-4">
@@ -66,16 +39,18 @@ export const CustomTable = () => {
           </tr>
         </thead>
         <tbody>
-          {alunos.map((aluno, index) => (
+          {data?.map((aluno: any, index: number) => (
             <tr key={index}>
               <td>
-                <Image
-                  src="/play.svg"
-                  alt="Botão de começar jogo"
-                  width={35}
-                  height={35}
-                  className="w-[35px] h-[35px] rounded-full object-cover"
-                />
+                <Link href={`nivel1`}>
+                  <Image
+                    src="/play.svg"
+                    alt="Botão de começar jogo"
+                    width={35}
+                    height={35}
+                    className="w-[35px] h-[35px] rounded-full object-cover"
+                  />
+                </Link>
               </td>
               <td className="whitespace-nowrap  p-4 text-sm bg-[#fbe5a5] rounded-lg flex items-center gap-3 flex-row">
                 <Image
@@ -85,13 +60,11 @@ export const CustomTable = () => {
                   height={27}
                   className="w-[27px] h-[27px] rounded-full object-cover"
                 />
-                {aluno.nome}
+                {aluno.name}
               </td>
+              <td className="whitespace-nowrap p-4 text-center text-sm bg-[#fbe5a5] rounded-lg">1</td>
               <td className="whitespace-nowrap p-4 text-center text-sm bg-[#fbe5a5] rounded-lg">
-                {aluno.nivel}
-              </td>
-              <td className="whitespace-nowrap p-4 text-center text-sm bg-[#fbe5a5] rounded-lg">
-                {aluno.turma}
+                {aluno.year}º {aluno.class.toLocaleUpperCase()}
               </td>
               <td>
                 <Image
@@ -109,7 +82,7 @@ export const CustomTable = () => {
       <Pagination
         align="end"
         defaultCurrent={1}
-        total={50}
+        total={data?.length}
         style={{
           marginTop: "20px",
           marginRight: "35px",
