@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { Progress } from "antd";
 import Image from "next/image";
 import Link from "next/link";
+import { BackButton } from "@/components/BackButton";
+import { Avatar } from "@/components/Avatar";
 
 const Nivel1 = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -29,22 +31,11 @@ const Nivel1 = () => {
       {/* <audio ref={audioRef}>
         <source src="/audios/a.m4a" type="audio/mpeg" />
       </audio> */}
-      <div className="p-10">
-        <div className="flex justify-start">
-          <Link href="/inicio">
-            <Image src="/back-blue.svg" alt="background" className="object-cover" width={45} height={45} />
-          </Link>
-        </div>
-      </div>
-      <div className="pl-10">
-        <div className="bg-white w-[90px] h-[90px] rounded-full border-primary border-2 flex justify-center items-center">
-          <Image
-            src="/avatar.png"
-            alt="background"
-            className="w-[80px] h-[80px] rounded-full object-cover"
-            width={80}
-            height={80}
-          />
+      <div className="p-6">
+        <div className="flex justify-between z-10">
+          <BackButton color="blue" />
+          <img src="/logo-transparente.png" alt="Logo" className=" z-10 w-[67px] h-[50px]" />
+          <Avatar />
         </div>
       </div>
       <div className="flex justify-center items-center w-full">
