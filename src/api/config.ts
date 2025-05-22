@@ -36,6 +36,7 @@ export const request = async ({
     timeout: timeout,
     headers: {
       "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
       Authorization: `Bearer ${token}`,
       ...headers,
     },

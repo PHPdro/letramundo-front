@@ -25,6 +25,7 @@ const Nivel1 = () => {
       }
     }
   }, [start]);
+
   return (
     <div className="h-screen bg-[#b6d5f0] bgPraiaJogo">
       {/* <audio ref={audioRef}>
