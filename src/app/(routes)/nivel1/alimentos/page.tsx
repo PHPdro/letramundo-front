@@ -5,7 +5,7 @@ import Image from "next/image";
 import { BackButton } from "@/components/BackButton";
 import { Avatar } from "@/components/Avatar";
 import Confetti from "react-confetti";
-import { phases } from "./phases";
+import { letters, phases } from "./phases";
 import { useMutation } from "@tanstack/react-query";
 import { studentProgress } from "@/api/progress";
 
@@ -23,17 +23,19 @@ const Nivel1 = () => {
   const [student, setStudent] = useState<any>(null);
   const [currentVowel, setCurrentVowel] = useState<Vowel>({} as Vowel);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [firstLetter, setFirstLetter] = useState("");
+  const [secondLetter, setSecondLetter] = useState("");
+  const [firstLetterCorrect, setFirstLetterCorrect] = useState(false);
+  const [secondLetterCorrect, setSecondLetterCorrect] = useState(false);
   const [stage, setStage] = useState(0);
-  const [phase, setPhase] = useState(0);
+  const [phase, setPhase] = useState(1);
+  const [hardPhase, setHardPhase] = useState(0);
+  const { A, U, I, O, E, OI, EI } = letters;
 
-  const A = { key: 1, letter: "A", sound: "/audios/letra-a.mp3" };
-  const U = { key: 2, letter: "U", sound: "/audios/letra-u.mp3" };
-  const I = { key: 3, letter: "I", sound: "/audios/letra-i.mp3" };
-  const O = { key: 4, letter: "O", sound: "/audios/letra-o.mp3" };
-  const E = { key: 5, letter: "E", sound: "/audios/letra-e.mp3" };
-
-  const vowels4: Vowel[] = [A, U, I];
-  const vowels7: Vowel[] = [A, U, I, O, E];
+  const hardVowels = [
+    [U, I, O],
+    [A, U, I, O, E],
+  ];
 
   const randomizeVowels = (data: Vowel[]) => {
     const shuffledVowels = [...data].sort(() => Math.random() - 0.5);
@@ -52,6 +54,11 @@ const Nivel1 = () => {
       setPhase((prev) => prev + 1);
       setStage(0);
       setStart(false);
+      if (phase > 7) {
+        setFirstLetterCorrect(false);
+        setSecondLetterCorrect(false);
+        setHardPhase((prev) => prev + 1);
+      }
     },
     onError: () => {
       message.error("Erro ao salvar progresso");
@@ -59,30 +66,72 @@ const Nivel1 = () => {
   });
 
   const handleStart = () => {
-    if (phase === 0) {
+    if (phase > 9) {
+      return;
+    }
+    if (phase === 1) {
       setCurrentVowel(A);
       setProgress(0);
-    } else if (phase === 1) {
+    } else if (phase === 2) {
       setCurrentVowel(U);
       setProgress(0);
-    } else if (phase === 2) {
+    } else if (phase === 3) {
       setCurrentVowel(I);
       setProgress(0);
-    } else if (phase === 3) {
-      randomizeVowels(vowels4);
-      setProgress(0);
     } else if (phase === 4) {
-      setCurrentVowel(E);
+      setCurrentVowel(A);
       setProgress(0);
     } else if (phase === 5) {
-      setCurrentVowel(O);
+      setCurrentVowel(E);
       setProgress(0);
     } else if (phase === 6) {
-      randomizeVowels(vowels7);
+      setCurrentVowel(O);
+      setProgress(0);
+    } else if (phase === 7) {
+      setCurrentVowel(E);
+      setProgress(0);
+    } else if (phase === 8) {
+      setCurrentVowel(OI);
+      setFirstLetter("O");
+      setSecondLetter("I");
+      setProgress(0);
+    } else if (phase === 9) {
+      setCurrentVowel(EI);
+      setFirstLetter("E");
+      setSecondLetter("I");
       setProgress(0);
     }
     setStart(true);
     setIsCorrect(false);
+  };
+
+  const handleClickLetter = (letter: string) => {
+    let newFirstCorrect = firstLetterCorrect;
+    let newSecondCorrect = secondLetterCorrect;
+
+    if (letter === firstLetter) {
+      newFirstCorrect = true;
+    } else if (letter === secondLetter) {
+      newSecondCorrect = true;
+    }
+    setFirstLetterCorrect(newFirstCorrect);
+    setSecondLetterCorrect(newSecondCorrect);
+    if (newFirstCorrect && newSecondCorrect) {
+      let count = stage + 1;
+      if (count < 3) {
+        setStage(count);
+        setProgress((prev) => prev + 33);
+        setFirstLetterCorrect(false);
+        setSecondLetterCorrect(false);
+        setFirstLetter(phases[phase - 1][count][0].letter);
+        setSecondLetter(phases[phase - 1][count][1].letter);
+        audioRef.current = new Audio(phases[phase - 1][count][2].sound);
+      }
+      if (count === 3) {
+        mutation.mutate(student.id);
+        return;
+      }
+    }
   };
 
   const handleClick = (vowel: Vowel) => {
@@ -91,19 +140,19 @@ const Nivel1 = () => {
       if (count < 5) {
         setStage(count);
         setProgress((prev) => prev + 20);
+        audioRef.current = new Audio(currentVowel.sound);
       }
       if (count === 5) {
-        // TODO: pegar o id do aluno
         mutation.mutate(student.id);
         return;
       }
-      if (phase === 3) {
+      if (phase === 4) {
         randomizeVowels(phases[3][count]);
-      } else if (phase === 6) {
+      } else if (phase === 7) {
         randomizeVowels(phases[6][count]);
       }
     } else {
-      message.error("Você errou!");
+      message.error("Ah não, você errou :(");
     }
   };
 
@@ -111,7 +160,7 @@ const Nivel1 = () => {
     if (typeof window !== "undefined") {
       const student = JSON.parse(localStorage.getItem("aluno") || "{}");
       setStudent(student);
-      setPhase(student.phase_id - 1);
+      setPhase(student.phase_id);
     }
   }, []);
 
@@ -141,21 +190,66 @@ const Nivel1 = () => {
       <div className="flex justify-center items-center w-full">
         {start ? (
           <div>
-            <Progress percent={progress} showInfo={false} size={[400, 20]} />
             <audio ref={audioRef}>
               <source src={currentVowel.sound} type="audio/mpeg" />
             </audio>
-            <div className="absolute lg:left-64 lg:top-72 md:left-20 md:top-96 flex flex-col justify-center align-middle gap-12 z-10 items-start">
-              {phases[phase][stage].map((vowel) => (
-                <button
-                  key={vowel.key}
-                  onClick={() => handleClick(vowel)}
-                  className="flex justify-center items-center bg-white p-11 rounded-full w-[100%] h-[100%] text-center font-medium text-4xl"
-                >
-                  {vowel.letter}
-                </button>
-              ))}
-            </div>
+            {phase < 8 ? (
+              <>
+                <Progress percent={progress} showInfo={false} size={[400, 20]} />
+                <div className="absolute lg:left-64 lg:top-72 md:left-20 md:top-96 flex flex-col justify-center align-middle gap-12 z-10 items-start">
+                  {phases[phase - 1][stage].map((vowel) => (
+                    <button
+                      key={vowel.key}
+                      onClick={() => handleClick(vowel)}
+                      className="flex justify-center items-center bg-white p-11 rounded-full w-[100%] h-[100%] text-center font-medium text-4xl"
+                    >
+                      {vowel.letter}
+                    </button>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <div className="relative flex flex-col bg-white rounded-3xl md:h-[600px] m-3 p-5 z-10">
+                <div>
+                  <div className="flex flex-col justify-center items-center w-full">
+                    <div>
+                      <Progress percent={progress} showInfo={false} size={[400, 20]} />
+                    </div>
+                    <div className="flex justify-center flex-col items-center w-full">
+                      <img
+                        src={`/${phases[phase - 1][stage][0].letter}${
+                          phases[phase - 1][stage][1].letter
+                        }.png`}
+                        alt={`${phases[phase - 1][stage][0].letter}${phases[phase - 1][stage][1].letter}`}
+                        className="object-cover lg:h-[184px] md:h-[74px] lg:w-[184px] md:w-[60px] z-0 mt-2"
+                      />
+                      <div className="flex flex-row mt-8 gap-3">
+                        <p className="border-[1px] border-black h-[86px] w-[70px] text-center lg:p-7 md:p-3 rounded-sm text-xl">
+                          {firstLetterCorrect ? firstLetter : ""}
+                        </p>
+                        <p className="border-[1px] border-black h-[86px] w-[70px] text-center lg:p-7 md:p-3 rounded-sm text-xl">
+                          {secondLetterCorrect ? secondLetter : ""}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className={`flex justify-center items-center align-middle lg:px-32 md:px-8 mt-10 gap-14`}
+                  >
+                    {hardVowels[hardPhase].map((vowel) => (
+                      <div key={vowel.key}>
+                        <button
+                          className="bg-[#e94d39] rounded-sm lg:p-7 md:p-5 text-white font-medium text-xl"
+                          onClick={() => handleClickLetter(vowel.letter)}
+                        >
+                          {vowel.letter}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           <Image

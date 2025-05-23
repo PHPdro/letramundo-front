@@ -1,8 +1,18 @@
-const A = { key: 1, letter: "A", sound: "/audios/letra-a.mp3" };
-const U = { key: 2, letter: "U", sound: "/audios/letra-u.mp3" };
-const I = { key: 3, letter: "I", sound: "/audios/letra-i.mp3" };
-const O = { key: 4, letter: "O", sound: "/audios/letra-o.mp3" };
-const E = { key: 5, letter: "E", sound: "/audios/letra-e.mp3" };
+export const letters = {
+  A: { key: 1, letter: "A", sound: "/audios/letra-a.mp3" },
+  U: { key: 2, letter: "U", sound: "/audios/letra-u.mp3" },
+  I: { key: 3, letter: "I", sound: "/audios/letra-i.mp3" },
+  O: { key: 4, letter: "O", sound: "/audios/letra-o.mp3" },
+  E: { key: 5, letter: "E", sound: "/audios/letra-e.mp3" },
+  OI: { key: 6, letter: "OI", sound: "/audios/oi.mp3" },
+  UI: { key: 7, letter: "UI", sound: "/audios/ui.mp3" },
+  OU: { key: 8, letter: "OU", sound: "/audios/ou.mp3" },
+  EI: { key: 9, letter: "EI", sound: "/audios/ei.mp3" },
+  AU: { key: 10, letter: "AU", sound: "/audios/au.mp3" },
+  AO: { key: 11, letter: "AO", sound: "/audios/ao.mp3" },
+};
+
+const { A, U, I, O, E, OI, UI, OU, EI, AU, AO } = letters;
 
 const phase1 = [
   [A, E],
@@ -59,4 +69,14 @@ const phase7 = [
   [E, U],
 ];
 
-export const phases = [phase1, phase2, phase3, phase4, phase5, phase6, phase7];
+const phase8 = [
+  [O, I, OI],
+  [U, I, UI],
+  [O, U, OU],
+];
+const phase9 = [
+  [E, I, EI],
+  [A, U, AU],
+  [A, O, AO],
+];
+export const phases = [phase1, phase2, phase3, phase4, phase5, phase6, phase7, phase8, phase9];
