@@ -1,12 +1,18 @@
 import { Pagination } from "antd";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 
 interface CustomTableProps {
   data: any;
 }
 
 export const CustomTable = ({ data }: CustomTableProps) => {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("aluno");
+    }
+  }, []);
   return (
     <div>
       <table className="min-w-full border-separate border-spacing-4">
@@ -42,7 +48,11 @@ export const CustomTable = ({ data }: CustomTableProps) => {
           {data?.map((aluno: any, index: number) => (
             <tr key={index}>
               <td>
-                <Link href={`nivel1`}>
+                {/* TODO: fazer dinamico */}
+                <Link
+                  href={`niveis/${aluno.theme.toLocaleLowerCase()}`}
+                  onClick={() => localStorage.setItem("aluno", JSON.stringify(aluno))}
+                >
                   <Image
                     src="/play.svg"
                     alt="Botão de começar jogo"
@@ -62,7 +72,9 @@ export const CustomTable = ({ data }: CustomTableProps) => {
                 />
                 {aluno.name}
               </td>
-              <td className="whitespace-nowrap p-4 text-center text-sm bg-[#fbe5a5] rounded-lg">1</td>
+              <td className="whitespace-nowrap p-4 text-center text-sm bg-[#fbe5a5] rounded-lg">
+                {aluno.level}
+              </td>
               <td className="whitespace-nowrap p-4 text-center text-sm bg-[#fbe5a5] rounded-lg">
                 {aluno.year}º {aluno.class.toLocaleUpperCase()}
               </td>

@@ -1,14 +1,16 @@
+import { Avatar } from "@/components/Avatar";
+import { BackButton } from "@/components/BackButton";
 import Image from "next/image";
 import Link from "next/link";
 
 const Niveis = () => {
   return (
     <div className="h-screen bg-[#b6d5f0]">
-      <div className="flex flex-col h-screen p-10">
-        <div className="flex justify-start">
-          <Link href="/inicio">
-            <Image src="/back-blue.svg" alt="background" className="object-cover" width={45} height={45} />
-          </Link>
+      <div className="flex flex-col h-screen p-6">
+        <div className="flex justify-between z-10">
+          <BackButton color="blue" />
+          <img src="/logo-transparente.png" alt="Logo" className=" z-10 w-[67px] h-[50px]" />
+          <Avatar />
         </div>
         <h1 className="text-3xl font-medium text-center text-white mb-10">Bem vindo, usuário!</h1>
         <div className="grid grid-cols-4 gap-8 z-10 items-center max-w-[400px] mx-auto">
