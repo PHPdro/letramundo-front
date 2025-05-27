@@ -5,7 +5,7 @@ import Image from "next/image";
 import { BackButton } from "@/components/BackButton";
 import { Avatar } from "@/components/Avatar";
 import Confetti from "react-confetti";
-import { letters, phases } from "./phases";
+import { letters, phases } from "../phases";
 import { useMutation } from "@tanstack/react-query";
 import { studentProgress } from "@/api/progress";
 
@@ -159,8 +159,10 @@ const Nivel1 = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const student = JSON.parse(localStorage.getItem("aluno") || "{}");
-      setStudent(student);
-      setPhase(student.phase_id);
+      if (student.id !== undefined) {
+        setStudent(student);
+        setPhase(student.phase_id);
+      }
     }
   }, []);
 

@@ -1,4 +1,5 @@
 "use client";
+import { GameProvider } from "@/contexts/GameContext";
 import { useAuth } from "@/hooks/auth/useAuth";
 import ReactQueryProvider from "@/utils/reactquery";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
@@ -15,7 +16,9 @@ export default function RoutesLayout({ children }: PropsWithChildren) {
   return (
     <div>
       <ReactQueryProvider>
-        <AntdRegistry>{children}</AntdRegistry>
+        <GameProvider>
+          <AntdRegistry>{children}</AntdRegistry>
+        </GameProvider>
       </ReactQueryProvider>
     </div>
   );
