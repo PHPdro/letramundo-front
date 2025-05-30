@@ -10,9 +10,13 @@ export const letters = {
   EI: { key: 9, letter: "EI", sound: "/audios/ei.mp3" },
   AU: { key: 10, letter: "AU", sound: "/audios/au.mp3" },
   AO: { key: 11, letter: "AO", sound: "/audios/ao.mp3" },
+  AI: { key: 12, letter: "AI", sound: "/audios/ai.mp3" },
+  EU: { key: 13, letter: "EU", sound: "/audios/eu.mp3" },
+  UAU: { key: 14, letter: "UAU", sound: "/audios/uau.mp3" },
+  UAI: { key: 15, letter: "UAI", sound: "/audios/uai.mp3" },
 };
 
-const { A, U, I, O, E, OI, UI, OU, EI, AU, AO } = letters;
+const { A, U, I, O, E, OI, UI, OU, EI, AU, AO, AI, EU, UAU, UAI } = letters;
 
 const phase1 = [
   [A, E],
@@ -79,4 +83,11 @@ const phase9 = [
   [A, U, AU],
   [A, O, AO],
 ];
-export const phases = [phase1, phase2, phase3, phase4, phase5, phase6, phase7, phase8, phase9];
+
+const phase10 = [
+  [A, I, AI],
+  [E, U, EU],
+  [U, A, UAU],
+  [U, A, UAI],
+];
+export const phases = [phase1, phase2, phase3, phase4, phase5, phase6, phase7, phase8, phase9, phase10];

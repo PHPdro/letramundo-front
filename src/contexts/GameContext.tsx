@@ -19,10 +19,13 @@ type GameContextType = {
   setCurrentVowel: React.Dispatch<React.SetStateAction<Vowel>>;
   firstLetter: string;
   secondLetter: string;
+  thirdLetter: string;
   firstLetterCorrect: boolean;
   setFirstLetterCorrect: React.Dispatch<React.SetStateAction<boolean>>;
   secondLetterCorrect: boolean;
   setSecondLetterCorrect: React.Dispatch<React.SetStateAction<boolean>>;
+  thirdLetterCorrect: boolean;
+  setThirdLetterCorrect: React.Dispatch<React.SetStateAction<boolean>>;
   student: any;
   setStudent: React.Dispatch<React.SetStateAction<any>>;
   hardPhase: number;
@@ -46,20 +49,23 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const audioRef = useRef<HTMLAudioElement>(null);
   const [start, setStart] = useState(false);
   const [stage, setStage] = useState(0);
-  const [phase, setPhase] = useState(1);
+  const [phase, setPhase] = useState(10);
   const [progress, setProgress] = useState(0);
   const [isCorrect, setIsCorrect] = useState(false);
   const [currentVowel, setCurrentVowel] = useState<Vowel>({} as Vowel);
   const [firstLetter, setFirstLetter] = useState("");
   const [secondLetter, setSecondLetter] = useState("");
+  const [thirdLetter, setThirdLetter] = useState("");
   const [firstLetterCorrect, setFirstLetterCorrect] = useState(false);
   const [secondLetterCorrect, setSecondLetterCorrect] = useState(false);
+  const [thirdLetterCorrect, setThirdLetterCorrect] = useState(false);
   const [student, setStudent] = useState<any>(null);
-  const [hardPhase, setHardPhase] = useState(0);
-  const { A, U, I, O, E, OI, EI } = letters;
+  const [hardPhase, setHardPhase] = useState(2);
+  const { A, U, I, O, E, OI, EI, AI } = letters;
   const hardVowels = [
     [U, I, O],
     [A, U, I, O, E],
+    [A, U, E, I],
   ];
 
   const getStudentFromLocalStorage = () => {
@@ -72,7 +78,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
   const handleStart = () => {
-    if (phase > 9) {
+    if (phase > 10) {
       return;
     }
     if (phase === 1) {
@@ -106,6 +112,11 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setFirstLetter("E");
       setSecondLetter("I");
       setProgress(0);
+    } else {
+      setCurrentVowel(AI);
+      setFirstLetter("A");
+      setSecondLetter("I");
+      setProgress(0);
     }
     setStart(true);
     setIsCorrect(false);
@@ -125,34 +136,46 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const handleClickLetter = (letter: string, handleRequest: () => void) => {
     let newFirstCorrect = firstLetterCorrect;
     let newSecondCorrect = secondLetterCorrect;
-
-    if (letter === firstLetter) {
-      newFirstCorrect = true;
-    } else if (letter === secondLetter) {
-      newSecondCorrect = true;
+    let newthirdLetterCorrect = thirdLetterCorrect;
+    if (letter === thirdLetter && phase === 10 && stage > 1) {
+      newthirdLetterCorrect = true;
     }
+    if (letter === secondLetter) {
+      newSecondCorrect = true;
+    } else if (letter === firstLetter) {
+      newFirstCorrect = true;
+    }
+
     setFirstLetterCorrect(newFirstCorrect);
     setSecondLetterCorrect(newSecondCorrect);
+    setThirdLetterCorrect(newthirdLetterCorrect);
+
     if (newFirstCorrect && newSecondCorrect) {
       let count = stage + 1;
-      if (count < 3) {
+      if (count < 4) {
         setStage(count);
         setProgress((prev) => prev + 33);
         setFirstLetterCorrect(false);
         setSecondLetterCorrect(false);
+        setThirdLetterCorrect(false);
         setFirstLetter(phases[phase - 1][count][0].letter);
         setSecondLetter(phases[phase - 1][count][1].letter);
+        if (phase === 10 && count > 1) {
+          setThirdLetter(phases[phase - 1][count][2].letter.split("")[2]);
+        }
         if (audioRef.current) {
           audioRef.current.src = phases[phase - 1][count][2].sound;
           audioRef.current.load();
         }
       }
-      if (count === 3) {
+      if (count === 4) {
+        if (phase === 10 && letter !== thirdLetter) return;
         handleRequest();
         return;
       }
     }
   };
+
   const handleClick = (vowel: Vowel, handleRequest: () => void) => {
     if (vowel.key === currentVowel.key) {
       let count = stage + 1;
@@ -197,10 +220,13 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setHardPhase,
         firstLetter,
         secondLetter,
+        thirdLetter,
         firstLetterCorrect,
         setFirstLetterCorrect,
         secondLetterCorrect,
         setSecondLetterCorrect,
+        thirdLetterCorrect,
+        setThirdLetterCorrect,
         student,
         setStudent,
         handleStart,
