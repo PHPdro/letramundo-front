@@ -73,7 +73,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const student = JSON.parse(localStorage.getItem("aluno") || "{}");
       if (student.id !== undefined) {
         setStudent(student);
-        setPhase(student.phase_id);
+        setPhase(student.phase);
       }
     }
   };
@@ -112,11 +112,13 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setFirstLetter("E");
       setSecondLetter("I");
       setProgress(0);
+      setHardPhase(1);
     } else {
       setCurrentVowel(AI);
       setFirstLetter("A");
       setSecondLetter("I");
       setProgress(0);
+      setHardPhase(2);
     }
     setStart(true);
     setIsCorrect(false);
@@ -152,9 +154,9 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     if (newFirstCorrect && newSecondCorrect) {
       let count = stage + 1;
-      if (count < 4) {
+      if (count < phases[phase - 1].length) {
         setStage(count);
-        setProgress((prev) => prev + 33);
+        setProgress((prev) => prev + 100 / phases[phase - 1].length);
         setFirstLetterCorrect(false);
         setSecondLetterCorrect(false);
         setThirdLetterCorrect(false);
@@ -168,7 +170,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
           audioRef.current.load();
         }
       }
-      if (count === 4) {
+      if (count === phases[phase - 1].length) {
         if (phase === 10 && letter !== thirdLetter) return;
         handleRequest();
         return;
