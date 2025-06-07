@@ -21,15 +21,15 @@ export const letters = {
   FIFO: { key: 20, letter: "FIFO", sound: "/audios/fifo.mp3" },
   FAVA: { key: 21, letter: "FAVA", sound: "/audios/fava.mp3" },
   FOFA: { key: 23, letter: "FOFA", sound: "/audios/fofa.mp3" },
-  AAVEFOFA: { key: 24, letter: "A AVE FOFA", sound: "/audios/aavefofa.mp3" },
-  OOVOFEIO: { key: 25, letter: "O OVO FEIO", sound: "/audios/oovofeio.mp3" },
-  AFOFAVIVI: { key: 26, letter: "A FOFA VIVI", sound: "/audios/afofavivi.mp3" },
-  EVAVIUOFAVO: { key: 27, letter: "EVA VIU O FAVO", sound: "/audios/evaviuofavo.mp3" },
-  IVOEAFAVA: { key: 28, letter: "IVO E A FAVA", sound: "/audios/ivoeafava.mp3" },
-  FIFIEAUVA: { key: 29, letter: "FIFI E A UVA", sound: "/audios/fifieauva.mp3" },
-  EUVIOFIO: { key: 30, letter: "EU VI O FIO", sound: "/audios/euviofio.mp3" },
-  FIFIVIUOFAVO: { key: 31, letter: "FIFI VIU O FAVO", sound: "/audios/fifiviuofavo.mp3" },
-  FUFUVIUAFAVE: { key: 32, letter: "FUFU VIU A FAVE", sound: "/audios/fufuviuafave.mp3" },
+  AAVEFOFA: { key: 24, letter: "A AVE FOFA", sound: "/audios/a-ave-fofa.mp3" },
+  OOVOFEIO: { key: 25, letter: "O OVO FEIO", sound: "/audios/o-ovo-feio.mp3" },
+  AFOFAVIVI: { key: 26, letter: "A FOFA VIVI", sound: "/audios/a-fofa-vivi.mp3" },
+  EVAVIUOFAVO: { key: 27, letter: "EVA VIU O FAVO", sound: "/audios/eva-viu-o-favo.mp3" },
+  IVOEAFAVA: { key: 28, letter: "IVO E A FAVA", sound: "/audios/ivo-e-a-fava.mp3" },
+  FIFIEAUVA: { key: 29, letter: "FIFI E A UVA", sound: "/audios/fifi-e-a-uva.mp3" },
+  EUVIOFIO: { key: 30, letter: "EU VI O FIO", sound: "/audios/eu-vi-o-fio.mp3" },
+  FIFIVIUOFAVO: { key: 31, letter: "FIFI VIU O FAVO", sound: "/audios/fifi-viu-o-favo.mp3" },
+  FUFUVIUAFAVE: { key: 32, letter: "FUFU VIU A FAVE", sound: "/audios/fufu-viu-a-ave.mp3" },
 };
 
 const {
@@ -110,6 +110,6 @@ export const phrases = [
   [
     ["VI", "EU", "O", "FIO"],
     ["VIU", "O", "FAVO", "FIFI"],
-    ["FUFU", "A", "FAVE", "VIU"],
+    ["FUFU", "A", "AVE", "VIU"],
   ],
 ];

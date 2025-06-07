@@ -157,7 +157,7 @@ const Nivel3 = () => {
             className="object-cover"
             width={100}
             height={100}
-            onClick={handleStart}
+            onClick={() => handleStart(phases)}
           />
         )}
       </div>

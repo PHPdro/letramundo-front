@@ -25,7 +25,7 @@ type LevelTwoContextType = {
   setStudent: React.Dispatch<React.SetStateAction<any>>;
   hardPhase: number;
   setHardPhase: React.Dispatch<React.SetStateAction<number>>;
-  handleStart: () => void;
+  handleStart: (phases: any) => void;
   handleClickLetter: (letter: string, handleRequest: () => void) => void;
   handleClick: (vowel: Vowel, handleRequest: () => void) => void;
   getStudentFromLocalStorage: () => void;
@@ -45,7 +45,7 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const audioRef = useRef<HTMLAudioElement>(null);
   const [start, setStart] = useState(false);
   const [stage, setStage] = useState(0);
-  const [phase, setPhase] = useState(7);
+  const [phase, setPhase] = useState(1);
   const [progress, setProgress] = useState(0);
   const [isCorrect, setIsCorrect] = useState(false);
   const [currentVowel, setCurrentVowel] = useState<Vowel>({} as Vowel);
@@ -56,6 +56,7 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [expectedSequence, setExpectedSequence] = useState<string[]>([]);
   const { VA } = letters;
   const hardVowels = ["V", "A", "U", "O", "E", "I"];
+  const [phases, setPhases] = useState<any>();
 
   const getStudentFromLocalStorage = () => {
     if (typeof window !== "undefined") {
@@ -67,47 +68,47 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   };
 
-  const startPhase = () => {
+  const startPhase = (phases: any) => {
+    setCurrentVowel(phases[phase - 1][stage][0]);
     const word = phases[phase - 1][stage][0].letter.split("");
     setTargetLetters(word);
     setCorrectStates(Array(word.length).fill(false));
     setProgress(0);
-    console.log(phases[phase - 1][stage][0]);
-    setCurrentVowel(phases[phase - 1][stage][0]);
   };
 
-  const startWithPhrase = (hardphaseStage: number) => {
+  const startWithPhrase = (phases: any, hardphaseStage: number) => {
+    setCurrentVowel(phases[phase - 1][stage][0]);
     const phrase = phases[phase - 1][stage][0].letter.split(" ");
     setExpectedSequence(phrase);
     setCorrectStates(Array(phrase.length).fill(false));
     setProgress(0);
     setTargetLetters(phrase);
     setHardPhase(hardphaseStage);
-    setCurrentVowel(phases[phase - 1][stage][0]);
   };
 
-  const handleStart = () => {
+  const handleStart = (phases: any) => {
+    setPhases(phases);
     if (phase > 8) {
       return;
     }
     if (phase === 1) {
-      setCurrentVowel(VA);
+      setCurrentVowel(phases[phase - 1][stage][0]);
       setProgress(0);
     } else if (phase === 2) {
-      setCurrentVowel(VA);
+      setCurrentVowel(phases[phase - 1][stage][0]);
       setProgress(0);
     } else if (phase === 3) {
-      startPhase();
+      startPhase(phases);
     } else if (phase === 4) {
-      startPhase();
+      startPhase(phases);
     } else if (phase === 5) {
-      startPhase();
+      startPhase(phases);
     } else if (phase === 6) {
-      startWithPhrase(0);
+      startWithPhrase(phases, 0);
     } else if (phase === 7) {
-      startWithPhrase(1);
+      startWithPhrase(phases, 1);
     } else if (phase === 8) {
-      startWithPhrase(2);
+      startWithPhrase(phases, 2);
     }
     setStart(true);
     setIsCorrect(false);
