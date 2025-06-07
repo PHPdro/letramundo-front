@@ -1,16 +1,16 @@
 "use client";
 import React, { useEffect } from "react";
 import { message, Progress } from "antd";
-import Image from "next/image";
 import { BackButton } from "@/components/BackButton";
 import { Avatar } from "@/components/Avatar";
-import Confetti from "react-confetti";
-import { phases } from "../phases";
+import { phases, phrases } from "../phases";
 import { useMutation } from "@tanstack/react-query";
 import { studentProgress } from "@/api/progress";
-import { useGame } from "@/contexts/GameContext";
+import { useLevelTwo } from "@/contexts/LevelTwoContext";
+import Image from "next/image";
+import Confetti from "react-confetti";
 
-const Nivel1 = () => {
+const Nivel3 = () => {
   const {
     audioRef,
     start,
@@ -23,24 +23,17 @@ const Nivel1 = () => {
     isCorrect,
     setIsCorrect,
     currentVowel,
-    firstLetter,
-    secondLetter,
-    thirdLetter,
-    firstLetterCorrect,
-    setFirstLetterCorrect,
-    secondLetterCorrect,
-    setSecondLetterCorrect,
-    thirdLetterCorrect,
-    setThirdLetterCorrect,
     student,
     handleClickLetter,
     handleClick,
     handleStart,
     hardPhase,
-    setHardPhase,
-    hardVowels,
+    correctStates,
+    targetLetters,
     getStudentFromLocalStorage,
-  } = useGame();
+    handleClickWord,
+  } = useLevelTwo();
+  const hardVowels = ["U", "A", "F", "O", "E", "I", "V"];
 
   const mutation = useMutation({
     mutationFn: studentProgress,
@@ -50,12 +43,6 @@ const Nivel1 = () => {
       setPhase((prev) => prev + 1);
       setStage(0);
       setStart(false);
-      if (phase > 7) {
-        setFirstLetterCorrect(false);
-        setSecondLetterCorrect(false);
-        setThirdLetterCorrect(false);
-        setHardPhase((prev) => prev + 1);
-      }
     },
     onError: () => {
       message.error("Erro ao salvar progresso");
@@ -97,7 +84,7 @@ const Nivel1 = () => {
             <audio ref={audioRef}>
               <source src={currentVowel.sound} type="audio/mpeg" />
             </audio>
-            {phase < 8 ? (
+            {phase < 3 ? (
               <>
                 <Progress percent={progress} showInfo={false} size={[400, 20]} />
                 <div className="absolute lg:left-64 lg:top-72 md:left-20 md:top-96 flex flex-col justify-center align-middle gap-12 z-10 items-start">
@@ -121,38 +108,43 @@ const Nivel1 = () => {
                     </div>
                     <div className="flex justify-center flex-col items-center w-full">
                       <img
-                        src={`/${phases[phase - 1][stage][2].letter}.png`}
-                        alt={`${phases[phase - 1][stage][0].letter}${phases[phase - 1][stage][1].letter}`}
+                        src={`/${phases[phase - 1][stage][0].letter}.png`}
+                        alt={`${phases[phase - 1][stage][0].letter}`}
                         className="object-cover lg:h-[184px] md:h-[74px] lg:w-[184px] md:w-[60px] z-0 mt-2"
                       />
                       <div className="flex flex-row mt-8 gap-3">
-                        <p className="border-[1px] border-black h-[86px] w-[70px] text-center lg:p-7 md:p-3 rounded-sm text-xl">
-                          {firstLetterCorrect ? firstLetter : ""}
-                        </p>
-                        <p className="border-[1px] border-black h-[86px] w-[70px] text-center lg:p-7 md:p-3 rounded-sm text-xl">
-                          {secondLetterCorrect ? secondLetter : ""}
-                        </p>
-                        {phase == 10 && stage > 1 && (
-                          <p className="border-[1px] border-black h-[86px] w-[70px] text-center lg:p-7 md:p-3 rounded-sm text-xl">
-                            {thirdLetterCorrect ? thirdLetter : ""}
+                        {correctStates.map((_, index) => (
+                          <p className="border-[1px] border-black h-[86px] w-[90px] text-center lg:p-7 md:p-3 rounded-sm text-xl">
+                            {correctStates[index] ? targetLetters[index] : ""}
                           </p>
-                        )}
+                        ))}
                       </div>
                     </div>
                   </div>
                   <div
                     className={`flex justify-center items-center align-middle lg:px-32 md:px-8 mt-10 gap-14`}
                   >
-                    {hardVowels[hardPhase].map((vowel) => (
-                      <div key={vowel.key}>
-                        <button
-                          className="bg-[#e94d39] rounded-sm lg:p-7 md:p-5 text-white font-medium text-xl"
-                          onClick={() => handleClickLetter(vowel.letter, handleSubmit)}
-                        >
-                          {vowel.letter}
-                        </button>
-                      </div>
-                    ))}
+                    {phase < 6
+                      ? hardVowels.map((vowel, index) => (
+                          <div key={index}>
+                            <button
+                              className="bg-[#e94d39] rounded-sm lg:p-7 md:p-5 text-white font-medium text-xl"
+                              onClick={() => handleClickLetter(vowel, handleSubmit)}
+                            >
+                              {vowel}
+                            </button>
+                          </div>
+                        ))
+                      : phrases[hardPhase][stage].map((phrase, index) => (
+                          <div key={index}>
+                            <button
+                              className="bg-[#e94d39] rounded-sm lg:p-7 md:p-5 text-white font-medium text-xl"
+                              onClick={() => handleClickWord(phrase, handleSubmit)}
+                            >
+                              {phrase}
+                            </button>
+                          </div>
+                        ))}
                   </div>
                 </div>
               </div>
@@ -165,7 +157,7 @@ const Nivel1 = () => {
             className="object-cover"
             width={100}
             height={100}
-            onClick={handleStart}
+            onClick={() => handleStart(phases)}
           />
         )}
       </div>
@@ -173,4 +165,4 @@ const Nivel1 = () => {
   );
 };
 
-export default Nivel1;
+export default Nivel3;
