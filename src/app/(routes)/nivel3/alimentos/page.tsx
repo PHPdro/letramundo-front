@@ -10,7 +10,7 @@ import { useLevelTwo } from "@/contexts/LevelTwoContext";
 import Image from "next/image";
 import Confetti from "react-confetti";
 
-const Nivel2 = () => {
+const Nivel3 = () => {
   const {
     audioRef,
     start,
@@ -33,8 +33,7 @@ const Nivel2 = () => {
     getStudentFromLocalStorage,
     handleClickWord,
   } = useLevelTwo();
-
-  const hardVowels = ["V", "A", "U", "O", "E", "I"];
+  const hardVowels = ["U", "A", "F", "O", "E", "I", "V"];
 
   const mutation = useMutation({
     mutationFn: studentProgress,
@@ -115,10 +114,7 @@ const Nivel2 = () => {
                       />
                       <div className="flex flex-row mt-8 gap-3">
                         {correctStates.map((_, index) => (
-                          <p
-                            key={index}
-                            className="border-[1px] border-black h-[86px] w-[90px] text-center lg:p-7 md:p-3 rounded-sm text-xl"
-                          >
+                          <p className="border-[1px] border-black h-[86px] w-[90px] text-center lg:p-7 md:p-3 rounded-sm text-xl">
                             {correctStates[index] ? targetLetters[index] : ""}
                           </p>
                         ))}
@@ -169,4 +165,4 @@ const Nivel2 = () => {
   );
 };
 
-export default Nivel2;
+export default Nivel3;

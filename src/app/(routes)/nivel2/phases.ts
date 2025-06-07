@@ -18,19 +18,19 @@ export const letters = {
   VAI: { key: 17, letter: "VAI", sound: "/audios/vai.mp3" },
   AVE: { key: 18, letter: "AVE", sound: "/audios/ave.mp3" },
   VIVO: { key: 19, letter: "VIVO", sound: "/audios/vivo.mp3" },
-  VEIA: { key: 20, letter: "VEIA", sound: "/audios/veia.mp3" },
+  VAVA: { key: 20, letter: "VAVA", sound: "/audios/vava.mp3" },
   VIVI: { key: 21, letter: "VIVI", sound: "/audios/vivi.mp3" },
   VIVA: { key: 22, letter: "VIVA", sound: "/audios/viva.mp3" },
   VEIO: { key: 23, letter: "VEIO", sound: "/audios/veio.mp3" },
-  AAVEVOA: { key: 24, letter: "A AVE VOA", sound: "/audios/aavevoa.mp3" },
-  OIVOVEIO: { key: 25, letter: "O IVO VEIO", sound: "/audios/oivoveio.mp3" },
-  AAVEVIVA: { key: 26, letter: "A AVE VIVA", sound: "/audios/aaveviva.mp3" },
-  EVAVIUAUVA: { key: 27, letter: "EVA VIU A UVA", sound: "/audios/evaviuauva.mp3" },
-  IVOEAVE: { key: 28, letter: "IVO E A AVE", sound: "/audios/ivoeave.mp3" },
-  VIVIEOVO: { key: 30, letter: "VIVI E O OVO", sound: "/audios/vivieovo.mp3" },
-  OIVOVIUOOVO: { key: 29, letter: "O IVO VIU O OVO", sound: "/audios/ivoviuoovo.mp3" },
-  AAVEVIUAUVA: { key: 31, letter: "A AVE VIU A UVA", sound: "/audios/aaveviuauva.mp3" },
-  VIVIVIUAAVE: { key: 32, letter: "VIVI VIU A AVE", sound: "/audios/viviviuave.mp3" },
+  AAVEVOA: { key: 24, letter: "A AVE VOA", sound: "/audios/a-ave-voa.mp3" },
+  OIVOVEIO: { key: 25, letter: "O IVO VEIO", sound: "/audios/o-ivo-veio.mp3" },
+  AAVEVIVA: { key: 26, letter: "A AVE VIVA", sound: "/audios/a-ave-viva.mp3" },
+  EVAVIUAUVA: { key: 27, letter: "EVA VIU A UVA", sound: "/audios/eva-viu-a-uva.mp3" },
+  IVOEAVE: { key: 28, letter: "IVO E A AVE", sound: "/audios/ivo-e-a-ave.mp3" },
+  EVAEOVO: { key: 30, letter: "EVA E O OVO", sound: "/audios/eva-e-o-ovo.mp3" },
+  OIVOVIUOOVO: { key: 29, letter: "O IVO VIU O OVO", sound: "/audios/ivo-viu-o-ovo.mp3" },
+  AAVEVIUAUVA: { key: 31, letter: "A AVE VIU A UVA", sound: "/audios/a-ave-viu-a-uva.mp3" },
+  VIVIVIUAAVE: { key: 32, letter: "VIVI VIU A AVE", sound: "/audios/vivi-viu-a-ave.mp3" },
 };
 
 const {
@@ -53,7 +53,7 @@ const {
   VAI,
   AVE,
   VIVO,
-  VEIA,
+  VAVA,
   VIVI,
   VIVA,
   VEIO,
@@ -62,7 +62,7 @@ const {
   AAVEVIVA,
   EVAVIUAUVA,
   IVOEAVE,
-  VIVIEOVO,
+  EVAEOVO,
   OIVOVIUOOVO,
   AAVEVIUAUVA,
   VIVIVIUAAVE,
@@ -88,11 +88,11 @@ const phase3 = [[UVA], [OVO], [EVA], [IVO]];
 
 const phase4 = [[VOA], [VIU], [VAI], [AVE]];
 
-const phase5 = [[VEIA], [VIVO], [VIVI], [VIVA], [VEIO]];
+const phase5 = [[VAVA], [VIVO], [VIVI], [VIVA], [VEIO]];
 
 const phase6 = [[AAVEVOA], [OIVOVEIO], [AAVEVIVA]];
 
-const phase7 = [[EVAVIUAUVA], [IVOEAVE], [VIVIEOVO]];
+const phase7 = [[EVAVIUAUVA], [IVOEAVE], [EVAEOVO]];
 
 const phase8 = [[OIVOVIUOOVO], [AAVEVIUAUVA], [VIVIVIUAAVE]];
 
@@ -107,7 +107,7 @@ export const phrases = [
   [
     ["UVA", "EVA", "VIU", "A"],
     ["E", "IVO", "A", "AVE"],
-    ["VIVI", "OVO", "O", "E"],
+    ["EVA", "OVO", "O", "E"],
   ],
   [
     ["IVO", "O", "VIU", "O", "OVO"],

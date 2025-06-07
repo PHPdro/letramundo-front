@@ -45,7 +45,7 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const audioRef = useRef<HTMLAudioElement>(null);
   const [start, setStart] = useState(false);
   const [stage, setStage] = useState(0);
-  const [phase, setPhase] = useState(1);
+  const [phase, setPhase] = useState(7);
   const [progress, setProgress] = useState(0);
   const [isCorrect, setIsCorrect] = useState(false);
   const [currentVowel, setCurrentVowel] = useState<Vowel>({} as Vowel);
@@ -72,6 +72,8 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     setTargetLetters(word);
     setCorrectStates(Array(word.length).fill(false));
     setProgress(0);
+    console.log(phases[phase - 1][stage][0]);
+    setCurrentVowel(phases[phase - 1][stage][0]);
   };
 
   const startWithPhrase = (hardphaseStage: number) => {
@@ -81,6 +83,7 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     setProgress(0);
     setTargetLetters(phrase);
     setHardPhase(hardphaseStage);
+    setCurrentVowel(phases[phase - 1][stage][0]);
   };
 
   const handleStart = () => {
@@ -151,11 +154,12 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (vowel.key === currentVowel.key) {
       let count = stage + 1;
       if (count < 5) {
-        setCurrentVowel(phases[phase - 1][count][0]);
+        const currentWord = phases[phase - 1][count][0];
+        setCurrentVowel(currentWord);
         setStage(count);
         setProgress((prev) => prev + 20);
         if (audioRef.current) {
-          audioRef.current.src = currentVowel.sound;
+          audioRef.current.src = currentWord.sound;
           audioRef.current.load();
         }
       }
