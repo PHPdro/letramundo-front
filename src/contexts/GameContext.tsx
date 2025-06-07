@@ -49,7 +49,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const audioRef = useRef<HTMLAudioElement>(null);
   const [start, setStart] = useState(false);
   const [stage, setStage] = useState(0);
-  const [phase, setPhase] = useState(10);
+  const [phase, setPhase] = useState(1);
   const [progress, setProgress] = useState(0);
   const [isCorrect, setIsCorrect] = useState(false);
   const [currentVowel, setCurrentVowel] = useState<Vowel>({} as Vowel);
@@ -60,7 +60,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [secondLetterCorrect, setSecondLetterCorrect] = useState(false);
   const [thirdLetterCorrect, setThirdLetterCorrect] = useState(false);
   const [student, setStudent] = useState<any>(null);
-  const [hardPhase, setHardPhase] = useState(2);
+  const [hardPhase, setHardPhase] = useState(0);
   const { A, U, I, O, E, OI, EI, AI } = letters;
   const hardVowels = [
     [U, I, O],
