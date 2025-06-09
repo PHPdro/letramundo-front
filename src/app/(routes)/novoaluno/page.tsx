@@ -60,7 +60,13 @@ const NewStudent = () => {
                 name="year"
                 rules={[{ required: true, message: "Digite a série" }]}
               >
-                <Input type="text" />
+                <Select
+                  options={Array.from({ length: 9 }, (_, i) => ({
+                    label: `${i + 1}ª`,
+                    value: i + 1,
+                  }))}
+                  allowClear
+                />
               </Form.Item>
               <Form.Item
                 style={{ marginBottom: 10 }}

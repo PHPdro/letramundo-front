@@ -28,8 +28,8 @@ export const letters = {
   EVAVIUAUVA: { key: 27, letter: "EVA VIU A UVA", sound: "/audios/eva-viu-a-uva.mp3" },
   IVOEAVE: { key: 28, letter: "IVO E A AVE", sound: "/audios/ivo-e-a-ave.mp3" },
   EVAEOVO: { key: 30, letter: "EVA E O OVO", sound: "/audios/eva-e-o-ovo.mp3" },
-  OIVOVIUOOVO: { key: 29, letter: "O IVO VIU O OVO", sound: "/audios/ivo-viu-o-ovo.mp3" },
-  AAVEVIUAUVA: { key: 31, letter: "A AVE VIU A UVA", sound: "/audios/a-ave-viu-a-uva.mp3" },
+  OIVOVIUOOVO: { key: 29, letter: "IVO VIU O OVO", sound: "/audios/ivo-viu-o-ovo.mp3" },
+  AAVEEVAVA: { key: 31, letter: "A AVE E VAVA", sound: "/audios/a-ave-e-vava.mp3" },
   VIVIVIUAAVE: { key: 32, letter: "VIVI VIU A AVE", sound: "/audios/vivi-viu-a-ave.mp3" },
 };
 
@@ -64,7 +64,7 @@ const {
   IVOEAVE,
   EVAEOVO,
   OIVOVIUOOVO,
-  AAVEVIUAUVA,
+  AAVEEVAVA,
   VIVIVIUAAVE,
 } = letters;
 
@@ -94,7 +94,7 @@ const phase6 = [[AAVEVOA], [OIVOVEIO], [AAVEVIVA]];
 
 const phase7 = [[EVAVIUAUVA], [IVOEAVE], [EVAEOVO]];
 
-const phase8 = [[OIVOVIUOOVO], [AAVEVIUAUVA], [VIVIVIUAAVE]];
+const phase8 = [[OIVOVIUOOVO], [AAVEEVAVA], [VIVIVIUAAVE]];
 
 export const phases = [phase1, phase2, phase3, phase4, phase5, phase6, phase7, phase8];
 
@@ -110,8 +110,8 @@ export const phrases = [
     ["EVA", "OVO", "O", "E"],
   ],
   [
-    ["IVO", "O", "VIU", "O", "OVO"],
-    ["A", "UVA", "VIU", "AVE", "A"],
+    ["IVO", "O", "VIU", "OVO"],
+    ["A", "VAVA", "AVE", "E"],
     ["VIVI", "A", "AVE", "VIU"],
   ],
 ];

@@ -86,7 +86,7 @@ const Nivel1 = () => {
       {isCorrect && <Confetti width={window.innerWidth || 300} height={window.innerHeight || 200} />}
       <div className="p-6">
         <div className="flex justify-between z-10">
-          <BackButton color="red" />
+          <BackButton url="niveis/alimentos" color="red" />
           <img src="/logo-transparente.png" alt="Logo" className=" z-10 w-[67px] h-[50px]" />
           <Avatar />
         </div>
@@ -97,6 +97,7 @@ const Nivel1 = () => {
             <audio ref={audioRef}>
               <source src={currentVowel.sound} type="audio/mpeg" />
             </audio>
+            <p className="text-center mb-2 text-xl font-bold">Level 3 - Fase {phase}</p>
             {phase < 8 ? (
               <>
                 <Progress percent={progress} showInfo={false} size={[400, 20]} />

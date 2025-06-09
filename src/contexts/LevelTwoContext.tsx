@@ -1,5 +1,4 @@
 "use client";
-import { letters, phases } from "@/app/(routes)/nivel2/phases";
 import { message } from "antd";
 import React, { createContext, useContext, useRef, useState } from "react";
 
@@ -54,7 +53,6 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [student, setStudent] = useState<any>(null);
   const [hardPhase, setHardPhase] = useState(0);
   const [expectedSequence, setExpectedSequence] = useState<string[]>([]);
-  const { VA } = letters;
   const hardVowels = ["V", "A", "U", "O", "E", "I"];
   const [phases, setPhases] = useState<any>();
 
