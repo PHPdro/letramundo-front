@@ -9,6 +9,7 @@ import { studentProgress } from "@/api/progress";
 import { useLevelTwo } from "@/contexts/LevelTwoContext";
 import Image from "next/image";
 import Confetti from "react-confetti";
+import { SoundOutlined } from "@ant-design/icons";
 
 const Nivel2 = () => {
   const {
@@ -56,16 +57,18 @@ const Nivel2 = () => {
     getStudentFromLocalStorage();
   }, []);
 
+  const playAudio = () => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.play().catch((err) => {
+        console.error("Autoplay failed:", err);
+      });
+    }
+  };
+
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const audio = audioRef.current;
-      if (audio) {
-        if (start) {
-          audio.play().catch((err) => {
-            console.error("Autoplay failed:", err);
-          });
-        }
-      }
+      playAudio();
     }
   }, [start, stage]);
 
@@ -82,6 +85,12 @@ const Nivel2 = () => {
       <div className="flex justify-center items-center w-full">
         {start ? (
           <div>
+            <div className="flex justify-center items-center mb-2">
+              <SoundOutlined
+                className="bg-white p-3 rounded-full justify-center text-3xl"
+                onClick={() => playAudio()}
+              />
+            </div>
             <audio ref={audioRef}>
               <source src={currentVowel.sound} type="audio/mpeg" />
             </audio>
