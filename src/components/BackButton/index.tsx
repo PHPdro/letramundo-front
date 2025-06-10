@@ -3,7 +3,7 @@ import Image from "next/image";
 
 interface BackButtonProps {
   color: "blue" | "red" | "orange";
-  url: string;
+  url?: string;
 }
 
 export const BackButton = ({ color, url }: BackButtonProps) => {
