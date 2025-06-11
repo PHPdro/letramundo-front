@@ -17,7 +17,7 @@ const Alimentos = () => {
     <div className="h-screen bg-[#b6d5f0]">
       <div className="flex flex-col h-screen p-6">
         <div className="flex justify-between z-10">
-          <BackButton color="red" />
+          <BackButton url="inicio" color="red" />
           <img src="/logo-transparente.png" alt="Logo" className=" z-10 w-[67px] h-[50px]" />
           <Avatar />
         </div>
