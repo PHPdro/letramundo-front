@@ -9,6 +9,7 @@ import { phases } from "../phases";
 import { useMutation } from "@tanstack/react-query";
 import { studentProgress } from "@/api/progress";
 import { useGame } from "@/contexts/GameContext";
+import { SoundOutlined } from "@ant-design/icons";
 
 const Nivel1 = () => {
   const {
@@ -64,20 +65,22 @@ const Nivel1 = () => {
 
   const handleSubmit = () => mutation.mutate(student.id);
 
+  const playAudio = () => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.play().catch((err) => {
+        console.error("Autoplay failed:", err);
+      });
+    }
+  };
+
   useEffect(() => {
     getStudentFromLocalStorage();
   }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const audio = audioRef.current;
-      if (audio) {
-        if (start) {
-          audio.play().catch((err) => {
-            console.error("Autoplay failed:", err);
-          });
-        }
-      }
+      playAudio();
     }
   }, [start, stage]);
 
@@ -94,6 +97,12 @@ const Nivel1 = () => {
       <div className="flex justify-center items-center w-full">
         {start ? (
           <div>
+            <div className="flex justify-center items-center mb-2">
+              <SoundOutlined
+                className="bg-white p-3 rounded-full justify-center text-3xl"
+                onClick={() => playAudio()}
+              />
+            </div>
             <audio ref={audioRef}>
               <source src={currentVowel.sound} type="audio/mpeg" />
             </audio>
