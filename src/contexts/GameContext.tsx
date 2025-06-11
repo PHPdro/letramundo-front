@@ -30,11 +30,12 @@ type GameContextType = {
   setStudent: React.Dispatch<React.SetStateAction<any>>;
   hardPhase: number;
   setHardPhase: React.Dispatch<React.SetStateAction<number>>;
-  handleStart: () => void;
+  handleStart: (phase: number) => void;
   handleClickLetter: (letter: string, handleRequest: () => void) => void;
   handleClick: (vowel: Vowel, handleRequest: () => void) => void;
   getStudentFromLocalStorage: () => void;
   hardVowels: Vowel[][];
+  changePhaseState: (index: number) => void;
 };
 
 type Vowel = {
@@ -77,7 +78,14 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     }
   };
-  const handleStart = () => {
+
+  const changePhaseState = (index: number) => {
+    setPhase(index);
+    setStart(false);
+    setStage(0);
+  };
+
+  const handleStart = (phase: number) => {
     if (phase > 10) {
       return;
     }
@@ -236,6 +244,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
         handleClick,
         hardVowels,
         getStudentFromLocalStorage,
+        changePhaseState,
       }}
     >
       {children}

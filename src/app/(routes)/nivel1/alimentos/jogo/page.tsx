@@ -4,11 +4,12 @@ import { message, Progress } from "antd";
 import Image from "next/image";
 import { BackButton } from "@/components/BackButton";
 import { Avatar } from "@/components/Avatar";
-import { useGame } from "@/contexts/GameContext";
 import Confetti from "react-confetti";
+import { phases } from "../../phases";
 import { useMutation } from "@tanstack/react-query";
 import { studentProgress } from "@/api/progress";
-import { phases } from "../phases";
+import { useGame } from "@/contexts/GameContext";
+import { SoundOutlined } from "@ant-design/icons";
 
 const Nivel1 = () => {
   const {
@@ -25,10 +26,13 @@ const Nivel1 = () => {
     currentVowel,
     firstLetter,
     secondLetter,
+    thirdLetter,
     firstLetterCorrect,
     setFirstLetterCorrect,
     secondLetterCorrect,
     setSecondLetterCorrect,
+    thirdLetterCorrect,
+    setThirdLetterCorrect,
     student,
     handleClickLetter,
     handleClick,
@@ -50,6 +54,7 @@ const Nivel1 = () => {
       if (phase > 7) {
         setFirstLetterCorrect(false);
         setSecondLetterCorrect(false);
+        setThirdLetterCorrect(false);
         setHardPhase((prev) => prev + 1);
       }
     },
@@ -60,31 +65,31 @@ const Nivel1 = () => {
 
   const handleSubmit = () => mutation.mutate(student.id);
 
+  const playAudio = () => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.play().catch((err) => {
+        console.error("Autoplay failed:", err);
+      });
+    }
+  };
+
   useEffect(() => {
     getStudentFromLocalStorage();
   }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const audio = audioRef.current;
-      if (audio) {
-        if (start) {
-          audio
-            .play()
-            .then(() => {})
-            .catch((err) => {
-              console.error("Autoplay failed:", err);
-            });
-        }
-      }
+      playAudio();
     }
   }, [start, stage]);
+
   return (
-    <div className="h-screen bg-[#b6d5f0]">
+    <div className="h-screen bg-[#b6d5f0] bgAlimentosJogo">
       {isCorrect && <Confetti width={window.innerWidth || 300} height={window.innerHeight || 200} />}
       <div className="p-6">
         <div className="flex justify-between z-10">
-          <BackButton color="blue" />
+          <BackButton url="niveis/alimentos" color="red" />
           <img src="/logo-transparente.png" alt="Logo" className=" z-10 w-[67px] h-[50px]" />
           <Avatar />
         </div>
@@ -92,13 +97,20 @@ const Nivel1 = () => {
       <div className="flex justify-center items-center w-full">
         {start ? (
           <div>
+            <div className="flex justify-center items-center mb-2">
+              <SoundOutlined
+                className="bg-white p-3 rounded-full justify-center text-3xl"
+                onClick={() => playAudio()}
+              />
+            </div>
             <audio ref={audioRef}>
               <source src={currentVowel.sound} type="audio/mpeg" />
             </audio>
+            <p className="text-center mb-2 text-xl font-bold">Nível 1 - Fase {phase}</p>
             {phase < 8 ? (
               <>
                 <Progress percent={progress} showInfo={false} size={[400, 20]} />
-                <div className="absolute lg:right-72 lg:top-72 md:right-20 md:top-96 flex flex-col justify-center align-middle gap-12 z-10 items-start">
+                <div className="absolute lg:left-64 lg:top-72 md:left-20 md:top-96 flex flex-col justify-center align-middle gap-12 z-10 items-start">
                   {phases[phase - 1][stage].map((vowel) => (
                     <button
                       key={vowel.key}
@@ -119,11 +131,9 @@ const Nivel1 = () => {
                     </div>
                     <div className="flex justify-center flex-col items-center w-full">
                       <img
-                        src={`/dino-${phases[phase - 1][stage][0].letter}${
-                          phases[phase - 1][stage][1].letter
-                        }.png`}
+                        src={`/${phases[phase - 1][stage][2].letter}.png`}
                         alt={`${phases[phase - 1][stage][0].letter}${phases[phase - 1][stage][1].letter}`}
-                        className="object-cover lg:h-[184px] md:h-[74px] lg:w-[194px] md:w-[60px] z-0 mt-2"
+                        className="object-cover lg:h-[184px] md:h-[74px] lg:w-[184px] md:w-[60px] z-0 mt-2"
                       />
                       <div className="flex flex-row mt-8 gap-3">
                         <p className="border-[1px] border-black h-[86px] w-[70px] text-center lg:p-7 md:p-3 rounded-sm text-xl">
@@ -132,6 +142,11 @@ const Nivel1 = () => {
                         <p className="border-[1px] border-black h-[86px] w-[70px] text-center lg:p-7 md:p-3 rounded-sm text-xl">
                           {secondLetterCorrect ? secondLetter : ""}
                         </p>
+                        {phase == 10 && stage > 1 && (
+                          <p className="border-[1px] border-black h-[86px] w-[70px] text-center lg:p-7 md:p-3 rounded-sm text-xl">
+                            {thirdLetterCorrect ? thirdLetter : ""}
+                          </p>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -163,19 +178,6 @@ const Nivel1 = () => {
             onClick={() => handleStart(phase)}
           />
         )}
-      </div>
-      <div className="z-0">
-        <img
-          src="/arvore.webp"
-          alt="arvore.webp"
-          className="md:hidden lg:block absolute bottom-52 right-20 w-[366px] h-[425px] object-cover"
-        />
-        <img src="/matos.svg" alt="Matos" className="absolute bottom-0 w-full h-[350px] object-cover" />
-        <img
-          src="/dino-laranja.svg"
-          alt="dino azul"
-          className="absolute bottom-32 left-20 w-[367px] h-[302px] object-cover"
-        />
       </div>
     </div>
   );

@@ -24,12 +24,13 @@ type LevelTwoContextType = {
   setStudent: React.Dispatch<React.SetStateAction<any>>;
   hardPhase: number;
   setHardPhase: React.Dispatch<React.SetStateAction<number>>;
-  handleStart: (phases: any) => void;
+  handleStart: (phases: any, phase: number) => void;
   handleClickLetter: (letter: string, handleRequest: () => void) => void;
   handleClick: (vowel: Vowel, handleRequest: () => void) => void;
   getStudentFromLocalStorage: () => void;
   hardVowels: string[];
   handleClickWord: (selectedWord: string, handleRequest: () => void) => void;
+  changePhaseState: (index: number) => void;
 };
 
 type Vowel = {
@@ -84,7 +85,13 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     setHardPhase(hardphaseStage);
   };
 
-  const handleStart = (phases: any) => {
+  const changePhaseState = (index: number) => {
+    setPhase(index);
+    setStart(false);
+    setStage(0);
+  };
+
+  const handleStart = (phases: any, phase: number) => {
     setPhases(phases);
     if (phase > 8) {
       return;
@@ -236,6 +243,7 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         hardVowels,
         getStudentFromLocalStorage,
         handleClickWord,
+        changePhaseState,
       }}
     >
       {children}

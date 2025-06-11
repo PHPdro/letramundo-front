@@ -1,16 +1,17 @@
 "use client";
 import React, { useEffect } from "react";
 import { message, Progress } from "antd";
-import Image from "next/image";
 import { BackButton } from "@/components/BackButton";
 import { Avatar } from "@/components/Avatar";
-import { useGame } from "@/contexts/GameContext";
-import Confetti from "react-confetti";
+import { phases, phrases } from "../../phases";
 import { useMutation } from "@tanstack/react-query";
 import { studentProgress } from "@/api/progress";
-import { phases } from "../phases";
+import { useLevelTwo } from "@/contexts/LevelTwoContext";
+import Image from "next/image";
+import Confetti from "react-confetti";
+import { SoundOutlined } from "@ant-design/icons";
 
-const Nivel1 = () => {
+const Nivel2 = () => {
   const {
     audioRef,
     start,
@@ -23,21 +24,18 @@ const Nivel1 = () => {
     isCorrect,
     setIsCorrect,
     currentVowel,
-    firstLetter,
-    secondLetter,
-    firstLetterCorrect,
-    setFirstLetterCorrect,
-    secondLetterCorrect,
-    setSecondLetterCorrect,
     student,
     handleClickLetter,
     handleClick,
     handleStart,
     hardPhase,
-    setHardPhase,
-    hardVowels,
+    correctStates,
+    targetLetters,
     getStudentFromLocalStorage,
-  } = useGame();
+    handleClickWord,
+  } = useLevelTwo();
+
+  const hardVowels = ["V", "A", "U", "O", "E", "I"];
 
   const mutation = useMutation({
     mutationFn: studentProgress,
@@ -47,11 +45,6 @@ const Nivel1 = () => {
       setPhase((prev) => prev + 1);
       setStage(0);
       setStart(false);
-      if (phase > 7) {
-        setFirstLetterCorrect(false);
-        setSecondLetterCorrect(false);
-        setHardPhase((prev) => prev + 1);
-      }
     },
     onError: () => {
       message.error("Erro ao salvar progresso");
@@ -64,27 +57,27 @@ const Nivel1 = () => {
     getStudentFromLocalStorage();
   }, []);
 
+  const playAudio = () => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.play().catch((err) => {
+        console.error("Autoplay failed:", err);
+      });
+    }
+  };
+
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const audio = audioRef.current;
-      if (audio) {
-        if (start) {
-          audio
-            .play()
-            .then(() => {})
-            .catch((err) => {
-              console.error("Autoplay failed:", err);
-            });
-        }
-      }
+      playAudio();
     }
   }, [start, stage]);
+
   return (
-    <div className="h-screen bg-[#b6d5f0]">
+    <div className="h-screen bg-[#b6d5f0] bgAlimentosJogo">
       {isCorrect && <Confetti width={window.innerWidth || 300} height={window.innerHeight || 200} />}
       <div className="p-6">
         <div className="flex justify-between z-10">
-          <BackButton color="blue" />
+          <BackButton url="nivel2/alimentos" color="red" />
           <img src="/logo-transparente.png" alt="Logo" className=" z-10 w-[67px] h-[50px]" />
           <Avatar />
         </div>
@@ -92,13 +85,20 @@ const Nivel1 = () => {
       <div className="flex justify-center items-center w-full">
         {start ? (
           <div>
+            <div className="flex justify-center items-center mb-2">
+              <SoundOutlined
+                className="bg-white p-3 rounded-full justify-center text-3xl"
+                onClick={() => playAudio()}
+              />
+            </div>
             <audio ref={audioRef}>
               <source src={currentVowel.sound} type="audio/mpeg" />
             </audio>
-            {phase < 8 ? (
+            <p className="text-center mb-2 text-xl font-bold">Level 2 - Fase {phase}</p>
+            {phase < 3 ? (
               <>
                 <Progress percent={progress} showInfo={false} size={[400, 20]} />
-                <div className="absolute lg:right-72 lg:top-72 md:right-20 md:top-96 flex flex-col justify-center align-middle gap-12 z-10 items-start">
+                <div className="absolute lg:left-64 lg:top-72 md:left-20 md:top-96 flex flex-col justify-center align-middle gap-12 z-10 items-start">
                   {phases[phase - 1][stage].map((vowel) => (
                     <button
                       key={vowel.key}
@@ -119,35 +119,46 @@ const Nivel1 = () => {
                     </div>
                     <div className="flex justify-center flex-col items-center w-full">
                       <img
-                        src={`/dino-${phases[phase - 1][stage][0].letter}${
-                          phases[phase - 1][stage][1].letter
-                        }.png`}
-                        alt={`${phases[phase - 1][stage][0].letter}${phases[phase - 1][stage][1].letter}`}
-                        className="object-cover lg:h-[184px] md:h-[74px] lg:w-[194px] md:w-[60px] z-0 mt-2"
+                        src={`/${phases[phase - 1][stage][0].letter}.png`}
+                        alt={`${phases[phase - 1][stage][0].letter}`}
+                        className="lg:h-[194px] md:h-[74px] lg:w-[194px] md:w-[60px] z-0 mt-2"
                       />
                       <div className="flex flex-row mt-8 gap-3">
-                        <p className="border-[1px] border-black h-[86px] w-[70px] text-center lg:p-7 md:p-3 rounded-sm text-xl">
-                          {firstLetterCorrect ? firstLetter : ""}
-                        </p>
-                        <p className="border-[1px] border-black h-[86px] w-[70px] text-center lg:p-7 md:p-3 rounded-sm text-xl">
-                          {secondLetterCorrect ? secondLetter : ""}
-                        </p>
+                        {correctStates.map((_, index) => (
+                          <p
+                            key={index}
+                            className="border-[1px] border-black h-[86px] w-[90px] text-center lg:p-7 md:p-3 rounded-sm text-xl"
+                          >
+                            {correctStates[index] ? targetLetters[index] : ""}
+                          </p>
+                        ))}
                       </div>
                     </div>
                   </div>
                   <div
                     className={`flex justify-center items-center align-middle lg:px-32 md:px-8 mt-10 gap-14`}
                   >
-                    {hardVowels[hardPhase].map((vowel) => (
-                      <div key={vowel.key}>
-                        <button
-                          className="bg-[#e94d39] rounded-sm lg:p-7 md:p-5 text-white font-medium text-xl"
-                          onClick={() => handleClickLetter(vowel.letter, handleSubmit)}
-                        >
-                          {vowel.letter}
-                        </button>
-                      </div>
-                    ))}
+                    {phase < 6
+                      ? hardVowels.map((vowel, index) => (
+                          <div key={index}>
+                            <button
+                              className="bg-[#e94d39] rounded-sm lg:p-7 md:p-5 text-white font-medium text-xl"
+                              onClick={() => handleClickLetter(vowel, handleSubmit)}
+                            >
+                              {vowel}
+                            </button>
+                          </div>
+                        ))
+                      : phrases[hardPhase][stage].map((phrase, index) => (
+                          <div key={index}>
+                            <button
+                              className="bg-[#e94d39] rounded-sm lg:p-7 md:p-5 text-white font-medium text-xl"
+                              onClick={() => handleClickWord(phrase, handleSubmit)}
+                            >
+                              {phrase}
+                            </button>
+                          </div>
+                        ))}
                   </div>
                 </div>
               </div>
@@ -160,25 +171,12 @@ const Nivel1 = () => {
             className="object-cover"
             width={100}
             height={100}
-            onClick={() => handleStart(phase)}
+            onClick={() => handleStart(phases, phase)}
           />
         )}
-      </div>
-      <div className="z-0">
-        <img
-          src="/arvore.webp"
-          alt="arvore.webp"
-          className="md:hidden lg:block absolute bottom-52 right-20 w-[366px] h-[425px] object-cover"
-        />
-        <img src="/matos.svg" alt="Matos" className="absolute bottom-0 w-full h-[350px] object-cover" />
-        <img
-          src="/dino-laranja.svg"
-          alt="dino azul"
-          className="absolute bottom-32 left-20 w-[367px] h-[302px] object-cover"
-        />
       </div>
     </div>
   );
 };
 
-export default Nivel1;
+export default Nivel2;
