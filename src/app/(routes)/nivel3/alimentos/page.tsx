@@ -34,10 +34,11 @@ const Alimentos = () => {
                 disabled={student?.phase < index + 1}
                 className="w-[70px] h-[65px] p-2 rounded-full text-center items-center flex justify-center font-mono"
                 style={{
-                  backgroundColor: student?.phase - 1 < index + 1 ? "#f8fafc" : "#80cd3b",
+                  backgroundColor:
+                    student?.phase - 1 < index + 1 && student.level === 3 ? "#f8fafc" : "#80cd3b",
                 }}
               >
-                {student?.phase < index + 1 ? <LockOutlined /> : index + 1}
+                {student?.phase < index + 1 && student.level === 3 ? <LockOutlined /> : index + 1}
               </button>
             </Link>
           ))}

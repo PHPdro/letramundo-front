@@ -81,7 +81,7 @@ const phase8 = [
 const phase9 = [
   [E, I, EI],
   [A, U, AU],
-  [A, O, AO],
+  [E, U, EU],
 ];
 
 const phase10 = [

@@ -10,8 +10,10 @@ import { useLevelTwo } from "@/contexts/LevelTwoContext";
 import Image from "next/image";
 import Confetti from "react-confetti";
 import { SoundOutlined } from "@ant-design/icons";
+import { useRouter } from "next/navigation";
 
 const Nivel2 = () => {
+  const router = useRouter();
   const {
     audioRef,
     start,
@@ -44,7 +46,11 @@ const Nivel2 = () => {
       setIsCorrect(true);
       setPhase((prev) => prev + 1);
       setStage(0);
-      setStart(false);
+      setTimeout(() => {
+        router.push("/nivel2/alimentos");
+        setStart(false);
+        localStorage.setItem("aluno", JSON.stringify({ ...student, phase: phase + 1 }));
+      }, 1500);
     },
     onError: () => {
       message.error("Erro ao salvar progresso");
@@ -75,22 +81,26 @@ const Nivel2 = () => {
   return (
     <div className="h-screen bg-[#b6d5f0] bgAlimentosJogo">
       {isCorrect && <Confetti width={window.innerWidth || 300} height={window.innerHeight || 200} />}
-      <div className="p-6">
+      <div className="px-6 py-4">
         <div className="flex justify-between z-10">
           <BackButton url="nivel2/alimentos" color="red" />
-          <img src="/logo-transparente.png" alt="Logo" className=" z-10 w-[67px] h-[50px]" />
+          <div>
+            <img src="/logo-transparente.png" alt="Logo" className=" z-10 w-[67px] h-[50px]" />
+            {start && (
+              <div className="flex justify-center items-center mt-2">
+                <SoundOutlined
+                  className="bg-white p-4 rounded-full justify-center text-4xl border-amber-300 border-2"
+                  onClick={() => playAudio()}
+                />
+              </div>
+            )}
+          </div>
           <Avatar />
         </div>
       </div>
       <div className="flex justify-center items-center w-full">
         {start ? (
           <div>
-            <div className="flex justify-center items-center mb-2">
-              <SoundOutlined
-                className="bg-white p-3 rounded-full justify-center text-3xl"
-                onClick={() => playAudio()}
-              />
-            </div>
             <audio ref={audioRef}>
               <source src={currentVowel.sound} type="audio/mpeg" />
             </audio>

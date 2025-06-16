@@ -10,6 +10,7 @@ import { useMutation } from "@tanstack/react-query";
 import { studentProgress } from "@/api/progress";
 import { useGame } from "@/contexts/GameContext";
 import { SoundOutlined } from "@ant-design/icons";
+import { useRouter } from "next/navigation";
 
 const Nivel1 = () => {
   const {
@@ -42,7 +43,7 @@ const Nivel1 = () => {
     hardVowels,
     getStudentFromLocalStorage,
   } = useGame();
-
+  const router = useRouter();
   const mutation = useMutation({
     mutationFn: studentProgress,
     onSuccess: () => {
@@ -50,13 +51,17 @@ const Nivel1 = () => {
       setIsCorrect(true);
       setPhase((prev) => prev + 1);
       setStage(0);
-      setStart(false);
       if (phase > 7) {
         setFirstLetterCorrect(false);
         setSecondLetterCorrect(false);
         setThirdLetterCorrect(false);
         setHardPhase((prev) => prev + 1);
       }
+      setTimeout(() => {
+        setStart(false);
+        router.push("/nivel1/alimentos");
+        localStorage.setItem("aluno", JSON.stringify({ ...student, phase: phase + 1 }));
+      }, 1500);
     },
     onError: () => {
       message.error("Erro ao salvar progresso");
@@ -90,19 +95,23 @@ const Nivel1 = () => {
       <div className="p-6">
         <div className="flex justify-between z-10">
           <BackButton url="niveis/alimentos" color="red" />
-          <img src="/logo-transparente.png" alt="Logo" className=" z-10 w-[67px] h-[50px]" />
+          <div>
+            <img src="/logo-transparente.png" alt="Logo" className=" z-10 w-[67px] h-[50px]" />
+            {start && (
+              <div className="flex justify-center items-center mt-2">
+                <SoundOutlined
+                  className="bg-white p-4 rounded-full justify-center text-4xl border-amber-300 border-2"
+                  onClick={() => playAudio()}
+                />
+              </div>
+            )}
+          </div>
           <Avatar />
         </div>
       </div>
       <div className="flex justify-center items-center w-full">
         {start ? (
           <div>
-            <div className="flex justify-center items-center mb-2">
-              <SoundOutlined
-                className="bg-white p-3 rounded-full justify-center text-3xl"
-                onClick={() => playAudio()}
-              />
-            </div>
             <audio ref={audioRef}>
               <source src={currentVowel.sound} type="audio/mpeg" />
             </audio>

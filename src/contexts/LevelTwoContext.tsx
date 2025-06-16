@@ -130,26 +130,27 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       setCorrectStates(newCorrectStates);
 
       const allCorrect = newCorrectStates.every(Boolean);
-
       if (allCorrect) {
-        const nextStage = stage + 1;
-        const nextPhase = phases[phase - 1];
+        setTimeout(() => {
+          const nextStage = stage + 1;
+          const nextPhase = phases[phase - 1];
 
-        if (nextStage < nextPhase.length) {
-          setStage(nextStage);
-          setProgress((prev) => prev + 100 / phases[phase - 1].length);
+          if (nextStage < nextPhase.length) {
+            setStage(nextStage);
+            setProgress((prev) => prev + 100 / phases[phase - 1].length);
 
-          const nextWord = nextPhase[nextStage][0].letter.split("");
-          setTargetLetters(nextWord);
-          setCorrectStates(Array(nextWord.length).fill(false));
+            const nextWord = nextPhase[nextStage][0].letter.split("");
+            setTargetLetters(nextWord);
+            setCorrectStates(Array(nextWord.length).fill(false));
 
-          if (audioRef.current) {
-            audioRef.current.src = nextPhase[nextStage][0].sound;
-            audioRef.current.load();
+            if (audioRef.current) {
+              audioRef.current.src = nextPhase[nextStage][0].sound;
+              audioRef.current.load();
+            }
+          } else {
+            handleRequest();
           }
-        } else {
-          handleRequest();
-        }
+        }, 2000);
       }
     } else {
       message.error("Ah não, você errou :(");
@@ -189,24 +190,26 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       const allCorrect = newCorrectStates.every(Boolean);
 
       if (allCorrect) {
-        const nextStage = stage + 1;
-        const nextPhase = phases[phase - 1];
+        setTimeout(() => {
+          const nextStage = stage + 1;
+          const nextPhase = phases[phase - 1];
 
-        if (nextStage < nextPhase.length) {
-          setStage(nextStage);
-          setProgress((prev) => prev + 100 / nextPhase.length);
-          const nextWords = nextPhase[nextStage][0].letter.split(" ");
-          setTargetLetters(nextWords);
-          setExpectedSequence(nextWords);
-          setCorrectStates(Array(nextWords.length).fill(false));
+          if (nextStage < nextPhase.length) {
+            setStage(nextStage);
+            setProgress((prev) => prev + 100 / nextPhase.length);
+            const nextWords = nextPhase[nextStage][0].letter.split(" ");
+            setTargetLetters(nextWords);
+            setExpectedSequence(nextWords);
+            setCorrectStates(Array(nextWords.length).fill(false));
 
-          if (audioRef.current) {
-            audioRef.current.src = nextPhase[nextStage][0].sound;
-            audioRef.current.load();
+            if (audioRef.current) {
+              audioRef.current.src = nextPhase[nextStage][0].sound;
+              audioRef.current.load();
+            }
+          } else {
+            handleRequest();
           }
-        } else {
-          handleRequest();
-        }
+        }, 2000);
       }
     } else {
       message.error("Ah não, você errou :(");
