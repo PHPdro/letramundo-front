@@ -60,7 +60,7 @@ const Nivel1 = () => {
       setTimeout(() => {
         router.push("/nivel1/alimentos");
         localStorage.setItem("aluno", JSON.stringify({ ...student, phase: phase + 1 }));
-      }, 1500);
+      }, 2000);
       setStart(false);
     },
     onError: () => {

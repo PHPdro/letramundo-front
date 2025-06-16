@@ -46,11 +46,11 @@ const Nivel2 = () => {
       setIsCorrect(true);
       setPhase((prev) => prev + 1);
       setStage(0);
-      setStart(false);
       setTimeout(() => {
         router.push("/nivel2/alimentos");
         localStorage.setItem("aluno", JSON.stringify({ ...student, phase: phase + 1 }));
-      }, 1500);
+      }, 2000);
+      setStart(false);
     },
     onError: () => {
       message.error("Erro ao salvar progresso");
