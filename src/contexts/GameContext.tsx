@@ -161,28 +161,30 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setThirdLetterCorrect(newthirdLetterCorrect);
 
     if (newFirstCorrect && newSecondCorrect) {
-      let count = stage + 1;
-      if (count < phases[phase - 1].length) {
-        setStage(count);
-        setProgress((prev) => prev + 100 / phases[phase - 1].length);
-        setFirstLetterCorrect(false);
-        setSecondLetterCorrect(false);
-        setThirdLetterCorrect(false);
-        setFirstLetter(phases[phase - 1][count][0].letter);
-        setSecondLetter(phases[phase - 1][count][1].letter);
-        if (phase === 10 && count > 1) {
-          setThirdLetter(phases[phase - 1][count][2].letter.split("")[2]);
+      setTimeout(() => {
+        let count = stage + 1;
+        if (count < phases[phase - 1].length) {
+          setStage(count);
+          setProgress((prev) => prev + 100 / phases[phase - 1].length);
+          setFirstLetterCorrect(false);
+          setSecondLetterCorrect(false);
+          setThirdLetterCorrect(false);
+          setFirstLetter(phases[phase - 1][count][0].letter);
+          setSecondLetter(phases[phase - 1][count][1].letter);
+          if (phase === 10 && count > 1) {
+            setThirdLetter(phases[phase - 1][count][2].letter.split("")[2]);
+          }
+          if (audioRef.current) {
+            audioRef.current.src = phases[phase - 1][count][2].sound;
+            audioRef.current.load();
+          }
         }
-        if (audioRef.current) {
-          audioRef.current.src = phases[phase - 1][count][2].sound;
-          audioRef.current.load();
+        if (count === phases[phase - 1].length) {
+          if (phase === 10 && letter !== thirdLetter) return;
+          handleRequest();
+          return;
         }
-      }
-      if (count === phases[phase - 1].length) {
-        if (phase === 10 && letter !== thirdLetter) return;
-        handleRequest();
-        return;
-      }
+      }, 2000);
     }
   };
 
