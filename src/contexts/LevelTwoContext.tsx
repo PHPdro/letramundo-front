@@ -62,7 +62,6 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       const student = JSON.parse(localStorage.getItem("aluno") || "{}");
       if (student.id !== undefined) {
         setStudent(student);
-        setPhase(student.phase);
       }
     }
   };

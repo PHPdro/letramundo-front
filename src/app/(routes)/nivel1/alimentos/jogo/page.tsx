@@ -42,6 +42,8 @@ const Nivel1 = () => {
     setHardPhase,
     hardVowels,
     getStudentFromLocalStorage,
+    correctStates,
+    targetLetters,
   } = useGame();
   const router = useRouter();
   const mutation = useMutation({
@@ -145,17 +147,14 @@ const Nivel1 = () => {
                         className="object-cover lg:h-[184px] md:h-[74px] lg:w-[184px] md:w-[60px] z-0 mt-2"
                       />
                       <div className="flex flex-row mt-8 gap-3">
-                        <p className="border-[1px] border-black h-[86px] w-[70px] text-center lg:p-7 md:p-3 rounded-sm text-xl">
-                          {firstLetterCorrect ? firstLetter : ""}
-                        </p>
-                        <p className="border-[1px] border-black h-[86px] w-[70px] text-center lg:p-7 md:p-3 rounded-sm text-xl">
-                          {secondLetterCorrect ? secondLetter : ""}
-                        </p>
-                        {phase == 10 && stage > 1 && (
-                          <p className="border-[1px] border-black h-[86px] w-[70px] text-center lg:p-7 md:p-3 rounded-sm text-xl">
-                            {thirdLetterCorrect ? thirdLetter : ""}
+                        {correctStates.map((_, index) => (
+                          <p
+                            key={index}
+                            className="border-[1px] border-black h-[86px] w-[90px] text-center lg:p-7 md:p-3 rounded-sm text-xl"
+                          >
+                            {correctStates[index] ? targetLetters[index] : ""}
                           </p>
-                        )}
+                        ))}
                       </div>
                     </div>
                   </div>

@@ -36,6 +36,8 @@ type GameContextType = {
   getStudentFromLocalStorage: () => void;
   hardVowels: Vowel[][];
   changePhaseState: (index: number) => void;
+  targetLetters: string[];
+  correctStates: boolean[];
 };
 
 type Vowel = {
@@ -60,6 +62,8 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [firstLetterCorrect, setFirstLetterCorrect] = useState(false);
   const [secondLetterCorrect, setSecondLetterCorrect] = useState(false);
   const [thirdLetterCorrect, setThirdLetterCorrect] = useState(false);
+  const [targetLetters, setTargetLetters] = useState<string[]>([]);
+  const [correctStates, setCorrectStates] = useState<boolean[]>([]);
   const [student, setStudent] = useState<any>(null);
   const [hardPhase, setHardPhase] = useState(0);
   const { A, U, I, O, E, OI, EI, AI } = letters;
@@ -82,6 +86,14 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setPhase(index);
     setStart(false);
     setStage(0);
+  };
+
+  const startPhase = (phases: any) => {
+    setCurrentVowel(phases[phase - 1][stage][2]);
+    const word = phases[phase - 1][stage][2].letter.split("");
+    setTargetLetters(word);
+    setCorrectStates(Array(word.length).fill(false));
+    setProgress(0);
   };
 
   const handleStart = (phase: number) => {
@@ -110,21 +122,12 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setCurrentVowel(E);
       setProgress(0);
     } else if (phase === 8) {
-      setCurrentVowel(OI);
-      setFirstLetter("O");
-      setSecondLetter("I");
-      setProgress(0);
+      startPhase(phases);
     } else if (phase === 9) {
-      setCurrentVowel(EI);
-      setFirstLetter("E");
-      setSecondLetter("I");
-      setProgress(0);
+      startPhase(phases);
       setHardPhase(1);
     } else {
-      setCurrentVowel(AI);
-      setFirstLetter("A");
-      setSecondLetter("I");
-      setProgress(0);
+      startPhase(phases);
       setHardPhase(2);
     }
     setStart(true);
@@ -143,47 +146,40 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
   const handleClickLetter = (letter: string, handleRequest: () => void) => {
-    let newFirstCorrect = firstLetterCorrect;
-    let newSecondCorrect = secondLetterCorrect;
-    let newthirdLetterCorrect = thirdLetterCorrect;
-    if (letter === thirdLetter && phase === 10 && stage > 1) {
-      newthirdLetterCorrect = true;
-    }
-    if (letter === secondLetter) {
-      newSecondCorrect = true;
-    } else if (letter === firstLetter) {
-      newFirstCorrect = true;
-    }
+    const nextExpectedIndex = correctStates.findIndex((isCorrect) => !isCorrect);
 
-    setFirstLetterCorrect(newFirstCorrect);
-    setSecondLetterCorrect(newSecondCorrect);
-    setThirdLetterCorrect(newthirdLetterCorrect);
+    if (nextExpectedIndex === -1) return;
 
-    if (newFirstCorrect && newSecondCorrect) {
-      setTimeout(() => {
-        let count = stage + 1;
-        if (count < phases[phase - 1].length) {
-          setStage(count);
-          setProgress((prev) => prev + 100 / phases[phase - 1].length);
-          setFirstLetterCorrect(false);
-          setSecondLetterCorrect(false);
-          setThirdLetterCorrect(false);
-          setFirstLetter(phases[phase - 1][count][0].letter);
-          setSecondLetter(phases[phase - 1][count][1].letter);
-          if (phase === 10 && count > 1) {
-            setThirdLetter(phases[phase - 1][count][2].letter.split("")[2]);
+    if (targetLetters[nextExpectedIndex] === letter) {
+      const newCorrectStates = [...correctStates];
+      newCorrectStates[nextExpectedIndex] = true;
+      setCorrectStates(newCorrectStates);
+
+      const allCorrect = newCorrectStates.every(Boolean);
+      if (allCorrect) {
+        setTimeout(() => {
+          const nextStage = stage + 1;
+          const nextPhase = phases[phase - 1];
+
+          if (nextStage < nextPhase.length) {
+            setStage(nextStage);
+            setProgress((prev) => prev + 100 / phases[phase - 1].length);
+
+            const nextWord = nextPhase[nextStage][2].letter.split("");
+            setTargetLetters(nextWord);
+            setCorrectStates(Array(nextWord.length).fill(false));
+
+            if (audioRef.current) {
+              audioRef.current.src = nextPhase[nextStage][2].sound;
+              audioRef.current.load();
+            }
+          } else {
+            handleRequest();
           }
-          if (audioRef.current) {
-            audioRef.current.src = phases[phase - 1][count][2].sound;
-            audioRef.current.load();
-          }
-        }
-        if (count === phases[phase - 1].length) {
-          if (phase === 10 && letter !== thirdLetter) return;
-          handleRequest();
-          return;
-        }
-      }, 2000);
+        }, 2000);
+      }
+    } else {
+      message.error("Ah não, você errou :(");
     }
   };
 
@@ -246,6 +242,8 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
         hardVowels,
         getStudentFromLocalStorage,
         changePhaseState,
+        targetLetters,
+        correctStates,
       }}
     >
       {children}
