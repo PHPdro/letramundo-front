@@ -34,6 +34,7 @@ const Nivel2 = () => {
     correctStates,
     targetLetters,
     handleClickWord,
+    getStudentFromLocalStorage,
   } = useLevelTwo();
 
   const hardVowels = ["V", "A", "U", "O", "E", "I"];
@@ -66,6 +67,10 @@ const Nivel2 = () => {
       });
     }
   };
+
+  useEffect(() => {
+    getStudentFromLocalStorage();
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined") {

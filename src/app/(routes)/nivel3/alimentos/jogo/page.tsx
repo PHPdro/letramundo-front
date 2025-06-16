@@ -33,6 +33,7 @@ const Nivel3 = () => {
     correctStates,
     targetLetters,
     handleClickWord,
+    getStudentFromLocalStorage,
   } = useLevelTwo();
   const hardVowels = ["U", "A", "F", "O", "E", "I", "V"];
   const router = useRouter();
@@ -64,6 +65,11 @@ const Nivel3 = () => {
       });
     }
   };
+
+  useEffect(() => {
+    getStudentFromLocalStorage();
+  }, []);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       playAudio();

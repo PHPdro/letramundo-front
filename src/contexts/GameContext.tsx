@@ -74,7 +74,6 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const student = JSON.parse(localStorage.getItem("aluno") || "{}");
       if (student.id !== undefined) {
         setStudent(student);
-        setPhase(student.phase);
       }
     }
   };
