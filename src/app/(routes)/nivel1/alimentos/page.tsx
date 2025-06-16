@@ -31,7 +31,7 @@ const Alimentos = () => {
             <Link href={`alimentos/jogo`} key={index}>
               <button
                 onClick={() => changePhaseState(index + 1)}
-                disabled={student?.phase < index + 1}
+                disabled={student?.phase < index + 1 && student.level === 1}
                 className="w-[70px] h-[65px] p-2 rounded-full text-center items-center flex justify-center font-mono"
                 style={{
                   backgroundColor:
