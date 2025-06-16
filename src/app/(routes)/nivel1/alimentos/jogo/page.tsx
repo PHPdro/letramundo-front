@@ -41,7 +41,6 @@ const Nivel1 = () => {
     hardPhase,
     setHardPhase,
     hardVowels,
-    getStudentFromLocalStorage,
   } = useGame();
   const router = useRouter();
   const mutation = useMutation({
@@ -57,8 +56,8 @@ const Nivel1 = () => {
         setThirdLetterCorrect(false);
         setHardPhase((prev) => prev + 1);
       }
+      setStart(false);
       setTimeout(() => {
-        setStart(false);
         router.push("/nivel1/alimentos");
         localStorage.setItem("aluno", JSON.stringify({ ...student, phase: phase + 1 }));
       }, 1500);
@@ -78,10 +77,6 @@ const Nivel1 = () => {
       });
     }
   };
-
-  useEffect(() => {
-    getStudentFromLocalStorage();
-  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined") {

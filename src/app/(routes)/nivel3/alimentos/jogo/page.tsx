@@ -32,7 +32,6 @@ const Nivel3 = () => {
     hardPhase,
     correctStates,
     targetLetters,
-    getStudentFromLocalStorage,
     handleClickWord,
   } = useLevelTwo();
   const hardVowels = ["U", "A", "F", "O", "E", "I", "V"];
@@ -44,9 +43,9 @@ const Nivel3 = () => {
       setIsCorrect(true);
       setPhase((prev) => prev + 1);
       setStage(0);
+      setStart(false);
       setTimeout(() => {
         router.push("/nivel3/alimentos");
-        setStart(false);
         localStorage.setItem("aluno", JSON.stringify({ ...student, phase: phase + 1 }));
       }, 1500);
     },
@@ -56,10 +55,6 @@ const Nivel3 = () => {
   });
 
   const handleSubmit = () => mutation.mutate(student.id);
-
-  useEffect(() => {
-    getStudentFromLocalStorage();
-  }, []);
 
   const playAudio = () => {
     const audio = audioRef.current;
