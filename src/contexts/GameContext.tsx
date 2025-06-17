@@ -123,6 +123,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setProgress(0);
     } else if (phase === 8) {
       startPhase(phases);
+      setHardPhase(0);
     } else if (phase === 9) {
       startPhase(phases);
       setHardPhase(1);

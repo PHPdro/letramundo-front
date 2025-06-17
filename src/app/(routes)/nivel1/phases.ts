@@ -20,16 +20,16 @@ const { A, U, I, O, E, OI, UI, OU, EI, AU, AO, AI, EU, UAU, UAI } = letters;
 
 const phase1 = [
   [A, E],
-  [A, I],
-  [A, O],
+  [I, A],
+  [O, A],
   [A, U],
   [E, A],
 ];
 
 const phase2 = [
-  [U, A],
+  [A, U],
   [U, E],
-  [U, I],
+  [I, U],
   [U, O],
   [O, U],
 ];
@@ -37,9 +37,9 @@ const phase2 = [
 const phase3 = [
   [I, A],
   [I, E],
-  [I, O],
-  [I, U],
-  [E, I],
+  [O, I],
+  [U, I],
+  [I, E],
 ];
 
 const phase4 = [
@@ -50,19 +50,19 @@ const phase4 = [
   [U, A],
 ];
 const phase5 = [
-  [E, A],
+  [A, E],
   [E, I],
-  [E, O],
+  [O, E],
   [E, A],
   [I, E],
 ];
 
 const phase6 = [
   [O, A],
-  [O, E],
-  [O, I],
-  [O, U],
   [E, O],
+  [O, I],
+  [U, O],
+  [O, E],
 ];
 
 const phase7 = [
