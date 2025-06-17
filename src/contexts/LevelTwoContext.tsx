@@ -96,10 +96,10 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       return;
     }
     if (phase === 1) {
-      setCurrentVowel(phases[phase - 1][stage][0]);
+      setCurrentVowel(phases[phase - 1][stage][2]);
       setProgress(0);
     } else if (phase === 2) {
-      setCurrentVowel(phases[phase - 1][stage][0]);
+      setCurrentVowel(phases[phase - 1][stage][2]);
       setProgress(0);
     } else if (phase === 3) {
       startPhase(phases);
@@ -160,7 +160,7 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (vowel.key === currentVowel.key) {
       let count = stage + 1;
       if (count < 5) {
-        const currentWord = phases[phase - 1][count][0];
+        const currentWord = phases[phase - 1][count][2];
         setCurrentVowel(currentWord);
         setStage(count);
         setProgress((prev) => prev + 20);

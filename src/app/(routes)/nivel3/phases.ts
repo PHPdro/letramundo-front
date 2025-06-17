@@ -67,19 +67,19 @@ const {
 } = letters;
 
 const phase1 = [
-  [FA, VA],
-  [FI, LI],
-  [FU, VU],
-  [FE, LE],
-  [FO, LO],
+  [FA, VA, FA],
+  [FI, LI, FI],
+  [VU, FU, FU],
+  [FE, LE, FE],
+  [LO, FO, FO],
 ];
 
 const phase2 = [
-  [FA, FI],
-  [FE, FO],
-  [FI, FU],
-  [FO, FE],
-  [FU, FA],
+  [FO, FE, FE],
+  [FA, FI, FA],
+  [FU, FI, FI],
+  [FO, FE, FO],
+  [FA, FU, FU],
 ];
 
 const phase3 = [[FOI], [FUI], [UFA], [FIO]];

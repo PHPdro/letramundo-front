@@ -109,15 +109,18 @@ const Nivel2 = () => {
               <>
                 <Progress percent={progress} showInfo={false} size={[400, 20]} />
                 <div className="absolute lg:left-64 lg:top-72 md:left-20 md:top-96 flex flex-col justify-center align-middle gap-12 z-10 items-start">
-                  {phases[phase - 1][stage].map((vowel) => (
-                    <button
-                      key={vowel.key}
-                      onClick={() => handleClick(vowel, handleSubmit)}
-                      className="flex justify-center items-center bg-white p-11 rounded-full w-[100%] h-[100%] text-center font-medium text-4xl"
-                    >
-                      {vowel.letter}
-                    </button>
-                  ))}
+                  {phases[phase - 1][stage].map(
+                    (vowel, index) =>
+                      index < 2 && (
+                        <button
+                          key={vowel.key}
+                          onClick={() => handleClick(vowel, handleSubmit)}
+                          className="flex justify-center items-center bg-white p-11 rounded-full w-[100%] h-[100%] text-center font-medium text-4xl"
+                        >
+                          {vowel.letter}
+                        </button>
+                      )
+                  )}
                 </div>
               </>
             ) : (

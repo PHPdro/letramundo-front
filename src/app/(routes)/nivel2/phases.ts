@@ -69,19 +69,19 @@ const {
 } = letters;
 
 const phase1 = [
-  [VA, FA],
-  [VI, LI],
-  [VU, FU],
-  [VE, LE],
-  [VO, LO],
+  [VA, FA, VA],
+  [LI, VI, VI],
+  [VU, FU, VU],
+  [VE, LE, VE],
+  [LO, VO, VO],
 ];
 
 const phase2 = [
-  [VA, VI],
-  [VE, VO],
-  [VI, VU],
-  [VO, VE],
-  [VU, VA],
+  [VI, VA, VA],
+  [VE, VO, VE],
+  [VI, VU, VI],
+  [VE, VO, VO],
+  [VU, VA, VU],
 ];
 
 const phase3 = [[UVA], [OVO], [EVA], [IVO]];
