@@ -1,14 +1,18 @@
 "use client";
 import { request } from "@/api/config";
 import { CheckCircleIcon } from "@heroicons/react/16/solid";
-import { Form, Input, message } from "antd";
+import { Button, Form, Input, message } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const Login = () => {
   const route = useRouter();
+  const [loading, setLoading] = useState(false);
+
   const onFinish = async (values: any) => {
+    setLoading(true);
     try {
       const response = await request({
         endpoint: "login",
@@ -20,9 +24,7 @@ const Login = () => {
     } catch (error) {
       message.error("Erro ao fazer login, verifique suas credenciais.");
     }
-  };
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
+    setLoading(false);
   };
 
   return (
@@ -61,7 +63,6 @@ const Login = () => {
             name="basic"
             initialValues={{ remember: true }}
             onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
             autoComplete="off"
             layout="vertical"
             style={{ width: "100%" }}
@@ -79,9 +80,14 @@ const Login = () => {
               </Link>
             </Form.Item>
             <Form.Item label={null}>
-              <button type="submit" className="bg-primary text-white w-full py-[5px] rounded-lg">
+              <Button
+                htmlType="submit"
+                type="primary"
+                className="bg-primary text-white w-full py-[5px] rounded-lg"
+                loading={loading}
+              >
                 Entrar
-              </button>
+              </Button>
             </Form.Item>
           </Form>
           <p className="text-sm font-light text-center">
