@@ -16,6 +16,7 @@ const Nivel2 = () => {
   const router = useRouter();
   const {
     audioRef,
+    audioRefFeedBack,
     start,
     setStart,
     stage,
@@ -101,6 +102,9 @@ const Nivel2 = () => {
       <div className="flex justify-center items-center w-full">
         {start ? (
           <div>
+            <audio ref={audioRefFeedBack} className="hidden">
+              <source src={currentVowel.sound} type="audio/mpeg" />
+            </audio>
             <audio ref={audioRef}>
               <source src={currentVowel.sound} type="audio/mpeg" />
             </audio>

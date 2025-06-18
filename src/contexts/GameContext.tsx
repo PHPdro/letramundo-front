@@ -1,10 +1,10 @@
 "use client";
 import { letters, phases } from "@/app/(routes)/nivel1/phases";
-import { message } from "antd";
 import React, { createContext, useContext, useRef, useState } from "react";
 
 type GameContextType = {
   audioRef: React.RefObject<HTMLAudioElement>;
+  audioRefFeedBack: React.RefObject<HTMLAudioElement>;
   start: boolean;
   setStart: React.Dispatch<React.SetStateAction<boolean>>;
   stage: number;
@@ -50,6 +50,7 @@ const GameContext = createContext<GameContextType | undefined>(undefined);
 
 export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const audioRefFeedBack = useRef<HTMLAudioElement>(null);
   const [start, setStart] = useState(false);
   const [stage, setStage] = useState(0);
   const [phase, setPhase] = useState(1);
@@ -72,6 +73,8 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     [A, U, I, O, E],
     [A, U, E, I],
   ];
+  const correctSound = "/audios/correto.mp3";
+  const failSound = "/audios/errado.mp3";
 
   const getStudentFromLocalStorage = () => {
     if (typeof window !== "undefined") {
@@ -146,6 +149,17 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
       audioRef.current.load();
     }
   };
+  const playAudioFeedBack = (sound: string) => {
+    const audio = audioRefFeedBack.current;
+    if (audio) {
+      audioRefFeedBack.current.src = sound;
+      audioRefFeedBack.current.load();
+      audio.play().catch((err) => {
+        console.error("Autoplay failed:", err);
+      });
+    }
+  };
+
   const handleClickLetter = (letter: string, handleRequest: () => void) => {
     const nextExpectedIndex = correctStates.findIndex((isCorrect) => !isCorrect);
 
@@ -178,40 +192,45 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
             handleRequest();
           }
         }, 2000);
+        playAudioFeedBack(correctSound);
       }
     } else {
-      message.error("Ah não, você errou :(");
+      playAudioFeedBack(failSound);
     }
   };
 
   const handleClick = (vowel: Vowel, handleRequest: () => void) => {
     if (vowel.key === currentVowel.key) {
-      let count = stage + 1;
-      if (count < 5) {
-        setStage(count);
-        setProgress((prev) => prev + 20);
-        if (audioRef.current) {
-          audioRef.current.src = currentVowel.sound;
-          audioRef.current.load();
+      setTimeout(() => {
+        let count = stage + 1;
+        if (count < 5) {
+          setStage(count);
+          setProgress((prev) => prev + 20);
+          if (audioRef.current) {
+            audioRef.current.src = currentVowel.sound;
+            audioRef.current.load();
+          }
         }
-      }
-      if (count === 5) {
-        handleRequest();
-        return;
-      }
-      if (phase === 4) {
-        randomizeVowels(phases[3][count]);
-      } else if (phase === 7) {
-        randomizeVowels(phases[6][count]);
-      }
+        if (count === 5) {
+          handleRequest();
+          return;
+        }
+        if (phase === 4) {
+          randomizeVowels(phases[3][count]);
+        } else if (phase === 7) {
+          randomizeVowels(phases[6][count]);
+        }
+      }, 2500);
+      playAudioFeedBack(correctSound);
     } else {
-      message.error("Ah não, você errou :(");
+      playAudioFeedBack(failSound);
     }
   };
   return (
     <GameContext.Provider
       value={{
         audioRef,
+        audioRefFeedBack,
         start,
         setStart,
         stage,

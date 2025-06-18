@@ -1,9 +1,9 @@
 "use client";
-import { message } from "antd";
 import React, { createContext, useContext, useRef, useState } from "react";
 
 type LevelTwoContextType = {
   audioRef: React.RefObject<HTMLAudioElement>;
+  audioRefFeedBack: React.RefObject<HTMLAudioElement>;
   start: boolean;
   setStart: React.Dispatch<React.SetStateAction<boolean>>;
   stage: number;
@@ -43,6 +43,7 @@ const LevelTwoContext = createContext<LevelTwoContextType | undefined>(undefined
 
 export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const audioRefFeedBack = useRef<HTMLAudioElement>(null);
   const [start, setStart] = useState(false);
   const [stage, setStage] = useState(0);
   const [phase, setPhase] = useState(1);
@@ -56,6 +57,8 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [expectedSequence, setExpectedSequence] = useState<string[]>([]);
   const hardVowels = ["V", "A", "U", "O", "E", "I"];
   const [phases, setPhases] = useState<any>();
+  const correctSound = "/audios/correto.mp3";
+  const failSound = "/audios/errado.mp3";
 
   const getStudentFromLocalStorage = () => {
     if (typeof window !== "undefined") {
@@ -88,6 +91,17 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     setPhase(index);
     setStart(false);
     setStage(0);
+  };
+
+  const playAudioFeedBack = (sound: string) => {
+    const audio = audioRefFeedBack.current;
+    if (audio) {
+      audioRefFeedBack.current.src = sound;
+      audioRefFeedBack.current.load();
+      audio.play().catch((err) => {
+        console.error("Autoplay failed:", err);
+      });
+    }
   };
 
   const handleStart = (phases: any, phase: number) => {
@@ -150,31 +164,35 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
             handleRequest();
           }
         }, 2000);
+        playAudioFeedBack(correctSound);
       }
     } else {
-      message.error("Ah não, você errou :(");
+      playAudioFeedBack(failSound);
     }
   };
 
   const handleClick = (vowel: Vowel, handleRequest: () => void) => {
     if (vowel.key === currentVowel.key) {
       let count = stage + 1;
-      if (count < 5) {
-        const currentWord = phases[phase - 1][count][2];
-        setCurrentVowel(currentWord);
-        setStage(count);
-        setProgress((prev) => prev + 20);
-        if (audioRef.current) {
-          audioRef.current.src = currentWord.sound;
-          audioRef.current.load();
-        }
+      if (count < phases[phase - 1].length) {
+        setTimeout(() => {
+          const currentWord = phases[phase - 1][count][2];
+          setCurrentVowel(currentWord);
+          setStage(count);
+          setProgress((prev) => prev + 20);
+          if (audioRef.current) {
+            audioRef.current.src = currentWord.sound;
+            audioRef.current.load();
+          }
+        }, 2500);
+        playAudioFeedBack(correctSound);
       }
-      if (count === 5) {
+      if (count === phases[phase - 1].length) {
         handleRequest();
         return;
       }
     } else {
-      message.error("Ah não, você errou :(");
+      playAudioFeedBack(failSound);
     }
   };
 
@@ -209,9 +227,10 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
             handleRequest();
           }
         }, 2000);
+        playAudioFeedBack(correctSound);
       }
     } else {
-      message.error("Ah não, você errou :(");
+      playAudioFeedBack(failSound);
     }
   };
 
@@ -219,6 +238,7 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     <LevelTwoContext.Provider
       value={{
         audioRef,
+        audioRefFeedBack,
         start,
         setStart,
         stage,

@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 const Nivel1 = () => {
   const {
     audioRef,
+    audioRefFeedBack,
     start,
     setStart,
     stage,
@@ -108,6 +109,9 @@ const Nivel1 = () => {
       <div className="flex justify-center items-center w-full">
         {start ? (
           <div>
+            <audio ref={audioRefFeedBack}>
+              <source src={currentVowel.sound} type="audio/mpeg" />
+            </audio>
             <audio ref={audioRef}>
               <source src={currentVowel.sound} type="audio/mpeg" />
             </audio>
