@@ -12,7 +12,7 @@ import Confetti from "react-confetti";
 import { SoundOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 
-const Nivel3 = () => {
+const Nivel5 = () => {
   const {
     audioRef,
     audioRefFeedBack,
@@ -36,7 +36,7 @@ const Nivel3 = () => {
     handleClickWord,
     getStudentFromLocalStorage,
   } = useLevelTwo();
-  const hardVowels = ["U", "A", "F", "O", "E", "I", "V"];
+  const hardVowels = ["M", "O", "V", "A", "U", "L", "F", "N", "I", "E"];
   const router = useRouter();
   const mutation = useMutation({
     mutationFn: studentProgress,
@@ -106,7 +106,7 @@ const Nivel3 = () => {
             <audio ref={audioRef}>
               <source src={currentVowel.sound} type="audio/mpeg" />
             </audio>
-            <p className="text-center mb-2 text-xl font-bold">Nível 3 - Fase {phase}</p>
+            <p className="text-center mb-2 text-xl font-bold">Nível 6 - Fase {phase}</p>
             {phase < 3 ? (
               <>
                 <Progress percent={progress} showInfo={false} size={[400, 20]} />
@@ -191,4 +191,4 @@ const Nivel3 = () => {
   );
 };
 
-export default Nivel3;
+export default Nivel5;

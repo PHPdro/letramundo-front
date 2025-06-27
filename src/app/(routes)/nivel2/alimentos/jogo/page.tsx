@@ -108,7 +108,7 @@ const Nivel2 = () => {
             <audio ref={audioRef}>
               <source src={currentVowel.sound} type="audio/mpeg" />
             </audio>
-            <p className="text-center mb-2 text-xl font-bold">Level 2 - Fase {phase}</p>
+            <p className="text-center mb-2 text-xl font-bold">Nível 2 - Fase {phase}</p>
             {phase < 3 ? (
               <>
                 <Progress percent={progress} showInfo={false} size={[400, 20]} />
@@ -144,7 +144,7 @@ const Nivel2 = () => {
                         {correctStates.map((_, index) => (
                           <p
                             key={index}
-                            className="border-[1px] border-black h-[86px] w-[90px] text-center lg:p-7 md:p-3 rounded-sm text-xl"
+                            className="border-[1px] border-black h-[86px] text-center lg:p-7 md:p-3 rounded-sm text-xl"
                           >
                             {correctStates[index] ? targetLetters[index] : ""}
                           </p>
