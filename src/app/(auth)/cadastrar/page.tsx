@@ -22,11 +22,11 @@ const SignUp = () => {
   });
 
   const onFinish = (values: any) => {
+    if (values.password !== values.password_confirmation) {
+      message.error("As senhas não coincidem!");
+      return;
+    }
     mutation.mutate(values);
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
   };
 
   return (
@@ -64,7 +64,6 @@ const SignUp = () => {
           <Form
             name="basic"
             onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
             autoComplete="off"
             layout="vertical"
             style={{ width: "100%" }}
@@ -89,14 +88,34 @@ const SignUp = () => {
               style={{ marginBottom: 15 }}
               label="Senha"
               name="password"
-              rules={[{ required: true, message: "Digite a senha!" }]}
+              rules={[
+                { required: true, message: "Digite a senha" },
+                {
+                  validator: (_, value) => {
+                    if (!value || value.length >= 8) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error("A senha deve ter pelo menos 8 caracteres"));
+                  },
+                },
+              ]}
             >
               <Input.Password />
             </Form.Item>
             <Form.Item
               label="Confirmar senha"
               name="password_confirmation"
-              rules={[{ required: true, message: "Digite a senha!" }]}
+              rules={[
+                { required: true, message: "Digite a senha" },
+                {
+                  validator: (_, value) => {
+                    if (!value || value.length >= 8) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error("A senha deve ter pelo menos 8 caracteres"));
+                  },
+                },
+              ]}
             >
               <Input.Password />
             </Form.Item>
