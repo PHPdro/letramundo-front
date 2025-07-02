@@ -1,68 +1,56 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import { Progress } from "antd";
-import Image from "next/image";
-import { BackButton } from "@/components/BackButton";
 import { Avatar } from "@/components/Avatar";
+import { BackButton } from "@/components/BackButton";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { LockOutlined } from "@ant-design/icons";
+import { useGame } from "@/contexts/GameContext";
 
-const Nivel1 = () => {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [start, setStart] = useState(false);
-  const [progress, setProgress] = useState(0);
+const Animais = () => {
+  const [student, setStudent] = useState<any>(null);
+  const { changePhaseState } = useGame();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const audio = audioRef.current;
-      if (audio) {
-        if (start) {
-          audio
-            .play()
-            .then(() => {})
-            .catch((err) => {
-              console.error("Autoplay failed:", err);
-            });
-        }
-      }
+      const student = localStorage.getItem("aluno");
+      setStudent(JSON.parse(student || "{}"));
     }
-  }, [start]);
+  }, []);
+
   return (
-    <div className="h-screen bg-[#b6d5f0] bgAnimaisJogo">
-      {/* <audio ref={audioRef}>
-        <source src="/audios/a.m4a" type="audio/mpeg" />
-      </audio> */}
-      <div className="p-6">
+    <div className="h-screen bg-[#b6d5f0]">
+      <div className="flex flex-col h-screen p-6">
         <div className="flex justify-between z-10">
-          <BackButton color="blue" />
+          <BackButton url="niveis/animais" color="blue" />
           <img src="/logo-transparente.png" alt="Logo" className=" z-10 w-[67px] h-[50px]" />
           <Avatar />
         </div>
-      </div>
-      <div className="flex justify-center items-center w-full">
-        {start ? (
-          <div>
-            <Progress percent={progress} showInfo={false} size={[400, 20]} />
-            <div className="absolute lg:left-64 lg:top-72 md:left-20 md:top-96 flex flex-col justify-center align-middle gap-12 z-10 items-start">
-              <button className="flex justify-center items-center bg-white p-11 rounded-full w-[100%] h-[100%] text-center font-medium text-4xl">
-                A
+        <h1 className="text-3xl font-medium text-center text-white mb-10 z-10">Nível 1</h1>
+        <div className="grid grid-cols-4 gap-8 z-10 items-center max-w-[400px] mx-auto">
+          {Array.from({ length: 10 }, (_, index) => (
+            <Link href={`animais/jogo`} key={index}>
+              <button
+                onClick={() => changePhaseState(index + 1)}
+                disabled={student?.phase < index + 1 && student.level === 1}
+                className="w-[70px] h-[65px] p-2 rounded-full text-center items-center flex justify-center font-mono"
+                style={{
+                  backgroundColor:
+                    student?.phase - 1 < index + 1 && student.level === 1 ? "#f8fafc" : "#80cd3b",
+                }}
+              >
+                {student?.phase < index + 1 && student.level === 1 ? <LockOutlined /> : index + 1}
               </button>
-              <button className="flex justify-center items-center bg-white p-11 rounded-full w-[100%] h-[100%] text-center font-medium text-4xl">
-                U
-              </button>
-            </div>
-          </div>
-        ) : (
-          <Image
-            src="/play.svg"
-            alt="play"
-            className="object-cover"
-            width={100}
-            height={100}
-            onClick={() => setStart(true)}
-          />
-        )}
+            </Link>
+          ))}
+        </div>
       </div>
+      <img
+        src="/animais-bg-niveis.png"
+        alt="Animais de tema de fundo"
+        className="absolute bottom-0 w-full object-cover"
+      />
     </div>
   );
 };
 
-export default Nivel1;
+export default Animais;
