@@ -8,7 +8,6 @@ import Link from "next/link";
 
 const Home = () => {
   const { students, isFetching } = useFetchStudents();
-
   return (
     <div>
       <NavBar />

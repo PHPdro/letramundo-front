@@ -1,18 +1,37 @@
-import { Pagination } from "antd";
+import { Col, message, Pagination, Popconfirm, Row } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
+import { DeleteOutlined } from "@ant-design/icons";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteStudent } from "@/api/student";
+import { useGame } from "@/contexts/GameContext";
 
 interface CustomTableProps {
   data: any;
 }
 
 export const CustomTable = ({ data }: CustomTableProps) => {
+  const queryClient = useQueryClient();
+  const { setEditStudent } = useGame();
+
+  const mutationDelete = useMutation({
+    mutationFn: deleteStudent,
+    onSuccess: () => {
+      message.success("Aluno excluído com sucesso");
+      queryClient.invalidateQueries({ queryKey: ["students"] });
+    },
+    onError: (error: any) => {
+      message.error(`Erro ao excluir aluno: ${error.message}`);
+    },
+  });
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       localStorage.removeItem("aluno");
     }
   }, []);
+
   return (
     <div>
       <table className="min-w-full border-separate border-spacing-4">
@@ -39,8 +58,11 @@ export const CustomTable = ({ data }: CustomTableProps) => {
             >
               TURMA
             </th>
-            <th scope="col" className="px-3 py-3.5 text-sm font-semibold text-gray-900">
-              {""}
+            <th
+              scope="col"
+              className="px-3 py-3.5 bg-secondary rounded-lg text-sm font-semibold text-gray-900"
+            >
+              AÇÕES
             </th>
           </tr>
         </thead>
@@ -79,13 +101,38 @@ export const CustomTable = ({ data }: CustomTableProps) => {
                 {aluno.year}º {aluno.class.toLocaleUpperCase()}
               </td>
               <td>
-                <Image
-                  src="/edit.png"
-                  alt="Botão de editar"
-                  width={25}
-                  height={25}
-                  className="w-[25px] h-[25px]"
-                />
+                <Row gutter={[16, 16]} justify="center" align="middle" className="flex items-center">
+                  <Col>
+                    <Link
+                      href={"/editar"}
+                      onClick={() => {
+                        localStorage.setItem("aluno", JSON.stringify(aluno));
+                        setEditStudent(aluno);
+                      }}
+                    >
+                      <Image
+                        src="/edit.png"
+                        alt="Botão de editar"
+                        width={25}
+                        height={25}
+                        className="w-[25px] h-[25px]"
+                      />
+                    </Link>
+                  </Col>
+                  <Col>
+                    <Popconfirm
+                      title="Tem certeza que deseja excluir este aluno?"
+                      onConfirm={() => {
+                        mutationDelete.mutate(aluno.id);
+                      }}
+                      okText="Sim"
+                      cancelText="Não"
+                      placement="left"
+                    >
+                      <DeleteOutlined style={{ fontSize: 25 }} />
+                    </Popconfirm>
+                  </Col>
+                </Row>
               </td>
             </tr>
           ))}

@@ -38,6 +38,8 @@ type GameContextType = {
   changePhaseState: (index: number) => void;
   targetLetters: string[];
   correctStates: boolean[];
+  editStudent: any;
+  setEditStudent: React.Dispatch<React.SetStateAction<any>>;
 };
 
 type Vowel = {
@@ -67,6 +69,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [correctStates, setCorrectStates] = useState<boolean[]>([]);
   const [student, setStudent] = useState<any>(null);
   const [hardPhase, setHardPhase] = useState(0);
+  const [editStudent, setEditStudent] = useState<any>(null);
   const { A, U, I, O, E, OI, EI, AI } = letters;
   const hardVowels = [
     [U, I, O],
@@ -264,6 +267,8 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
         changePhaseState,
         targetLetters,
         correctStates,
+        editStudent,
+        setEditStudent,
       }}
     >
       {children}

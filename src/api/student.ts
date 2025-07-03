@@ -1,6 +1,7 @@
 import { request } from "./config";
 
 interface Student {
+  id?: number;
   name: string;
   year: number;
   class: string;
@@ -19,5 +20,20 @@ export const getStudents = async () => {
   return await request({
     endpoint: "students",
     method: "GET",
+  });
+};
+
+export const deleteStudent = async (id: number) => {
+  return await request({
+    endpoint: `students/${id}`,
+    method: "DELETE",
+  });
+};
+
+export const updateStudent = async (data: Student) => {
+  return await request({
+    endpoint: `students/${data.id}`,
+    method: "PUT",
+    data: data,
   });
 };

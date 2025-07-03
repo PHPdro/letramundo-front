@@ -26,7 +26,7 @@ export const NavBar = () => (
           </a>
         </div>
         <div className="flex items-center">
-          <span className="text-gray-700 px-3 py-2 rounded-md text-base font-medium">Prof Fulano</span>
+          <span className="text-gray-700 px-3 py-2 rounded-md text-base font-medium">Professor</span>
         </div>
       </div>
     </div>
