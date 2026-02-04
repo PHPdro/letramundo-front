@@ -25,7 +25,7 @@ const Alimentos = () => {
           Bem vindo, {student?.name}!
         </h1>
         <div className="grid grid-cols-4 gap-8 z-10 items-center max-w-[400px] mx-auto">
-          {Array.from({ length: 10 }, (_, index) => (
+          {Array.from({ length: 12 }, (_, index) => (
             <Link href={`/nivel${index + 1}/alimentos`} key={index}>
               <button
                 disabled={student?.level < index + 1}

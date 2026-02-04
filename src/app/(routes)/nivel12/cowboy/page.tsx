@@ -1,0 +1,56 @@
+"use client";
+import { Avatar } from "@/components/Avatar";
+import { BackButton } from "@/components/BackButton";
+import { useLevelTwo } from "@/contexts/LevelTwoContext";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { LockOutlined } from "@ant-design/icons";
+
+const Cowboy = () => {
+  const [student, setStudent] = useState<any>(null);
+  const { changePhaseState } = useLevelTwo();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const student = localStorage.getItem("aluno");
+      setStudent(JSON.parse(student || "{}"));
+    }
+  }, []);
+
+  return (
+    <div className="h-screen bg-[#b6d5f0]">
+      <div className="flex flex-col h-screen p-6">
+        <div className="flex justify-between z-10">
+          <BackButton url="niveis/cowboy" color="blue" />
+          <img src="/logo-transparente.png" alt="Logo" className=" z-10 w-[67px] h-[50px]" />
+          <Avatar />
+        </div>
+        <h1 className="text-3xl font-medium text-center text-white mb-10 z-10">Nível 12</h1>
+        <div className="grid grid-cols-4 gap-8 z-10 items-center max-w-[400px] mx-auto">
+          {Array.from({ length: 8 }, (_, index) => (
+            <Link href={`cowboy/jogo`} key={index}>
+              <button
+                onClick={() => changePhaseState(index + 1)}
+                disabled={student?.phase < index + 1 && student.level === 12}
+                className="w-[70px] h-[65px] p-2 rounded-full text-center items-center flex justify-center font-mono"
+                style={{
+                  backgroundColor:
+                    student?.phase - 1 < index + 1 && student.level === 12 ? "#f8fafc" : "#80cd3b",
+                }}
+              >
+                {student?.phase < index + 1 && student.level === 12 ? <LockOutlined /> : index + 1}
+              </button>
+            </Link>
+          ))}
+        </div>
+      </div>
+      <img
+        src="/cowboy-bg-niveis.png"
+        alt="Cowboy de tema de fundo"
+        className="absolute bottom-0 w-full object-cover"
+      />
+    </div>
+  );
+};
+
+export default Cowboy;
