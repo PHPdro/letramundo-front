@@ -11,6 +11,7 @@ import { studentProgress } from "@/api/progress";
 import { useGame } from "@/contexts/GameContext";
 import { SoundOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
+import { getAlimentosImage } from "@/utils/getAlimentosImage";
 
 const Nivel1 = () => {
   const {
@@ -140,7 +141,7 @@ const Nivel1 = () => {
                     </div>
                     <div className="flex justify-center flex-col items-center w-full">
                       <img
-                        src={`/${phases[phase - 1][stage][2].letter}.png`}
+                        src={getAlimentosImage(phases[phase - 1][stage][2].letter)}
                         alt={`${phases[phase - 1][stage][0].letter}${phases[phase - 1][stage][1].letter}`}
                         className="object-cover lg:h-[184px] md:h-[74px] lg:w-[184px] md:w-[60px] z-0 mt-2"
                       />

@@ -29,7 +29,7 @@ export const letters = {
   FIFIEAUVA: { key: 29, letter: "FIFI E A UVA", sound: "/audios/fifi-e-a-uva.mp3" },
   EUVIOFIO: { key: 30, letter: "EU VI O FIO", sound: "/audios/eu-vi-o-fio.mp3" },
   FIFIVIUOFAVO: { key: 31, letter: "FIFI VIU O FAVO", sound: "/audios/fifi-viu-o-favo.mp3" },
-  FUFUVIUAFAVE: { key: 32, letter: "FUFU VIU A FAVE", sound: "/audios/fufu-viu-a-ave.mp3" },
+  FUFUVIUAAVE: { key: 32, letter: "FUFU VIU A AVE", sound: "/audios/fufu-viu-a-ave.mp3" },
 };
 
 const {
@@ -63,7 +63,7 @@ const {
   FIFIEAUVA,
   EUVIOFIO,
   FIFIVIUOFAVO,
-  FUFUVIUAFAVE,
+  FUFUVIUAAVE,
 } = letters;
 
 const phase1 = [
@@ -92,7 +92,7 @@ const phase6 = [[AAVEFOFA], [OOVOFEIO], [AFOFAVIVI]];
 
 const phase7 = [[EVAVIUOFAVO], [IVOEAFAVA], [FIFIEAUVA]];
 
-const phase8 = [[EUVIOFIO], [FIFIVIUOFAVO], [FUFUVIUAFAVE]];
+const phase8 = [[EUVIOFIO], [FIFIVIUOFAVO], [FUFUVIUAAVE]];
 
 export const phases = [phase1, phase2, phase3, phase4, phase5, phase6, phase7, phase8];
 
