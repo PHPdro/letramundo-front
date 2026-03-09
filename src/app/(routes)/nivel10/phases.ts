@@ -24,15 +24,15 @@ export const letters = {
   BEBETO: { key: 23, letter: "BEBETO", sound: "/audios/bebeto.mp3" },
   TEIA: { key: 24, letter: "TEIA", sound: "/audios/teia.mp3" },
   TOMA: { key: 25, letter: "TOMA", sound: "/audios/toma.mp3" },
-  EUAMOBANANA: { key: 26, letter: "EU AMO BANANA", sound: "/audios/eu-amo-banana.mp3" },
-  OLOBOMAU: { key: 27, letter: "O LOBO MAU", sound: "/audios/o-lobo-mau.mp3" },
-  AMENINANABOIA: { key: 28, letter: "A MENINA NA BOIA", sound: "/audios/a-menina-na-boia.mp3" },
-  AJUJUBANOBOLO: { key: 29, letter: "A JUJUBA NO BOLO", sound: "/audios/a-jujuba-no-bolo.mp3" },
-  OBELOMENINONAJANELA: { key: 30, letter: "O BELO MENINO NA JANELA", sound: "/audios/o-belo-menino-na-janela.mp3" },
-  MEUPAIEOBO: { key: 31, letter: "MEU PAI E O BOI", sound: "/audios/meu-pai-e-o-boi.mp3" },
-  MEUPAIAMAJUJUBA: { key: 32, letter: "MEU PAI AMA JUJUBA", sound: "/audios/meu-pai-ama-jujuba.mp3" },
-  OBIFENAPIA: { key: 33, letter: "O BIFE NA PIA", sound: "/audios/o-bife-na-pia.mp3" },
-  AJIBOIAEOLOBO: { key: 34, letter: "A JIBOIA E O LOBO", sound: "/audios/a-jiboia-e-o-lobo.mp3" },
+  BETOEAMOTO: { key: 26, letter: "BETO E A MOTO", sound: "/audios/beto-e-a-moto.mp3" },
+  BEBETONOTIME: { key: 27, letter: "BEBETO NO TIME", sound: "/audios/bebeto-no-time.mp3" },
+  OTATUNOTIJOLO: { key: 28, letter: "O TATU NO TIJOLO", sound: "/audios/o-tatu-no-tijolo.mp3" },
+  ABATATAFEIA: { key: 29, letter: "A BATATA FEIA", sound: "/audios/a-batata-feia.mp3" },
+  AFIFINOBOTE: { key: 30, letter: "A FIFI NO BOTE", sound: "/audios/a-fifi-no-bote.mp3" },
+  MEUPAIEOOAPITO: { key: 31, letter: "MEU PAI E O APITO", sound: "/audios/meu-pai-e-o-apito.mp3" },
+  MEUPAIAMATOMATE: { key: 32, letter: "MEU PAI AMA TOMATE", sound: "/audios/meu-pai-ama-tomate.mp3" },
+  AEVANAAMOTO: { key: 33, letter: "A EVA NA MOTO", sound: "/audios/a-eva-na-moto.mp3" },
+  ATUAMOTOBONITA: { key: 34, letter: "A TUA MOTO BONITA", sound: "/audios/a-tua-moto-bonita.mp3" },
 };
 
 const {
@@ -61,15 +61,15 @@ const {
   BEBETO,
   TEIA,
   TOMA,
-  EUAMOBANANA,
-  OLOBOMAU,
-  AMENINANABOIA,
-  AJUJUBANOBOLO,
-  OBELOMENINONAJANELA,
-  MEUPAIEOBO,
-  MEUPAIAMAJUJUBA,
-  OBIFENAPIA,
-  AJIBOIAEOLOBO,
+  BETOEAMOTO,
+  BEBETONOTIME,
+  OTATUNOTIJOLO,
+  ABATATAFEIA,
+  AFIFINOBOTE,
+  MEUPAIEOOAPITO,
+  MEUPAIAMATOMATE,
+  AEVANAAMOTO,
+  ATUAMOTOBONITA,
 } = letters;
 
 const phase1 = [
@@ -94,28 +94,28 @@ const phase4 = [[BETO], [BATATA], [NATA], [MITO], [MOTO]];
 
 const phase5 = [[TIJOLO], [TOMATE], [BEBETO], [TEIA], [TOMA]];
 
-const phase6 = [[EUAMOBANANA], [OLOBOMAU], [AMENINANABOIA]];
+const phase6 = [[BETOEAMOTO], [BEBETONOTIME], [OTATUNOTIJOLO]];
 
-const phase7 = [[AJUJUBANOBOLO], [OBELOMENINONAJANELA], [MEUPAIEOBO]];
+const phase7 = [[ABATATAFEIA], [AFIFINOBOTE], [MEUPAIEOOAPITO]];
 
-const phase8 = [[MEUPAIAMAJUJUBA], [OBIFENAPIA], [AJIBOIAEOLOBO]];
+const phase8 = [[MEUPAIAMATOMATE], [AEVANAAMOTO], [ATUAMOTOBONITA]];
 
 export const phases = [phase1, phase2, phase3, phase4, phase5, phase6, phase7, phase8];
 
 export const phrases = [
   [
-    ["BANANA", "AMO", "EU"],
-    ["MAU", "LOBO", "O"],
-    ["BOIA", "NA", "MENINA", "A"],
+    ["A", "E", "MOTO", "BETO"],
+    ["NO", "BEBETO", "TIME"],
+    ["TATU", "NO", "O", "TIJOLO"],
   ],
   [
-    ["BOLO", "NO", "JUJUBA", "A"],
-    ["JANELA", "NA", "MENINO", "BELO", "O"],
-    ["BOI", "O", "E", "PAI", "MEU"],
+    ["BATATA", "A", "FEIA"],
+    ["NO", "FIFI", "A", "BOTE"],
+    ["E", "PAI", "APITO", "O", "MEU"],
   ],
   [
-    ["JUJUBA", "AMA", "PAI", "MEU"],
-    ["PIA", "NA", "BIFE", "O"],
-    ["LOBO", "O", "E", "JIBOIA", "A"],
+    ["AMA", "PAI", "TOMATE", "MEU"],
+    ["NA", "EVA", "A", "MOTO"],
+    ["MOTO", "TUA", "A", "BONITA"],
   ],
 ];

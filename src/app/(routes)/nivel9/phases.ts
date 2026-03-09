@@ -104,18 +104,18 @@ export const phases = [phase1, phase2, phase3, phase4, phase5, phase6, phase7, p
 
 export const phrases = [
   [
-    ["BANANA", "AMO", "EU"],
-    ["MAU", "LOBO", "O"],
-    ["BOIA", "NA", "MENINA", "A"],
+    ["AMO", "BANANA", "EU"],
+    ["LOBO", "O", "MAU"],
+    ["NA", "A", "BOIA", "MENINA"],
   ],
   [
-    ["BOLO", "NO", "JUJUBA", "A"],
-    ["JANELA", "NA", "MENINO", "BELO", "O"],
-    ["BOI", "O", "E", "PAI", "MEU"],
+    ["NO", "JUJUBA", "A", "BOLO"],
+    ["MENINO", "O", "JANELA", "NA", "BELO"],
+    ["PAI", "BOI", "MEU", "O", "E"],
   ],
   [
-    ["JUJUBA", "AMA", "PAI", "MEU"],
-    ["PIA", "NA", "BIFE", "O"],
-    ["LOBO", "O", "E", "JIBOIA", "A"],
+    ["AMA", "MEU", "JUJUBA", "PAI"],
+    ["BIFE", "NA", "O", "PIA"],
+    ["E", "JIBOIA", "LOBO", "A", "O"],
   ],
 ];
