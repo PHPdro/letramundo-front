@@ -179,7 +179,7 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           const currentWord = phases[phase - 1][count][2];
           setCurrentVowel(currentWord);
           setStage(count);
-          setProgress((prev) => prev + 20);
+          setProgress((prev) => prev + 100 / phases[phase - 1].length);
           if (audioRef.current) {
             audioRef.current.src = currentWord.sound;
             audioRef.current.load();
