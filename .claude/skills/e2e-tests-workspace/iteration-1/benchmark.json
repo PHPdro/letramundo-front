@@ -1,0 +1,43 @@
+{
+  "metadata": {
+    "skill_name": "e2e-tests",
+    "skill_path": "/Users/alanrolim/Documents/job/letramundo-front/.claude/skills/e2e-tests",
+    "executor_model": "claude-opus-4-6",
+    "analyzer_model": "claude-opus-4-6",
+    "timestamp": "2026-03-12T01:10:00Z",
+    "evals_run": ["game-play-level1", "auth-redirect-debug", "word-completion-progress"],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_name": "game-play-level1",
+      "with_skill": { "pass_rate": 1.0, "passed": 7, "total": 7, "tokens": 26516, "duration_seconds": 76.1 },
+      "without_skill": { "pass_rate": 0.857, "passed": 6, "total": 7, "tokens": 23468, "duration_seconds": 69.8 }
+    },
+    {
+      "eval_name": "auth-redirect-debug",
+      "with_skill": { "pass_rate": 1.0, "passed": 4, "total": 4, "tokens": 19938, "duration_seconds": 103.5 },
+      "without_skill": { "pass_rate": 1.0, "passed": 4, "total": 4, "tokens": 19381, "duration_seconds": 70.7 }
+    },
+    {
+      "eval_name": "word-completion-progress",
+      "with_skill": { "pass_rate": 1.0, "passed": 5, "total": 5, "tokens": 28107, "duration_seconds": 95.7 },
+      "without_skill": { "pass_rate": 1.0, "passed": 5, "total": 5, "tokens": 24196, "duration_seconds": 82.4 }
+    }
+  ],
+  "run_summary": {
+    "with_skill": { "mean_pass_rate": 1.0, "mean_tokens": 24854, "mean_duration": 91.8 },
+    "without_skill": { "mean_pass_rate": 0.952, "mean_tokens": 22348, "mean_duration": 74.3 },
+    "delta": {
+      "pass_rate": "+0.048",
+      "time_seconds": "+17.5",
+      "tokens": "+2506"
+    }
+  },
+  "notes": [
+    "The skill achieved 100% pass rate vs 95.2% without. The key win was the audio stub guidance — missed by the baseline in eval 1.",
+    "Auth-redirect debugging was equally good with and without skill — this scenario may be too straightforward.",
+    "Word-completion tests were equally thorough in both — different coding styles but same quality.",
+    "With-skill runs used ~11% more tokens and ~23% more time due to reading SKILL.md."
+  ]
+}

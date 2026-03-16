@@ -1,0 +1,12 @@
+{
+  "eval_id": 3,
+  "eval_name": "word-completion-progress",
+  "prompt": "Create E2E tests that verify a student can complete phases 8-10 word completion and progress is saved",
+  "assertions": [
+    {"text": "Test file has a describe() block", "type": "content"},
+    {"text": "Tests clicking individual letters to spell a word", "type": "content"},
+    {"text": "Asserts that the progress API was called (cy.wait or intercept check)", "type": "content"},
+    {"text": "Uses cy.intercept() for API mocking", "type": "content"},
+    {"text": "Tests are specifically about phases 8-10 (not generic)", "type": "content"}
+  ]
+}

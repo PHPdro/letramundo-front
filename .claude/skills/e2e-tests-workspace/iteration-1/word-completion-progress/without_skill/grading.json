@@ -1,0 +1,32 @@
+{
+  "eval_id": 3,
+  "eval_name": "word-completion-progress",
+  "configuration": "without_skill",
+  "expectations": [
+    {
+      "text": "Test file has a describe() block",
+      "passed": true,
+      "evidence": "describe('Phases 8-10: Word Completion and Progress Saving', () => {"
+    },
+    {
+      "text": "Tests clicking individual letters to spell a word",
+      "passed": true,
+      "evidence": "spellWord() helper splits word into letters and clicks each: cy.contains('button', letter).click(); Used to spell OI, UI, OU, EI, AU, EU, AI, UAU, UAI."
+    },
+    {
+      "text": "Asserts that the progress API was called (cy.wait or intercept check)",
+      "passed": true,
+      "evidence": "cy.wait('@saveProgressPhase8').then((interception) => { expect(interception.request.url).to.include(...); expect(interception.request.method).to.equal('PUT'); }); used across phases 8, 9, and 10."
+    },
+    {
+      "text": "Uses cy.intercept() for API mocking",
+      "passed": true,
+      "evidence": "interceptProgressApi() helper calls cy.intercept('PUT', `${API_BASE}/students/${mockStudent.id}/progress`, {...}).as(alias); used in each phase's beforeEach."
+    },
+    {
+      "text": "Tests are specifically about phases 8-10 (not generic)",
+      "passed": true,
+      "evidence": "Separate describe blocks for 'Phase 8 - Two-letter word completion (OI, UI, OU)', 'Phase 9 - Two-letter word completion (EI, AU, EU)', and 'Phase 10 - Multi-letter word completion (AI, UAU, UAI)' with phase-specific student data."
+    }
+  ]
+}

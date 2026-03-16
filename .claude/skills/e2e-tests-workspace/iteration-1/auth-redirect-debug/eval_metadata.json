@@ -1,0 +1,11 @@
+{
+  "eval_id": 2,
+  "eval_name": "auth-redirect-debug",
+  "prompt": "My Cypress test keeps failing because the page redirects to login before it loads. How do I fix it?",
+  "assertions": [
+    {"text": "Explains that the auth token must be stored in localStorage", "type": "content"},
+    {"text": "Explains that localStorage must be set BEFORE cy.visit()", "type": "content"},
+    {"text": "Includes a code snippet showing the fix", "type": "content"},
+    {"text": "References the 'auth' localStorage key specifically", "type": "content"}
+  ]
+}

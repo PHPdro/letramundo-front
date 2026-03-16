@@ -1,0 +1,23 @@
+{
+  "skill_name": "e2e-tests",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a Cypress test for the game play flow on level 1 with the animais theme",
+      "expected_output": "A complete Cypress spec file testing game play on nivel1/animais with API mocks, localStorage setup, audio stubs, and game interaction assertions",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "My Cypress test keeps failing because the page redirects to login before it loads. How do I fix it?",
+      "expected_output": "Debugging guidance explaining that localStorage auth token must be set before cy.visit(), with a code example showing the fix",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Create E2E tests that verify a student can complete phases 8-10 word completion and progress is saved",
+      "expected_output": "Cypress spec file testing word completion phases with letter clicking, slot filling, confetti verification, and progress API assertion",
+      "files": []
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "eval_id": 1,
+  "eval_name": "game-play-level1",
+  "configuration": "without_skill",
+  "expectations": [
+    {
+      "text": "Test file has a describe() block with a meaningful name",
+      "passed": true,
+      "evidence": "describe('Level 1 - Animais Theme - Game Play Flow', () => {"
+    },
+    {
+      "text": "Uses cy.intercept() to mock API calls",
+      "passed": true,
+      "evidence": "cy.intercept('PUT', `${API_BASE}/students/*/progress`, {...}).as('saveProgress'); in beforeEach"
+    },
+    {
+      "text": "Sets localStorage auth token before visiting the page",
+      "passed": true,
+      "evidence": "win.localStorage.setItem('auth', FAKE_TOKEN); in beforeEach before cy.visit()"
+    },
+    {
+      "text": "Sets localStorage student data (aluno) before visiting",
+      "passed": true,
+      "evidence": "win.localStorage.setItem('aluno', JSON.stringify(FAKE_STUDENT)); in beforeEach before cy.visit()"
+    },
+    {
+      "text": "Stubs HTMLMediaElement.prototype.play to avoid autoplay errors",
+      "passed": false,
+      "evidence": "No stub for HTMLMediaElement.prototype.play found anywhere in the test file. Audio play is not stubbed."
+    },
+    {
+      "text": "Clicks a play/start button to begin the game",
+      "passed": true,
+      "evidence": "cy.get('img[alt=\"play\"]').click(); used in multiple tests"
+    },
+    {
+      "text": "Visits or asserts URL containing /nivel1/animais/jogo",
+      "passed": true,
+      "evidence": "cy.visit('/nivel1/animais/jogo'); used in multiple tests"
+    }
+  ]
+}

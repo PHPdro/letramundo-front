@@ -1,0 +1,42 @@
+{
+  "eval_id": 1,
+  "eval_name": "game-play-level1",
+  "configuration": "with_skill",
+  "expectations": [
+    {
+      "text": "Test file has a describe() block with a meaningful name",
+      "passed": true,
+      "evidence": "describe('Level 1 - Animais Theme - Game Play', () => {"
+    },
+    {
+      "text": "Uses cy.intercept() to mock API calls",
+      "passed": true,
+      "evidence": "cy.intercept('GET', '**/api/students', {...}).as('getStudents') and cy.intercept('PUT', '**/api/students/*/progress', {...}).as('updateProgress')"
+    },
+    {
+      "text": "Sets localStorage auth token before visiting the page",
+      "passed": true,
+      "evidence": "win.localStorage.setItem('auth', JSON.stringify({ token: 'fake-jwt-token' })); in beforeEach before cy.visit()"
+    },
+    {
+      "text": "Sets localStorage student data (aluno) before visiting",
+      "passed": true,
+      "evidence": "win.localStorage.setItem('aluno', JSON.stringify(mockStudent)); in beforeEach before cy.visit()"
+    },
+    {
+      "text": "Stubs HTMLMediaElement.prototype.play to avoid autoplay errors",
+      "passed": true,
+      "evidence": "cy.stub(win.HTMLMediaElement.prototype, 'play').resolves(); in beforeEach"
+    },
+    {
+      "text": "Clicks a play/start button to begin the game",
+      "passed": true,
+      "evidence": "cy.get('img[alt=\"play\"]').click(); used in multiple tests to start the game"
+    },
+    {
+      "text": "Visits or asserts URL containing /nivel1/animais/jogo",
+      "passed": true,
+      "evidence": "cy.visit('/nivel1/animais/jogo'); used in multiple beforeEach blocks"
+    }
+  ]
+}

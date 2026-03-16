@@ -1,0 +1,27 @@
+{
+  "eval_id": 2,
+  "eval_name": "auth-redirect-debug",
+  "configuration": "without_skill",
+  "expectations": [
+    {
+      "text": "Explains that the auth token must be stored in localStorage",
+      "passed": true,
+      "evidence": "Root Cause section explains: 'useAuth.ts runs a useEffect that checks localStorage.getItem(\"auth\"). If the key is missing or falsy, it calls router.push(\"/login\").' and fix section shows storing auth in localStorage."
+    },
+    {
+      "text": "Explains that localStorage must be set BEFORE cy.visit()",
+      "passed": true,
+      "evidence": "Section heading '1. Set localStorage BEFORE visiting the page' with onBeforeLoad pattern, and checklist item 'Using cy.visit() with onBeforeLoad to set localStorage'."
+    },
+    {
+      "text": "Includes a code snippet showing the fix",
+      "passed": true,
+      "evidence": "Multiple TypeScript code blocks including a 'Complete Working Example' with full beforeEach setup."
+    },
+    {
+      "text": "References the 'auth' localStorage key specifically",
+      "passed": true,
+      "evidence": "Multiple references: win.localStorage.setItem('auth', 'fake-jwt-token') and 'checks localStorage.getItem(\"auth\")' in Root Cause."
+    }
+  ]
+}

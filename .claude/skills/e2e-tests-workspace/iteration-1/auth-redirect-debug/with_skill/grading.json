@@ -1,0 +1,27 @@
+{
+  "eval_id": 2,
+  "eval_name": "auth-redirect-debug",
+  "configuration": "with_skill",
+  "expectations": [
+    {
+      "text": "Explains that the auth token must be stored in localStorage",
+      "passed": true,
+      "evidence": "Section 'Root Cause' explains: 'The useAuth() hook redirects if localStorage has no \"auth\" key' and section 'The Fix' details storing the auth token in localStorage."
+    },
+    {
+      "text": "Explains that localStorage must be set BEFORE cy.visit()",
+      "passed": true,
+      "evidence": "Section heading '1. Set localStorage BEFORE visiting the page' and usage of onBeforeLoad callback to set values before React hydrates."
+    },
+    {
+      "text": "Includes a code snippet showing the fix",
+      "passed": true,
+      "evidence": "Multiple TypeScript code blocks are included showing the fix, including a 'Complete Working Example' section with a full beforeEach block."
+    },
+    {
+      "text": "References the 'auth' localStorage key specifically",
+      "passed": true,
+      "evidence": "Multiple references: win.localStorage.setItem('auth', JSON.stringify('fake-jwt-token')) and table row mentioning '\"auth\" key missing from localStorage'."
+    }
+  ]
+}
