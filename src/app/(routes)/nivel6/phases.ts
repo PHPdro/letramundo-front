@@ -105,12 +105,12 @@ export const phases = [phase1, phase2, phase3, phase4, phase5, phase6, phase7, p
 
 export const phrases = [
   [
-    ["NOME", "MEU", "O"],
+    ["MEU", "NOME", "O"],
     ["NOVO", "MEU", "FONE"],
     ["NOVELA", "A", "NOVA"],
   ],
   [
-    ["NAVE", "NA", "MENINO", "O"],
+    ["MENINO", "NA", "NAVE", "O"],
     ["A", "FINO", "FALA", "MENINA"],
     ["FONE", "O", "LEVOU", "FIFI"],
   ],
