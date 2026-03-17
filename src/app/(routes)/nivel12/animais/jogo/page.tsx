@@ -37,7 +37,7 @@ const Nivel12Animais = () => {
     handleClickWord,
     getStudentFromLocalStorage,
   } = useLevelTwo();
-  const hardVowels = ["C", "U", "B", "E", "O", "A", "M", "I", "N", "L", "J", "F", "D", "T"];
+  const hardVowels = ["I", "U", "B", "E", "O", "A", "M", "C", "N", "L", "J", "F", "D", "T"];
   const router = useRouter();
   const mutation = useMutation({
     mutationFn: studentProgress,
@@ -149,7 +149,7 @@ const Nivel12Animais = () => {
                     </div>
                   </div>
                   <div
-                    className={`flex justify-center items-center align-middle lg:px-32 md:px-8 mt-10 gap-14`}
+                    className={`flex justify-center items-center align-middle lg:px-32 md:px-8 mt-10 gap-7`}
                   >
                     {phase < 6
                       ? hardVowels.map((vowel, index) => (

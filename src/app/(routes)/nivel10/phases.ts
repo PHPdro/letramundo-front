@@ -17,7 +17,7 @@ export const letters = {
   BETO: { key: 16, letter: "BETO", sound: "/audios/beto.mp3" },
   BATATA: { key: 17, letter: "BATATA", sound: "/audios/batata.mp3" },
   NATA: { key: 18, letter: "NATA", sound: "/audios/nata.mp3" },
-  MITO: { key: 19, letter: "MITO", sound: "/audios/mito.mp3" },
+  BONITO: { key: 19, letter: "BONITO", sound: "/audios/bonito.mp3" },
   MOTO: { key: 20, letter: "MOTO", sound: "/audios/moto.mp3" },
   TIJOLO: { key: 21, letter: "TIJOLO", sound: "/audios/tijolo.mp3" },
   TOMATE: { key: 22, letter: "TOMATE", sound: "/audios/tomate.mp3" },
@@ -54,7 +54,7 @@ const {
   BETO,
   BATATA,
   NATA,
-  MITO,
+  BONITO,
   MOTO,
   TIJOLO,
   TOMATE,
@@ -90,7 +90,7 @@ const phase2 = [
 
 const phase3 = [[TUA], [TATU], [BOTE], [APITO], [TIME]];
 
-const phase4 = [[BETO], [BATATA], [NATA], [MITO], [MOTO]];
+const phase4 = [[BETO], [BATATA], [NATA], [BONITO], [MOTO]];
 
 const phase5 = [[TIJOLO], [TOMATE], [BEBETO], [TEIA], [TOMA]];
 

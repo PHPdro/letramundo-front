@@ -37,7 +37,7 @@ const Nivel11Animais = () => {
     handleClickWord,
     getStudentFromLocalStorage,
   } = useLevelTwo();
-  const hardVowels = ["D", "I", "A", "E", "U", "O", "B", "L", "N", "M", "T"];
+  const hardVowels = ["D", "I", "A", "E", "V", "O", "B", "L", "N", "M", "T"];
   const router = useRouter();
   const mutation = useMutation({
     mutationFn: studentProgress,

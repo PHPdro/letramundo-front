@@ -37,7 +37,7 @@ const Nivel10Praia = () => {
     handleClickWord,
     getStudentFromLocalStorage,
   } = useLevelTwo();
-  const hardVowels = ["T", "A", "U", "B", "O", "E", "P", "I", "M", "N", "J"];
+  const hardVowels = ["T", "A", "U", "B", "O", "E", "P", "I", "M", "L", "J"];
   const router = useRouter();
   const mutation = useMutation({
     mutationFn: studentProgress,
