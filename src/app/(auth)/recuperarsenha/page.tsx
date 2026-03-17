@@ -15,10 +15,10 @@ const PasswordRecovery = () => {
   return (
     <div>
       <div className="flex justify-end">
-        <div className="bg-[#f4a460] h-32 w-32 rounded-bl-full" />
+        <div className="bg-[#f4a460] h-16 w-16 md:h-32 md:w-32 rounded-bl-full" />
       </div>
-      <div className="flex align-middle justify-center lg:flex-row sm:flex-col md:flex-col container mx-auto mt-10 sm:px-6 lg:px-8">
-        <div className="lg:block sm:hidden md:hidden relative flex flex-col w-[50%]">
+      <div className="flex align-middle justify-center flex-col lg:flex-row container mx-auto mt-10 px-4 sm:px-6 lg:px-8">
+        <div className="hidden lg:block relative flex flex-col w-[50%]">
           <div className="absolute bottom-6 z-10">
             <Image alt="criança se questionando" src="/criança_duvida.svg" width={173} height={271} />
           </div>
@@ -35,7 +35,7 @@ const PasswordRecovery = () => {
             <Image alt="tapete" src="/tapete.svg" width={482} height={90} />
           </div>
         </div>
-        <div className="p-12 lg:w-[40%] sm:w-full md:w-full">
+        <div className="p-12 lg:w-[40%] w-full">
           <h2 className="text-[32px] font-bold mb-9">Esqueceu sua senha?</h2>
           <Form
             name="basic"

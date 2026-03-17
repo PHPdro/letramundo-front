@@ -34,7 +34,69 @@ export const CustomTable = ({ data }: CustomTableProps) => {
 
   return (
     <div>
-      <table className="min-w-full border-separate border-spacing-4">
+      {/* Mobile card view */}
+      <div className="md:hidden flex flex-col gap-4">
+        {data?.map((aluno: any, index: number) => (
+          <div key={index} className="bg-[#fbe5a5] rounded-lg p-4 flex flex-col gap-3">
+            <div className="flex items-center gap-3">
+              <Image
+                src="/avatar.png"
+                alt="Avatar"
+                width={27}
+                height={27}
+                className="w-[27px] h-[27px] rounded-full object-cover"
+              />
+              <span className="font-semibold text-sm">{aluno.name}</span>
+            </div>
+            <div className="flex gap-4 text-sm text-gray-700">
+              <span>Nível: {aluno.level}</span>
+              <span>Turma: {aluno.year}º {aluno.class.toLocaleUpperCase()}</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <Link
+                href={`niveis/${aluno.theme.toLocaleLowerCase()}`}
+                onClick={() => localStorage.setItem("aluno", JSON.stringify(aluno))}
+              >
+                <Image
+                  src="/play.svg"
+                  alt="Botão de começar jogo"
+                  width={30}
+                  height={30}
+                  className="w-[30px] h-[30px] rounded-full object-cover"
+                />
+              </Link>
+              <Link
+                href={"/editar"}
+                onClick={() => {
+                  localStorage.setItem("aluno", JSON.stringify(aluno));
+                  setEditStudent(aluno);
+                }}
+              >
+                <Image
+                  src="/edit.png"
+                  alt="Botão de editar"
+                  width={22}
+                  height={22}
+                  className="w-[22px] h-[22px]"
+                />
+              </Link>
+              <Popconfirm
+                title="Tem certeza que deseja excluir este aluno?"
+                onConfirm={() => {
+                  mutationDelete.mutate(aluno.id);
+                }}
+                okText="Sim"
+                cancelText="Não"
+                placement="left"
+              >
+                <DeleteOutlined style={{ fontSize: 22 }} />
+              </Popconfirm>
+            </div>
+          </div>
+        ))}
+      </div>
+      {/* Desktop table view */}
+      <table className="hidden md:table min-w-full border-separate border-spacing-4">
         <thead className="bg-white">
           <tr>
             <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">

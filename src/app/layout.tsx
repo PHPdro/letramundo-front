@@ -1,10 +1,17 @@
 'use client";';
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { ConfigProvider } from "antd";
 
 const inter = Inter({ subsets: ["latin"] });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export const metadata: Metadata = {
   title: "LetraMundo",
   description: "Aprender é para todos! Acreditamos no poder da educação inclusiva para transformar vidas.",
