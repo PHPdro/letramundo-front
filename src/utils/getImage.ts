@@ -1,4 +1,4 @@
-const ANIMAIS_IMAGES = new Set([
+const LARGE_SET = new Set([
   "AI",
   "AMA",
   "AU",
@@ -62,6 +62,6 @@ const ANIMAIS_IMAGES = new Set([
   "EU COMI COCADA",
 ]);
 
-export const getAnimaisImage = (letter: string) => {
-  return ANIMAIS_IMAGES.has(letter) ? `/animais/${letter}.png` : `/${letter}.png`;
+export const getImage = (theme: string, letter: string) => {
+  return LARGE_SET.has(letter) ? `/${theme}/${letter}.png` : `/${letter}.png`;
 };

@@ -11,7 +11,7 @@ import Image from "next/image";
 import Confetti from "react-confetti";
 import { SoundOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
-import { getAlimentosImage } from "@/utils/getAlimentosImage";
+import { getImage } from "@/utils/getImage";
 
 const Nivel2 = () => {
   const router = useRouter();
@@ -137,7 +137,7 @@ const Nivel2 = () => {
                     </div>
                     <div className="flex justify-center flex-col items-center w-full">
                       <img
-                        src={getAlimentosImage(phases[phase - 1][stage][0].letter)}
+                        src={getImage("alimentos", phases[phase - 1][stage][0].letter)}
                         alt={`${phases[phase - 1][stage][0].letter}`}
                         className="lg:h-[194px] md:h-[74px] lg:w-[194px] md:w-[60px] z-0 mt-2"
                       />
