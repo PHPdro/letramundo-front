@@ -25,7 +25,7 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 100vh;
+  min-height: 100dvh;
   width: 100%;
 }
 
@@ -34,7 +34,7 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 100vh;
+  min-height: 100dvh;
   width: 100%;
 }
 
@@ -43,7 +43,7 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 100vh;
+  min-height: 100dvh;
   width: 100%;
 }
 
@@ -52,6 +52,42 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+}
+
+.bgAlimentosNiveis {
+  background-image: url('/alimentos-bg-niveis.png');
+  background-size: cover;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  height: 100dvh;
+  width: 100%;
+}
+
+.bgAnimaisNiveis {
+  background-image: url('/animais-bg-niveis.png');
+  background-size: cover;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  height: 100dvh;
+  width: 100%;
+}
+
+.bgCowBoyNiveis {
+  background-image: url('/cowboy-bg-niveis.png');
+  background-size: cover;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  height: 100dvh;
+  width: 100%;
+}
+
+.bgPraiaNiveis {
+  background-image: url('/praia-bg-niveis.png');
+  background-size: cover;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  height: 100dvh;
   width: 100%;
 }

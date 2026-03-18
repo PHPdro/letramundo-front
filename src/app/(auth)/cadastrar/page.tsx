@@ -32,10 +32,10 @@ const SignUp = () => {
   return (
     <div>
       <div className="flex justify-end">
-        <div className="bg-[#f4a460] h-32 w-32 rounded-bl-full" />
+        <div className="bg-[#f4a460] h-16 w-16 md:h-32 md:w-32 rounded-bl-full" />
       </div>
-      <div className="flex flex-row justify-between container mx-auto sm:px-6 lg:px-8">
-        <div>
+      <div className="flex flex-col md:flex-row justify-between container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="hidden md:block">
           <Image alt="logo" src="/LetraMundo.png" width={200} height={200} />
           <h2 className="mt-12 text-[33px] font-semibold">Aprender é para todos!</h2>
           <h3 className="mt-4 mb-8 text-[20px] font-light max-w-[28rem]">
@@ -59,7 +59,7 @@ const SignUp = () => {
             </li>
           </ul>
         </div>
-        <div className="p-8 flex flex-col justify-center w-[400px] border border-primary rounded-xl">
+        <div className="p-8 flex flex-col justify-center w-full max-w-[400px] mx-auto md:mx-0 border border-primary rounded-xl">
           <h2 className="text-[22px] font-bold mb-8">Cadastrar</h2>
           <Form
             name="basic"

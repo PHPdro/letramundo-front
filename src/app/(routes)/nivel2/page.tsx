@@ -42,7 +42,7 @@ const Nivel2 = () => {
     }
   }, [start]);
   return (
-    <div className="h-screen bg-[#b6d5f0]">
+    <div className="min-h-screen bg-[#b6d5f0]">
       <audio ref={audioRef}>
         <source src="/audios/a.m4a" type="audio/mpeg" />
       </audio>
@@ -67,7 +67,7 @@ const Nivel2 = () => {
       <div className="flex justify-center items-center w-full">
         {start ? (
           <div>
-            <Progress percent={progress} showInfo={false} size={[400, 20]} />
+            <div className="w-full max-w-[400px] mx-auto"><Progress percent={progress} showInfo={false} /></div>
           </div>
         ) : (
           <Image
@@ -80,11 +80,11 @@ const Nivel2 = () => {
           />
         )}
       </div>
-      <div className="absolute right-64 top-72 flex flex-col justify-center align-middle gap-8 z-10 items-end">
-        <button className="flex justify-center items-center bg-white p-11 rounded-full w-[110px] h-[110px] text-center font-medium text-2xl">
+      <div className="md:absolute md:right-64 md:top-72 flex flex-col justify-center align-middle gap-8 z-10 items-center md:items-end">
+        <button className="flex justify-center items-center bg-white p-6 sm:p-8 md:p-11 rounded-full w-[110px] h-[110px] text-center font-medium text-2xl">
           VA
         </button>
-        <button className="flex justify-center items-center bg-white p-11 rounded-full w-[110px] h-[110px] text-center font-medium text-2xl">
+        <button className="flex justify-center items-center bg-white p-6 sm:p-8 md:p-11 rounded-full w-[110px] h-[110px] text-center font-medium text-2xl">
           VO
         </button>
       </div>
