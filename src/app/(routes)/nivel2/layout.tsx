@@ -7,7 +7,7 @@ import { Spin } from "antd";
 import { PropsWithChildren } from "react";
 
 export default function Nivel2Layout({ children }: PropsWithChildren) {
-  const isAuthenticated = useAuth();
+  const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
     return <Spin />;

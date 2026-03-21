@@ -13,7 +13,7 @@ describe('useAuth', () => {
     const { result } = renderHook(() => useAuth())
 
     await waitFor(() => {
-      expect(result.current).toBe(true)
+      expect(result.current.isAuthenticated).toBe(true)
     })
     expect(mockPush).not.toHaveBeenCalled()
   })
@@ -22,7 +22,7 @@ describe('useAuth', () => {
     const { result } = renderHook(() => useAuth())
 
     await waitFor(() => {
-      expect(result.current).toBe(false)
+      expect(result.current.isAuthenticated).toBe(false)
     })
     expect(mockPush).toHaveBeenCalledWith('/login')
   })
@@ -32,7 +32,7 @@ describe('useAuth', () => {
     const { result } = renderHook(() => useAuth())
 
     await waitFor(() => {
-      expect(result.current).toBe(false)
+      expect(result.current.isAuthenticated).toBe(false)
     })
     expect(mockPush).toHaveBeenCalledWith('/login')
   })

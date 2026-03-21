@@ -2,10 +2,12 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Drawer } from "antd";
-import { MenuOutlined } from "@ant-design/icons";
+import { MenuOutlined, LogoutOutlined } from "@ant-design/icons";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 export const NavBar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const { logout } = useAuth();
 
   return (
     <nav className="bg-white">
@@ -33,6 +35,13 @@ export const NavBar = () => {
             <span className="hidden md:inline text-gray-700 px-3 py-2 rounded-md text-base font-medium">
               Professor
             </span>
+            <button
+              className="hidden md:inline-flex items-center gap-1 text-gray-700 hover:text-gray-900 px-3 py-2 text-base font-medium"
+              onClick={logout}
+            >
+              <LogoutOutlined />
+              Sair
+            </button>
             <button className="md:hidden p-2 text-gray-700" onClick={() => setDrawerOpen(true)}>
               <MenuOutlined style={{ fontSize: 24 }} />
             </button>
@@ -46,6 +55,14 @@ export const NavBar = () => {
           </a>
           <hr />
           <span className="text-gray-700 text-base font-medium">Professor</span>
+          <hr />
+          <button
+            className="flex items-center gap-2 text-gray-700 hover:text-gray-900 text-base font-medium"
+            onClick={logout}
+          >
+            <LogoutOutlined />
+            Sair
+          </button>
         </div>
       </Drawer>
     </nav>

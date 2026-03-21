@@ -29,7 +29,7 @@ function getMusicSrc(pathname: string): string {
 }
 
 export default function RoutesLayout({ children }: PropsWithChildren) {
-  const isAuthenticated = useAuth();
+  const { isAuthenticated } = useAuth();
   const pathname = usePathname();
   const bgMusicRef = useRef<HTMLAudioElement | null>(null);
   const [isMuted, setIsMuted] = useState(false);

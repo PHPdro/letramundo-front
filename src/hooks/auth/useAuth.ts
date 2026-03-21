@@ -15,5 +15,11 @@ export function useAuth() {
     }
   }, [router]);
 
-  return isAuthenticated;
+  const logout = () => {
+    localStorage.removeItem("auth");
+    localStorage.removeItem("aluno");
+    router.push("/login");
+  };
+
+  return { isAuthenticated, logout };
 }
