@@ -17,9 +17,6 @@ type GameContextType = {
   setIsCorrect: React.Dispatch<React.SetStateAction<boolean>>;
   currentVowel: Vowel;
   setCurrentVowel: React.Dispatch<React.SetStateAction<Vowel>>;
-  firstLetter: string;
-  secondLetter: string;
-  thirdLetter: string;
   firstLetterCorrect: boolean;
   setFirstLetterCorrect: React.Dispatch<React.SetStateAction<boolean>>;
   secondLetterCorrect: boolean;
@@ -59,9 +56,6 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [progress, setProgress] = useState(0);
   const [isCorrect, setIsCorrect] = useState(false);
   const [currentVowel, setCurrentVowel] = useState<Vowel>({} as Vowel);
-  const [firstLetter, setFirstLetter] = useState("");
-  const [secondLetter, setSecondLetter] = useState("");
-  const [thirdLetter, setThirdLetter] = useState("");
   const [firstLetterCorrect, setFirstLetterCorrect] = useState(false);
   const [secondLetterCorrect, setSecondLetterCorrect] = useState(false);
   const [thirdLetterCorrect, setThirdLetterCorrect] = useState(false);
@@ -248,9 +242,6 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setCurrentVowel,
         hardPhase,
         setHardPhase,
-        firstLetter,
-        secondLetter,
-        thirdLetter,
         firstLetterCorrect,
         setFirstLetterCorrect,
         secondLetterCorrect,

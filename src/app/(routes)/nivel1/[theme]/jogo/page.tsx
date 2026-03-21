@@ -124,7 +124,9 @@ const Nivel1 = ({ params }: { params: { theme: string } }) => {
             <p className="text-center mb-2 text-xl font-bold">Nível 1 - Fase {phase}</p>
             {phase < 8 ? (
               <>
-                <div className="w-full max-w-[400px] mx-auto"><Progress percent={progress} showInfo={false} /></div>
+                <div className="w-full max-w-[400px] mx-auto">
+                  <Progress percent={progress} showInfo={false} />
+                </div>
                 <div className="md:absolute md:left-20 md:top-96 lg:left-64 lg:top-72 flex flex-col justify-center align-middle gap-12 z-10 items-start">
                   {phases[phase - 1][stage].map((vowel) => (
                     <button
@@ -142,7 +144,9 @@ const Nivel1 = ({ params }: { params: { theme: string } }) => {
                 <div>
                   <div className="flex flex-col justify-center items-center w-full">
                     <div>
-                      <div className="w-full max-w-[400px] mx-auto"><Progress percent={progress} showInfo={false} /></div>
+                      <div className="w-full max-w-[400px] mx-auto">
+                        <Progress percent={progress} showInfo={false} />
+                      </div>
                     </div>
                     <div className="flex justify-center flex-col items-center w-full">
                       <img

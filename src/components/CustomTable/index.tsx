@@ -50,7 +50,9 @@ export const CustomTable = ({ data }: CustomTableProps) => {
             </div>
             <div className="flex gap-4 text-sm text-gray-700">
               <span>Nível: {aluno.level}</span>
-              <span>Turma: {aluno.year}º {aluno.class.toLocaleUpperCase()}</span>
+              <span>
+                Turma: {aluno.year}º {aluno.class.toLocaleUpperCase()}
+              </span>
             </div>
             <div className="flex items-center gap-3">
               <Link
@@ -132,7 +134,6 @@ export const CustomTable = ({ data }: CustomTableProps) => {
           {data?.map((aluno: any, index: number) => (
             <tr key={index}>
               <td>
-                {/* TODO: fazer dinamico */}
                 <Link
                   href={`niveis/${aluno.theme.toLocaleLowerCase()}`}
                   onClick={() => localStorage.setItem("aluno", JSON.stringify(aluno))}
