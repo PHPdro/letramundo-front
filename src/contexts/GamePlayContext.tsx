@@ -28,7 +28,6 @@ type GamePlayContextType = {
   handleClickLetter: (letter: string, handleRequest: () => void) => void;
   handleClick: (vowel: Vowel, handleRequest: () => void) => void;
   getStudentFromLocalStorage: () => void;
-  hardVowels: string[];
   handleClickWord: (selectedWord: string, handleRequest: () => void) => void;
   changePhaseState: (index: number) => void;
 };
@@ -55,7 +54,6 @@ export const GamePlayProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [student, setStudent] = useState<any>(null);
   const [hardPhase, setHardPhase] = useState(0);
   const [expectedSequence, setExpectedSequence] = useState<string[]>([]);
-  const hardVowels = ["V", "A", "U", "O", "E", "I"];
   const [phases, setPhases] = useState<any>();
   const correctSound = "/audios/correto.mp3";
   const failSound = "/audios/errado.mp3";
@@ -262,7 +260,6 @@ export const GamePlayProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         handleStart,
         handleClickLetter,
         handleClick,
-        hardVowels,
         getStudentFromLocalStorage,
         handleClickWord,
         changePhaseState,

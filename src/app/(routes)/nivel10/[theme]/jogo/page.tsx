@@ -42,7 +42,7 @@ const Nivel10 = ({ params }: { params: { theme: string } }) => {
     handleClickWord,
     getStudentFromLocalStorage,
   } = useGamePlay();
-  const hardVowels = ["T", "A", "U", "B", "O", "E", "P", "I", "M", "L", "J"];
+  const letters = ["T", "A", "U", "B", "O", "E", "P", "I", "M", "L", "J"];
   const router = useRouter();
   const mutation = useMutation({
     mutationFn: studentProgress,
@@ -159,7 +159,7 @@ const Nivel10 = ({ params }: { params: { theme: string } }) => {
                     className={`flex flex-wrap justify-center items-center align-middle px-4 md:px-8 lg:px-32 mt-10 gap-4 sm:gap-8 md:gap-14`}
                   >
                     {phase < 6
-                      ? hardVowels.map((vowel, index) => (
+                      ? letters.map((vowel, index) => (
                           <div key={index}>
                             <button
                               className="bg-[#e94d39] rounded-sm p-3 sm:p-4 md:p-5 lg:p-7 text-white font-medium text-xl"
