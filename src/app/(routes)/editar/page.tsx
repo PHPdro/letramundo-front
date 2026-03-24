@@ -33,6 +33,7 @@ const EditStudent = () => {
       name: values.name,
       year: values.year,
       class: values.class,
+      level: values.level,
       theme_id: values.theme_id,
     });
   };
@@ -46,6 +47,7 @@ const EditStudent = () => {
           name: JSON.parse(student).name,
           year: JSON.parse(student).year,
           class: JSON.parse(student).class,
+          level: JSON.parse(student).level,
           theme_id: JSON.parse(student).theme_id,
         });
       }
@@ -69,6 +71,7 @@ const EditStudent = () => {
                 name: editStudent?.name || "",
                 year: editStudent?.year || undefined,
                 class: editStudent?.class || "",
+                level: editStudent?.level || undefined,
                 theme_id: editStudent?.theme_id || undefined,
               }}
             >
@@ -101,6 +104,20 @@ const EditStudent = () => {
                 rules={[{ required: true, message: "Digite a turma" }]}
               >
                 <Input type="text" />
+              </Form.Item>
+              <Form.Item
+                style={{ marginBottom: 10 }}
+                label="Nível"
+                name="level"
+                rules={[{ required: true, message: "Selecione o nível" }]}
+              >
+                <Select
+                  options={Array.from({ length: 12 }, (_, i) => ({
+                    label: `Nível ${i + 1}`,
+                    value: i + 1,
+                  }))}
+                  allowClear
+                />
               </Form.Item>
               <Form.Item
                 style={{ marginBottom: 10 }}

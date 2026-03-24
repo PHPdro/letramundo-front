@@ -11,6 +11,7 @@ const mockEditStudent = {
   name: 'Maria',
   year: 2,
   class: 'a',
+  level: 3,
   theme_id: 1,
 }
 
@@ -72,6 +73,7 @@ describe('EditStudent (editar)', () => {
     expect(screen.getByLabelText('Nome')).toBeInTheDocument()
     expect(screen.getByLabelText('Série')).toBeInTheDocument()
     expect(screen.getByLabelText('Turma')).toBeInTheDocument()
+    expect(screen.getByLabelText('Nível')).toBeInTheDocument()
     expect(screen.getByLabelText('Tema')).toBeInTheDocument()
   })
 
@@ -82,7 +84,7 @@ describe('EditStudent (editar)', () => {
   })
 
   it('populates form fields from localStorage', async () => {
-    const student = { id: 5, name: 'Maria', year: 2, class: 'a', theme_id: 1 }
+    const student = { id: 5, name: 'Maria', year: 2, class: 'a', level: 3, theme_id: 1 }
     localStorage.setItem('aluno', JSON.stringify(student))
 
     renderWithProviders(<EditStudent />)

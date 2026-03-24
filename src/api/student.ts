@@ -5,6 +5,7 @@ interface Student {
   name: string;
   year: number;
   class: string;
+  level?: number;
   theme_id: number;
 }
 
