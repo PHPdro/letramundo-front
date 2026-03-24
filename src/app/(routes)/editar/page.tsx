@@ -1,7 +1,7 @@
 "use client";
 import { updateStudent } from "@/api/student";
 import { NavBar } from "@/components/Navbar";
-import { useGame } from "@/contexts/GameContext";
+import { useGamePlayEasy } from "@/contexts/GamePlayEasyContext";
 import { useFetchThemes } from "@/hooks/useGetThemes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Select, Input, message } from "antd";
@@ -11,7 +11,7 @@ import { useEffect } from "react";
 const EditStudent = () => {
   const [form] = Form.useForm();
   const { themes } = useFetchThemes();
-  const { editStudent, setStudent } = useGame();
+  const { editStudent, setStudent } = useGamePlayEasy();
   const queryClient = useQueryClient();
   const route = useRouter();
 

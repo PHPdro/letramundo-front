@@ -2,7 +2,7 @@
 import { letters, phases } from "@/app/(routes)/nivel1/phases";
 import React, { createContext, useContext, useRef, useState } from "react";
 
-type GameContextType = {
+type GamePlayEasyContextType = {
   audioRef: React.RefObject<HTMLAudioElement>;
   audioRefFeedBack: React.RefObject<HTMLAudioElement>;
   start: boolean;
@@ -45,9 +45,9 @@ type Vowel = {
   sound: string;
 };
 
-const GameContext = createContext<GameContextType | undefined>(undefined);
+const GamePlayEasyContext = createContext<GamePlayEasyContextType | undefined>(undefined);
 
-export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const GamePlayEasyProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const audioRefFeedBack = useRef<HTMLAudioElement>(null);
   const [start, setStart] = useState(false);
@@ -224,7 +224,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
   return (
-    <GameContext.Provider
+    <GamePlayEasyContext.Provider
       value={{
         audioRef,
         audioRefFeedBack,
@@ -263,14 +263,14 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }}
     >
       {children}
-    </GameContext.Provider>
+    </GamePlayEasyContext.Provider>
   );
 };
 
-export const useGame = (): GameContextType => {
-  const context = useContext(GameContext);
+export const useGamePlayEasy = (): GamePlayEasyContextType => {
+  const context = useContext(GamePlayEasyContext);
   if (context === undefined) {
-    throw new Error("useGame must be used within a AuthProvider");
+    throw new Error("useGamePlayEasy must be used within a AuthProvider");
   }
   return context;
 };

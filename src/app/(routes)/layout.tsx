@@ -1,6 +1,6 @@
 "use client";
-import { GameProvider } from "@/contexts/GameContext";
-import { LevelTwoProvider } from "@/contexts/LevelTwoContext";
+import { GamePlayEasyProvider } from "@/contexts/GamePlayEasyContext";
+import { GamePlayProvider } from "@/contexts/GamePlayContext";
 import { useAuth } from "@/hooks/auth/useAuth";
 import ReactQueryProvider from "@/utils/reactquery";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
@@ -91,11 +91,11 @@ export default function RoutesLayout({ children }: PropsWithChildren) {
         )}
       </button>
       <ReactQueryProvider>
-        <GameProvider>
-          <LevelTwoProvider>
+        <GamePlayEasyProvider>
+          <GamePlayProvider>
             <AntdRegistry>{children}</AntdRegistry>
-          </LevelTwoProvider>
-        </GameProvider>
+          </GamePlayProvider>
+        </GamePlayEasyProvider>
       </ReactQueryProvider>
     </div>
   );

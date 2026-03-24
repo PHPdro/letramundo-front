@@ -5,8 +5,8 @@ import { deleteStudent } from '@/api/student'
 
 const mockSetEditStudent = jest.fn()
 
-jest.mock('@/contexts/GameContext', () => ({
-  useGame: () => ({ setEditStudent: mockSetEditStudent }),
+jest.mock('@/contexts/GamePlayEasyContext', () => ({
+  useGamePlayEasy: () => ({ setEditStudent: mockSetEditStudent }),
 }))
 
 jest.mock('@/api/student', () => ({

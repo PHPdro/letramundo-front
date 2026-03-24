@@ -1,7 +1,7 @@
 "use client";
 import React, { createContext, useContext, useRef, useState } from "react";
 
-type LevelTwoContextType = {
+type GamePlayContextType = {
   audioRef: React.RefObject<HTMLAudioElement>;
   audioRefFeedBack: React.RefObject<HTMLAudioElement>;
   start: boolean;
@@ -39,9 +39,9 @@ type Vowel = {
   sound: string;
 };
 
-const LevelTwoContext = createContext<LevelTwoContextType | undefined>(undefined);
+const GamePlayContext = createContext<GamePlayContextType | undefined>(undefined);
 
-export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const GamePlayProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const audioRefFeedBack = useRef<HTMLAudioElement>(null);
   const [start, setStart] = useState(false);
@@ -235,7 +235,7 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   return (
-    <LevelTwoContext.Provider
+    <GamePlayContext.Provider
       value={{
         audioRef,
         audioRefFeedBack,
@@ -269,14 +269,14 @@ export const LevelTwoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       }}
     >
       {children}
-    </LevelTwoContext.Provider>
+    </GamePlayContext.Provider>
   );
 };
 
-export const useLevelTwo = (): LevelTwoContextType => {
-  const context = useContext(LevelTwoContext);
+export const useGamePlay = (): GamePlayContextType => {
+  const context = useContext(GamePlayContext);
   if (context === undefined) {
-    throw new Error("useLevelTwo must be used within a AuthProvider");
+    throw new Error("useGamePlay must be used within a AuthProvider");
   }
   return context;
 };

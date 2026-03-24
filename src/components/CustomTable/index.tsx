@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteStudent } from "@/api/student";
-import { useGame } from "@/contexts/GameContext";
+import { useGamePlayEasy } from "@/contexts/GamePlayEasyContext";
 
 interface CustomTableProps {
   data: any;
@@ -13,7 +13,7 @@ interface CustomTableProps {
 
 export const CustomTable = ({ data }: CustomTableProps) => {
   const queryClient = useQueryClient();
-  const { setEditStudent } = useGame();
+  const { setEditStudent } = useGamePlayEasy();
 
   const mutationDelete = useMutation({
     mutationFn: deleteStudent,

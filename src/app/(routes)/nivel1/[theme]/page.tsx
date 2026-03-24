@@ -4,7 +4,7 @@ import { BackButton } from "@/components/BackButton";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { LockOutlined } from "@ant-design/icons";
-import { useGame } from "@/contexts/GameContext";
+import { useGamePlayEasy } from "@/contexts/GamePlayEasyContext";
 import { notFound } from "next/navigation";
 import { THEME_CONFIG, VALID_THEMES } from "@/utils/themeConfig";
 
@@ -14,7 +14,7 @@ const ThemeSelection = ({ params }: { params: { theme: string } }) => {
   const { bgNiveisClass } = THEME_CONFIG[theme];
 
   const [student, setStudent] = useState<any>(null);
-  const { changePhaseState } = useGame();
+  const { changePhaseState } = useGamePlayEasy();
 
   useEffect(() => {
     if (typeof window !== "undefined") {

@@ -8,7 +8,7 @@ import Confetti from "react-confetti";
 import { phases } from "../../phases";
 import { useMutation } from "@tanstack/react-query";
 import { studentProgress } from "@/api/progress";
-import { useGame } from "@/contexts/GameContext";
+import { useGamePlayEasy } from "@/contexts/GamePlayEasyContext";
 import { SoundOutlined } from "@ant-design/icons";
 import { useRouter, notFound } from "next/navigation";
 import { getImage } from "@/utils/getImage";
@@ -45,7 +45,7 @@ const Nivel1 = ({ params }: { params: { theme: string } }) => {
     getStudentFromLocalStorage,
     correctStates,
     targetLetters,
-  } = useGame();
+  } = useGamePlayEasy();
   const router = useRouter();
   const mutation = useMutation({
     mutationFn: studentProgress,

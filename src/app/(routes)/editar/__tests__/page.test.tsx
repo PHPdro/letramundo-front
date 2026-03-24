@@ -22,8 +22,8 @@ jest.mock('@/components/Navbar', () => ({
   NavBar: () => <nav data-testid="navbar">NavBar</nav>,
 }))
 
-jest.mock('@/contexts/GameContext', () => ({
-  useGame: () => ({
+jest.mock('@/contexts/GamePlayEasyContext', () => ({
+  useGamePlayEasy: () => ({
     editStudent: mockEditStudent,
     setStudent: mockSetStudent,
   }),

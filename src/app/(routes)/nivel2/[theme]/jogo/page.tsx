@@ -6,7 +6,7 @@ import { Avatar } from "@/components/Avatar";
 import { phases, phrases } from "../../phases";
 import { useMutation } from "@tanstack/react-query";
 import { studentProgress } from "@/api/progress";
-import { useLevelTwo } from "@/contexts/LevelTwoContext";
+import { useGamePlay } from "@/contexts/GamePlayContext";
 import Image from "next/image";
 import Confetti from "react-confetti";
 import { SoundOutlined } from "@ant-design/icons";
@@ -42,7 +42,7 @@ const Nivel2 = ({ params }: { params: { theme: string } }) => {
     targetLetters,
     handleClickWord,
     getStudentFromLocalStorage,
-  } = useLevelTwo();
+  } = useGamePlay();
 
   const hardVowels = ["V", "A", "U", "O", "E", "I"];
 

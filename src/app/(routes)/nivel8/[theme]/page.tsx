@@ -1,7 +1,7 @@
 "use client";
 import { Avatar } from "@/components/Avatar";
 import { BackButton } from "@/components/BackButton";
-import { useLevelTwo } from "@/contexts/LevelTwoContext";
+import { useGamePlay } from "@/contexts/GamePlayContext";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { LockOutlined } from "@ant-design/icons";
@@ -14,7 +14,7 @@ const ThemeSelection = ({ params }: { params: { theme: string } }) => {
   const { bgNiveisClass } = THEME_CONFIG[theme];
 
   const [student, setStudent] = useState<any>(null);
-  const { changePhaseState } = useLevelTwo();
+  const { changePhaseState } = useGamePlay();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
