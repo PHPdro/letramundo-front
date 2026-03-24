@@ -11,7 +11,7 @@ jest.mock("@/components/BackButton", () => require("@/test/jogo-test-utils").moc
 jest.mock("react-confetti", () => require("@/test/jogo-test-utils").mockConfetti);
 jest.mock("next/navigation", () => require("@/test/jogo-test-utils").mockNextNavigation);
 jest.mock("next/image", () => require("@/test/jogo-test-utils").mockNextImage);
-jest.mock("@tanstack/react-query", () => require("@/test/jogo-test-utils").mockReactQuery);
+jest.mock("@tanstack/react-query", () => require("@/test/jogo-test-utils").mockReactQueryWithSuccess);
 jest.mock("@/api/progress", () => require("@/test/jogo-test-utils").mockProgress);
 jest.mock("@/utils/getImage", () => require("@/test/jogo-test-utils").mockGetImage);
 
@@ -116,5 +116,17 @@ describe("Nivel4 Jogo Page", () => {
     const soundIcon = screen.getByRole("img", { name: "sound" });
     expect(soundIcon).toBeInTheDocument();
     fireEvent.click(soundIcon);
+  });
+
+  it("triggers mutation onSuccess when handleSubmit is called", () => {
+    ctxOverrides = {
+      start: true,
+      phase: 1,
+      handleClick: jest.fn((_vowel, submitFn) => submitFn()),
+    };
+    render(<Nivel4 params={{ theme: "alimentos" }} />);
+    fireEvent.click(screen.getByText("LA"));
+    expect(defaultContext.setIsCorrect).toHaveBeenCalledWith(true);
+    expect(defaultContext.setStart).toHaveBeenCalledWith(false);
   });
 });
