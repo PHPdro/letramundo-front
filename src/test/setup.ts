@@ -1,5 +1,9 @@
 import '@testing-library/jest-dom'
 
+// Mock HTMLMediaElement methods not implemented in jsdom
+window.HTMLMediaElement.prototype.play = jest.fn().mockResolvedValue(undefined)
+window.HTMLMediaElement.prototype.load = jest.fn()
+
 afterEach(() => {
   localStorage.clear()
   jest.restoreAllMocks()
