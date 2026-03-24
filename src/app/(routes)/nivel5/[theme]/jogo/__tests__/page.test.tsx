@@ -86,4 +86,35 @@ describe("Nivel5 Jogo Page", () => {
     render(<Nivel5 params={{ theme: "alimentos" }} />);
     expect(screen.getByTestId("confetti")).toBeInTheDocument();
   });
+
+  it("calls handleClick when clicking syllable button in early phase", () => {
+    ctxOverrides = { start: true, phase: 1 };
+    render(<Nivel5 params={{ theme: "alimentos" }} />);
+    fireEvent.click(screen.getByText("MA"));
+    expect(defaultContext.handleClick).toHaveBeenCalled();
+  });
+
+  it("calls handleClickLetter when clicking letter button in mid phase", () => {
+    ctxOverrides = { start: true, phase: 3 };
+    render(<Nivel5 params={{ theme: "alimentos" }} />);
+    fireEvent.click(screen.getByText("M"));
+    expect(defaultContext.handleClickLetter).toHaveBeenCalled();
+  });
+
+  it("renders phrase buttons and calls handleClickWord in phrase phase", () => {
+    ctxOverrides = { start: true, phase: 6, hardPhase: 0 };
+    render(<Nivel5 params={{ theme: "alimentos" }} />);
+    const phraseButton = screen.getByText("LILO");
+    expect(phraseButton).toBeInTheDocument();
+    fireEvent.click(phraseButton);
+    expect(defaultContext.handleClickWord).toHaveBeenCalled();
+  });
+
+  it("renders SoundOutlined when started and handles click", () => {
+    ctxOverrides = { start: true, phase: 1 };
+    render(<Nivel5 params={{ theme: "alimentos" }} />);
+    const soundIcon = screen.getByRole("img", { name: "sound" });
+    expect(soundIcon).toBeInTheDocument();
+    fireEvent.click(soundIcon);
+  });
 });

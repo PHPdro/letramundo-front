@@ -35,6 +35,12 @@ export const mockReactQuery = {
   useMutation: () => ({ mutate: jest.fn() }),
 };
 
+export const mockReactQueryWithSuccess = {
+  useMutation: (config: any) => ({
+    mutate: jest.fn(() => config.onSuccess?.()),
+  }),
+};
+
 export const mockProgress = {
   studentProgress: jest.fn(),
 };
