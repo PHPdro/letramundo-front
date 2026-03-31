@@ -4,9 +4,12 @@ import { BackButton } from "@/components/BackButton";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { LockOutlined } from "@ant-design/icons";
+import { useFetchStudents } from "@/hooks/useFetchStudents";
 
 const Cowboy = () => {
   const [student, setStudent] = useState<any>(null);
+  const _ = useFetchStudents();
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const student = localStorage.getItem("aluno");

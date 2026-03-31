@@ -9,21 +9,12 @@ import { Spin } from "antd";
 import { usePathname } from "next/navigation";
 import { PropsWithChildren, useRef, useState, useEffect, useCallback } from "react";
 
-const THEME_MUSIC: Record<string, string> = {
-  alimentos: "/audios/mus_alimentos.mp3",
-  animais: "/audios/mus_animais.mp3",
-  cowboy: "/audios/mus_cowboy.mp3",
-  praia: "/audios/mus_praia.mp3",
-};
-
-const DEFAULT_MUSIC = "/audios/mus_plataforma.mp3";
+const DEFAULT_MUSIC = "/audios/pre-atividade.mp3";
+const GAME_MUSIC = "/audios/atividade.mp3";
 
 function getMusicSrc(pathname: string): string {
-  const segments = pathname.split("/");
-  const themeIndex = segments.findIndex((s) => /^nivel\d+$/.test(s));
-  if (themeIndex !== -1 && segments[themeIndex + 1]) {
-    const theme = segments[themeIndex + 1];
-    if (THEME_MUSIC[theme]) return THEME_MUSIC[theme];
+  if (pathname.includes("/jogo")) {
+    return GAME_MUSIC;
   }
   return DEFAULT_MUSIC;
 }
@@ -39,11 +30,19 @@ export default function RoutesLayout({ children }: PropsWithChildren) {
 
   useEffect(() => {
     const audio = bgMusicRef.current;
-    if (!audio || !hasStarted) return;
-    if (audio.src.endsWith(musicSrc)) return;
+    if (!audio) return;
+
+    audio.loop = true;
+    audio.volume = 0.2;
+
+    if (!hasStarted) return;
+
+    const currentSrc = audio.getAttribute("data-src");
+    if (currentSrc === musicSrc && !audio.paused) return;
+
+    audio.setAttribute("data-src", musicSrc);
     audio.src = musicSrc;
     audio.load();
-    audio.volume = 0.1;
     audio.play().catch(() => {});
   }, [musicSrc, hasStarted]);
 
@@ -51,11 +50,15 @@ export default function RoutesLayout({ children }: PropsWithChildren) {
     if (hasStarted) return;
     const audio = bgMusicRef.current;
     if (audio) {
-      audio.volume = 0.1;
+      audio.setAttribute("data-src", musicSrc);
+      audio.src = musicSrc;
+      audio.load();
+      audio.volume = 0.2;
+      audio.loop = true;
       audio.play().catch(() => {});
       setHasStarted(true);
     }
-  }, [hasStarted]);
+  }, [hasStarted, musicSrc]);
 
   useEffect(() => {
     if (!hasStarted) {
@@ -78,7 +81,7 @@ export default function RoutesLayout({ children }: PropsWithChildren) {
 
   return (
     <div>
-      <audio ref={bgMusicRef} src={musicSrc} loop />
+      <audio ref={bgMusicRef} />
       <button
         onClick={toggleMute}
         className="fixed bottom-4 right-4 z-50 bg-white rounded-full p-3 shadow-lg hover:scale-110 transition-transform"

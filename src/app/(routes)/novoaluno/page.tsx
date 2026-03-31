@@ -1,6 +1,7 @@
 "use client";
 import { createStudent } from "@/api/student";
 import { NavBar } from "@/components/Navbar";
+import { useFetchStudents } from "@/hooks/useFetchStudents";
 import { useFetchThemes } from "@/hooks/useGetThemes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Select, Input, message } from "antd";
@@ -10,6 +11,7 @@ const NewStudent = () => {
   const queryClient = useQueryClient();
   const route = useRouter();
   const { themes } = useFetchThemes();
+  const _ = useFetchStudents();
 
   const mutation = useMutation({
     mutationFn: createStudent,

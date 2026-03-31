@@ -2,6 +2,7 @@
 import { updateStudent } from "@/api/student";
 import { NavBar } from "@/components/Navbar";
 import { useGamePlayEasy } from "@/contexts/GamePlayEasyContext";
+import { useFetchStudents } from "@/hooks/useFetchStudents";
 import { useFetchThemes } from "@/hooks/useGetThemes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Select, Input, message } from "antd";
@@ -13,6 +14,8 @@ const EditStudent = () => {
   const { themes } = useFetchThemes();
   const { editStudent, setStudent } = useGamePlayEasy();
   const queryClient = useQueryClient();
+  const _ = useFetchStudents();
+
   const route = useRouter();
 
   const mutation = useMutation({

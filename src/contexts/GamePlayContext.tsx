@@ -57,6 +57,7 @@ export const GamePlayProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [phases, setPhases] = useState<any>();
   const correctSound = "/audios/correto.mp3";
   const failSound = "/audios/errado.mp3";
+  const completionSound = "/audios/concluiu.mp3";
 
   const getStudentFromLocalStorage = () => {
     if (typeof window !== "undefined") {
@@ -89,6 +90,14 @@ export const GamePlayProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     setPhase(index);
     setStart(false);
     setStage(0);
+  };
+
+  const handleSetIsCorrect: React.Dispatch<React.SetStateAction<boolean>> = (value) => {
+    setIsCorrect(value);
+    const isTrue = typeof value === "function" ? undefined : value;
+    if (isTrue) {
+      playAudioFeedBack(completionSound);
+    }
   };
 
   const playAudioFeedBack = (sound: string) => {
@@ -246,7 +255,7 @@ export const GamePlayProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         progress,
         setProgress,
         isCorrect,
-        setIsCorrect,
+        setIsCorrect: handleSetIsCorrect,
         currentVowel,
         setCurrentVowel,
         hardPhase,

@@ -72,6 +72,7 @@ export const GamePlayEasyProvider: React.FC<{ children: React.ReactNode }> = ({ 
   ];
   const correctSound = "/audios/correto.mp3";
   const failSound = "/audios/errado.mp3";
+  const completionSound = "/audios/concluiu.mp3";
 
   const getStudentFromLocalStorage = () => {
     if (typeof window !== "undefined") {
@@ -146,6 +147,14 @@ export const GamePlayEasyProvider: React.FC<{ children: React.ReactNode }> = ({ 
       audioRef.current.load();
     }
   };
+  const handleSetIsCorrect: React.Dispatch<React.SetStateAction<boolean>> = (value) => {
+    setIsCorrect(value);
+    const isTrue = typeof value === "function" ? undefined : value;
+    if (isTrue) {
+      playAudioFeedBack(completionSound);
+    }
+  };
+
   const playAudioFeedBack = (sound: string) => {
     const audio = audioRefFeedBack.current;
     if (audio) {
@@ -237,7 +246,7 @@ export const GamePlayEasyProvider: React.FC<{ children: React.ReactNode }> = ({ 
         progress,
         setProgress,
         isCorrect,
-        setIsCorrect,
+        setIsCorrect: handleSetIsCorrect,
         currentVowel,
         setCurrentVowel,
         hardPhase,
