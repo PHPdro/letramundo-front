@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { request } from "@/api/config";
 
 export function useAuth() {
   const router = useRouter();
@@ -8,11 +9,23 @@ export function useAuth() {
 
   useEffect(() => {
     const auth = localStorage.getItem("auth");
-    setIsAuthenticated(!!auth);
 
     if (!auth) {
+      setIsAuthenticated(false);
       router.push("/login");
+      return;
     }
+
+    request({ endpoint: "students" })
+      .then(() => {
+        setIsAuthenticated(true);
+      })
+      .catch(() => {
+        setIsAuthenticated(false);
+        localStorage.removeItem("auth");
+        localStorage.removeItem("aluno");
+        router.push("/login");
+      });
   }, [router]);
 
   const logout = () => {
