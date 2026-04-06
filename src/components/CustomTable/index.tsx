@@ -40,7 +40,7 @@ export const CustomTable = ({ data }: CustomTableProps) => {
           <div key={index} className="bg-[#fbe5a5] rounded-lg p-4 flex flex-col gap-3">
             <div className="flex items-center gap-3">
               <Image
-                src="/avatar.png"
+                src={aluno.avatar || "/avatar.png"}
                 alt="Avatar"
                 width={27}
                 height={27}
@@ -149,7 +149,7 @@ export const CustomTable = ({ data }: CustomTableProps) => {
               </td>
               <td className="whitespace-nowrap  p-4 text-sm bg-[#fbe5a5] rounded-lg flex items-center gap-3 flex-row">
                 <Image
-                  src="/avatar.png"
+                  src={aluno.avatar || "/avatar.png"}
                   alt="Avatar"
                   width={27}
                   height={27}

@@ -4,11 +4,9 @@ import { BackButton } from "@/components/BackButton";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { LockOutlined } from "@ant-design/icons";
-import { useFetchStudents } from "@/hooks/useFetchStudents";
 
 const Praia = () => {
   const [student, setStudent] = useState<any>(null);
-  const _ = useFetchStudents();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -22,7 +20,7 @@ const Praia = () => {
         <div className="flex justify-between z-10">
           <BackButton url="inicio" color="blue" />
           <img src="/logo-transparente.png" alt="Logo" className=" z-10 w-[67px] h-[50px]" />
-          <Avatar />
+          <Avatar src={student?.avatar} />
         </div>
         <h1 className="text-xl sm:text-2xl md:text-3xl font-medium text-center text-white mb-10 z-10">
           Bem vindo, {student?.name}!

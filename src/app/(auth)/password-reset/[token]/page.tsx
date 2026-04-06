@@ -1,25 +1,42 @@
 "use client";
+import { request } from "@/api/config";
 import { Form, Input, message } from "antd";
 import Image from "next/image";
 import Link from "next/link";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { request } from "@/api/config";
 
-const PasswordRecovery = () => {
+const PasswordReset = () => {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const params = useParams();
+  const searchParams = useSearchParams();
 
-  const onFinish = async (values: { email: string }) => {
+  const token = params.token as string;
+  const email = searchParams.get("email");
+
+  const onFinish = async (values: { password: string; password_confirmation: string }) => {
+    if (values.password !== values.password_confirmation) {
+      message.error("As senhas não coincidem!");
+      return;
+    }
+
     setLoading(true);
     try {
       await request({
         method: "post",
-        endpoint: "forgot-password",
-        data: { email: values.email },
+        endpoint: "reset-password",
+        data: {
+          token,
+          email,
+          password: values.password,
+          password_confirmation: values.password_confirmation,
+        },
       });
-      message.success("E-mail de recuperação enviado com sucesso!");
+      message.success("Senha redefinida com sucesso!");
+      router.push("/login");
     } catch (error: any) {
-      const errorMessage =
-        error?.response?.data?.message || "Erro ao enviar e-mail de recuperação. Tente novamente.";
+      const errorMessage = error?.response?.data?.message || "Erro ao redefinir senha. Tente novamente.";
       message.error(errorMessage);
     } finally {
       setLoading(false);
@@ -32,7 +49,7 @@ const PasswordRecovery = () => {
         <div className="bg-[#f4a460] h-16 w-16 md:h-32 md:w-32 rounded-bl-full" />
       </div>
       <div className="flex align-middle justify-center flex-col lg:flex-row container mx-auto mt-10 px-4 sm:px-6 lg:px-8">
-        <div className="hidden lg:block relative flex flex-col w-[50%]">
+        <div className="lg:block relative flex flex-col w-[50%]">
           <div className="absolute bottom-6 z-10">
             <Image alt="criança se questionando" src="/criança_duvida.svg" width={173} height={271} />
           </div>
@@ -50,17 +67,41 @@ const PasswordRecovery = () => {
           </div>
         </div>
         <div className="p-12 lg:w-[40%] w-full">
-          <h2 className="text-[32px] font-bold mb-9">Esqueceu sua senha?</h2>
+          <h2 className="text-[32px] font-bold mb-9">Redefinir senha</h2>
           <Form name="basic" onFinish={onFinish} autoComplete="off" layout="vertical">
             <Form.Item
-              label={null}
-              name="email"
+              label="Nova senha"
+              name="password"
               rules={[
-                { required: true, message: "Digite o email!" },
-                { type: "email", message: "Digite um email válido!" },
+                { required: true, message: "Digite a nova senha" },
+                {
+                  validator: (_, value) => {
+                    if (!value || value.length >= 8) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error("A senha deve ter pelo menos 8 caracteres"));
+                  },
+                },
               ]}
             >
-              <Input type="email" placeholder="Digite o email" />
+              <Input.Password />
+            </Form.Item>
+            <Form.Item
+              label="Confirmar senha"
+              name="password_confirmation"
+              rules={[
+                { required: true, message: "Confirme a nova senha" },
+                {
+                  validator: (_, value) => {
+                    if (!value || value.length >= 8) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error("A senha deve ter pelo menos 8 caracteres"));
+                  },
+                },
+              ]}
+            >
+              <Input.Password />
             </Form.Item>
 
             <Form.Item label={null}>
@@ -69,7 +110,7 @@ const PasswordRecovery = () => {
                 disabled={loading}
                 className="bg-primary text-white w-full py-[5px] rounded-lg disabled:opacity-50"
               >
-                {loading ? "Enviando..." : "Resgatar senha"}
+                {loading ? "Redefinindo..." : "Redefinir senha"}
               </button>
             </Form.Item>
           </Form>
@@ -88,4 +129,4 @@ const PasswordRecovery = () => {
   );
 };
 
-export default PasswordRecovery;
+export default PasswordReset;

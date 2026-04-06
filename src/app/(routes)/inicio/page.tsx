@@ -19,12 +19,14 @@ const Home = () => {
         <EmptyTable />
       ) : (
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl">
-            <Link href={"/novoaluno"} className="ml-5">
-              <button className="bg-primary text-white p-2 text-sm rounded-lg mb-6 w-full sm:w-[50%] md:w-[25%]">
-                Adicionar aluno(a)
-              </button>
-            </Link>
+          <div className="mx-auto max-w-3xl ">
+            <div className="flex justify-end">
+              <Link href={"/novoaluno"} className="ml-5">
+                <button className="bg-primary text-white p-2 text-sm rounded-lg mb-6">
+                  Adicionar aluno(a)
+                </button>
+              </Link>
+            </div>
             <CustomTable data={students} />
           </div>
         </div>

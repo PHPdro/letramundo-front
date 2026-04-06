@@ -1,9 +1,9 @@
 "use client";
 import { createStudent } from "@/api/student";
 import { NavBar } from "@/components/Navbar";
-import { useFetchStudents } from "@/hooks/useFetchStudents";
 import { useFetchThemes } from "@/hooks/useGetThemes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AvatarSelector } from "@/components/AvatarSelector";
 import { Form, Select, Input, message } from "antd";
 import { useRouter } from "next/navigation";
 
@@ -11,7 +11,6 @@ const NewStudent = () => {
   const queryClient = useQueryClient();
   const route = useRouter();
   const { themes } = useFetchThemes();
-  const _ = useFetchStudents();
 
   const mutation = useMutation({
     mutationFn: createStudent,
@@ -31,6 +30,7 @@ const NewStudent = () => {
       year: values.year,
       class: values.class,
       theme_id: values.theme_id,
+      avatar: values.avatar,
     });
   };
 
@@ -91,6 +91,14 @@ const NewStudent = () => {
                   }))}
                 />
               </Form.Item>
+              <Form.Item
+                style={{ marginBottom: 10 }}
+                label="Escolha um avatar"
+                name="avatar"
+                rules={[{ required: true, message: "Selecione um avatar" }]}
+              >
+                <AvatarSelector />
+              </Form.Item>
               <Form.Item label={null}>
                 <button type="submit" className="bg-primary text-white w-full py-[5px] rounded-lg">
                   Adicionar aluno(a)
@@ -100,12 +108,12 @@ const NewStudent = () => {
           </div>
         </div>
       </div>
-      <div className="hidden xl:flex justify-start">
-        <div className="bg-[#fbe5a5] absolute bottom-0 h-20 w-20 rounded-tr-full" />
-        <div className="bg-[#f8a680] absolute bottom-0 left-[70px] h-16 w-32 rounded-t-full" />
+      <div className="hidden xl:flex justify-start fixed bottom-0 left-0 z-0">
+        <div className="bg-[#fbe5a5] h-20 w-20 rounded-tr-full" />
+        <div className="bg-[#f8a680] h-16 w-32 rounded-t-full self-end" />
       </div>
-      <div className="hidden xl:flex justify-end">
-        <div className="bg-[#f8a29e] absolute bottom-0 h-40 w-44 right-0 rounded-tl-full" />
+      <div className="hidden xl:flex justify-end fixed bottom-0 right-0 z-0">
+        <div className="bg-[#f8a29e] h-40 w-44 rounded-tl-full" />
       </div>
     </div>
   );

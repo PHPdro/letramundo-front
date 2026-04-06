@@ -7,6 +7,7 @@ interface Student {
   class: string;
   level?: number;
   theme_id: number;
+  avatar?: string;
 }
 
 export const createStudent = async (data: Student) => {

@@ -16,7 +16,7 @@ export function useAuth() {
       return;
     }
 
-    request({ endpoint: "students" })
+    request({ endpoint: "verify-token" })
       .then(() => {
         setIsAuthenticated(true);
       })

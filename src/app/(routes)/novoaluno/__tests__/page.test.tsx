@@ -22,6 +22,14 @@ jest.mock("@/hooks/useGetThemes", () => ({
   }),
 }));
 
+jest.mock("@/components/AvatarSelector", () => ({
+  AvatarSelector: ({ value, onChange }: { value?: string; onChange?: (v: string) => void }) => (
+    <button data-testid="avatar-selector" onClick={() => onChange?.("/avatares/avatar-1.png")}>
+      {value || "Select Avatar"}
+    </button>
+  ),
+}));
+
 jest.mock("@/api/student", () => ({
   createStudent: jest.fn(),
 }));
@@ -91,6 +99,7 @@ describe("NewStudent (novoaluno)", () => {
     await selectAntdOption("Série", "1ª");
     fireEvent.change(screen.getByLabelText("Turma"), { target: { value: "B" } });
     await selectAntdOption("Tema", "Alimentos");
+    fireEvent.click(screen.getByTestId("avatar-selector"));
 
     fireEvent.submit(screen.getByRole("button", { name: /adicionar aluno/i }));
 
@@ -100,6 +109,7 @@ describe("NewStudent (novoaluno)", () => {
         year: 1,
         class: "B",
         theme_id: 1,
+        avatar: "/avatares/avatar-1.png",
       });
     });
     await waitFor(() => {
@@ -115,6 +125,7 @@ describe("NewStudent (novoaluno)", () => {
     await selectAntdOption("Série", "2ª");
     fireEvent.change(screen.getByLabelText("Turma"), { target: { value: "B" } });
     await selectAntdOption("Tema", "Animais");
+    fireEvent.click(screen.getByTestId("avatar-selector"));
 
     fireEvent.submit(screen.getByRole("button", { name: /adicionar aluno/i }));
 

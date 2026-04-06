@@ -29,7 +29,7 @@ const ThemeSelection = ({ params }: { params: { theme: string } }) => {
         <div className="flex justify-between z-10">
           <BackButton url={`niveis/${theme}`} color="blue" />
           <img src="/logo-transparente.png" alt="Logo" className=" z-10 w-[67px] h-[50px]" />
-          <Avatar />
+          <Avatar src={student?.avatar} />
         </div>
         <h1 className="text-xl sm:text-2xl md:text-3xl font-medium text-center text-white mb-10 z-10">Nível 2</h1>
         <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 sm:gap-8 z-10 items-center max-w-[300px] sm:max-w-[400px] mx-auto">

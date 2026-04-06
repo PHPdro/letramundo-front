@@ -102,7 +102,7 @@ const Nivel2 = ({ params }: { params: { theme: string } }) => {
               </div>
             )}
           </div>
-          <Avatar />
+          <Avatar src={student?.avatar} />
         </div>
       </div>
       <div className="flex justify-center items-center w-full">
