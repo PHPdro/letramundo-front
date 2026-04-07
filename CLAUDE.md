@@ -19,7 +19,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Architecture
 
-LetraMundo is a literacy education platform with 12 progressive levels, each containing 5 themed game variants (Alimentos, Animais, Cowboy, Dinossauros, Praia). It connects to a Laravel backend API.
+LetraMundo is a literacy education platform with 12 progressive levels, each containing 5 themed game variants (Alimentos, Animais, Cowboy, Praia). It connects to a Laravel backend API.
 
 ### Route Groups
 
