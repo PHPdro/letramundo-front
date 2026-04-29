@@ -27,7 +27,7 @@ export const request = async ({
   timeout = 7000,
 }: RequestParams) => {
   const token = await localStorage.getItem("auth");
-  const baseUrl = "letramundo-back-main-r7azsi.laravel.cloud";
+  const baseUrl = "letramundo-back-main-axwiuq.laravel.cloud";
   const config: AxiosRequestConfig = {
     method,
     baseURL: `https://${baseUrl}/api/${endpoint}`,
