@@ -29,10 +29,10 @@ const Alimentos = () => {
           {Array.from({ length: 12 }, (_, index) => (
             <Link href={`/nivel${index + 1}/alimentos`} key={index}>
               <button
-                disabled={student?.level < index + 1}
+                disabled={student?.phase < index + 1}
                 className="bg-[#f8fafc] w-[55px] h-[50px] sm:w-[70px] sm:h-[65px] p-2 rounded-full text-center items-center flex justify-center font-mono"
               >
-                {student?.level < index + 1 ? <LockOutlined /> : index + 1}
+                {student?.phase < index + 1 ? <LockOutlined /> : index + 1}
               </button>
             </Link>
           ))}
