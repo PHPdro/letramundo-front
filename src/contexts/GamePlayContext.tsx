@@ -24,6 +24,7 @@ type GamePlayContextType = {
   setStudent: React.Dispatch<React.SetStateAction<any>>;
   hardPhase: number;
   setHardPhase: React.Dispatch<React.SetStateAction<number>>;
+  isProcessing: boolean;
   handleStart: (phases: any, phase: number) => void;
   handleClickLetter: (letter: string, handleRequest: () => void) => void;
   handleClick: (vowel: Vowel, handleRequest: () => void) => void;
@@ -55,6 +56,17 @@ export const GamePlayProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [hardPhase, setHardPhase] = useState(0);
   const [expectedSequence, setExpectedSequence] = useState<string[]>([]);
   const [phases, setPhases] = useState<any>();
+  const isProcessingRef = useRef(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const lockProcessing = () => {
+    isProcessingRef.current = true;
+    setIsProcessing(true);
+  };
+  const unlockProcessing = () => {
+    isProcessingRef.current = false;
+    setIsProcessing(false);
+  };
   const correctSound = "/audios/correto.mp3";
   const failSound = "/audios/errado.mp3";
   const completionSound = "/audios/concluiu.mp3";
@@ -90,6 +102,7 @@ export const GamePlayProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     setPhase(index);
     setStart(false);
     setStage(0);
+    unlockProcessing();
   };
 
   const handleSetIsCorrect: React.Dispatch<React.SetStateAction<boolean>> = (value) => {
@@ -137,9 +150,11 @@ export const GamePlayProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
     setStart(true);
     setIsCorrect(false);
+    unlockProcessing();
   };
 
   const handleClickLetter = (letter: string, handleRequest: () => void) => {
+    if (isProcessingRef.current) return;
     const nextExpectedIndex = correctStates.findIndex((isCorrect) => !isCorrect);
 
     if (nextExpectedIndex === -1) return;
@@ -151,6 +166,7 @@ export const GamePlayProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
       const allCorrect = newCorrectStates.every(Boolean);
       if (allCorrect) {
+        lockProcessing();
         setTimeout(() => {
           const nextStage = stage + 1;
           const nextPhase = phases[phase - 1];
@@ -170,6 +186,7 @@ export const GamePlayProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           } else {
             handleRequest();
           }
+          unlockProcessing();
         }, 2000);
         playAudioFeedBack(correctSound);
       }
@@ -179,9 +196,11 @@ export const GamePlayProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const handleClick = (vowel: Vowel, handleRequest: () => void) => {
+    if (isProcessingRef.current) return;
     if (vowel.key === currentVowel.key) {
       let count = stage + 1;
       if (count < phases[phase - 1].length) {
+        lockProcessing();
         setTimeout(() => {
           const currentWord = phases[phase - 1][count][2];
           setCurrentVowel(currentWord);
@@ -191,10 +210,12 @@ export const GamePlayProvider: React.FC<{ children: React.ReactNode }> = ({ chil
             audioRef.current.src = currentWord.sound;
             audioRef.current.load();
           }
+          unlockProcessing();
         }, 2500);
         playAudioFeedBack(correctSound);
       }
       if (count === phases[phase - 1].length) {
+        lockProcessing();
         handleRequest();
         return;
       }
@@ -204,6 +225,7 @@ export const GamePlayProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const handleClickWord = (selectedWord: string, handleRequest: () => void) => {
+    if (isProcessingRef.current) return;
     const nextIndex = correctStates.findIndex((correct) => !correct);
 
     if (selectedWord === expectedSequence[nextIndex]) {
@@ -214,6 +236,7 @@ export const GamePlayProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       const allCorrect = newCorrectStates.every(Boolean);
 
       if (allCorrect) {
+        lockProcessing();
         setTimeout(() => {
           const nextStage = stage + 1;
           const nextPhase = phases[phase - 1];
@@ -233,6 +256,7 @@ export const GamePlayProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           } else {
             handleRequest();
           }
+          unlockProcessing();
         }, 2000);
         playAudioFeedBack(correctSound);
       }
@@ -260,6 +284,7 @@ export const GamePlayProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         setCurrentVowel,
         hardPhase,
         setHardPhase,
+        isProcessing,
         correctStates,
         setCorrectStates,
         targetLetters,

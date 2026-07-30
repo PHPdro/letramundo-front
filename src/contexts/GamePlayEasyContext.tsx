@@ -27,6 +27,7 @@ type GamePlayEasyContextType = {
   setStudent: React.Dispatch<React.SetStateAction<any>>;
   hardPhase: number;
   setHardPhase: React.Dispatch<React.SetStateAction<number>>;
+  isProcessing: boolean;
   handleStart: (phase: number) => void;
   handleClickLetter: (letter: string, handleRequest: () => void) => void;
   handleClick: (vowel: Vowel, handleRequest: () => void) => void;
@@ -64,6 +65,17 @@ export const GamePlayEasyProvider: React.FC<{ children: React.ReactNode }> = ({ 
   const [student, setStudent] = useState<any>(null);
   const [hardPhase, setHardPhase] = useState(0);
   const [editStudent, setEditStudent] = useState<any>(null);
+  const isProcessingRef = useRef(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const lockProcessing = () => {
+    isProcessingRef.current = true;
+    setIsProcessing(true);
+  };
+  const unlockProcessing = () => {
+    isProcessingRef.current = false;
+    setIsProcessing(false);
+  };
   const { A, U, I, O, E, OI, EI, AI } = letters;
   const hardVowels = [
     [U, I, O],
@@ -87,6 +99,7 @@ export const GamePlayEasyProvider: React.FC<{ children: React.ReactNode }> = ({ 
     setPhase(index);
     setStart(false);
     setStage(0);
+    unlockProcessing();
   };
 
   const startPhase = (phases: any) => {
@@ -134,6 +147,7 @@ export const GamePlayEasyProvider: React.FC<{ children: React.ReactNode }> = ({ 
     }
     setStart(true);
     setIsCorrect(false);
+    unlockProcessing();
   };
 
   const randomizeVowels = (data: Vowel[]) => {
@@ -167,6 +181,7 @@ export const GamePlayEasyProvider: React.FC<{ children: React.ReactNode }> = ({ 
   };
 
   const handleClickLetter = (letter: string, handleRequest: () => void) => {
+    if (isProcessingRef.current) return;
     const nextExpectedIndex = correctStates.findIndex((isCorrect) => !isCorrect);
 
     if (nextExpectedIndex === -1) return;
@@ -178,6 +193,7 @@ export const GamePlayEasyProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
       const allCorrect = newCorrectStates.every(Boolean);
       if (allCorrect) {
+        lockProcessing();
         setTimeout(() => {
           const nextStage = stage + 1;
           const nextPhase = phases[phase - 1];
@@ -197,6 +213,7 @@ export const GamePlayEasyProvider: React.FC<{ children: React.ReactNode }> = ({ 
           } else {
             handleRequest();
           }
+          unlockProcessing();
         }, 2000);
         playAudioFeedBack(correctSound);
       }
@@ -206,7 +223,9 @@ export const GamePlayEasyProvider: React.FC<{ children: React.ReactNode }> = ({ 
   };
 
   const handleClick = (vowel: Vowel, handleRequest: () => void) => {
+    if (isProcessingRef.current) return;
     if (vowel.key === currentVowel.key) {
+      lockProcessing();
       setTimeout(() => {
         let count = stage + 1;
         if (count < 5) {
@@ -219,6 +238,7 @@ export const GamePlayEasyProvider: React.FC<{ children: React.ReactNode }> = ({ 
         }
         if (count === 5) {
           handleRequest();
+          unlockProcessing();
           return;
         }
         if (phase === 4) {
@@ -226,6 +246,7 @@ export const GamePlayEasyProvider: React.FC<{ children: React.ReactNode }> = ({ 
         } else if (phase === 7) {
           randomizeVowels(phases[6][count]);
         }
+        unlockProcessing();
       }, 2500);
       playAudioFeedBack(correctSound);
     } else {
@@ -251,6 +272,7 @@ export const GamePlayEasyProvider: React.FC<{ children: React.ReactNode }> = ({ 
         setCurrentVowel,
         hardPhase,
         setHardPhase,
+        isProcessing,
         firstLetterCorrect,
         setFirstLetterCorrect,
         secondLetterCorrect,

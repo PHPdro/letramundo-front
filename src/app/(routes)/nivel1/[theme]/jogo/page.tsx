@@ -45,6 +45,7 @@ const Nivel1 = ({ params }: { params: { theme: string } }) => {
     getStudentFromLocalStorage,
     correctStates,
     targetLetters,
+    isProcessing,
   } = useGamePlayEasy();
   const router = useRouter();
   const mutation = useMutation({
@@ -96,9 +97,9 @@ const Nivel1 = ({ params }: { params: { theme: string } }) => {
     <div className={`min-h-screen bg-[#b6d5f0] ${bgClass}`}>
       {isCorrect && <Confetti width={window.innerWidth || 300} height={window.innerHeight || 200} />}
       <div className="p-3 sm:p-4 md:p-6">
-        <div className="flex justify-between z-10">
+        <div className="grid grid-cols-3 items-start z-10">
           <BackButton url={`nivel1/${theme}`} color={color} />
-          <div>
+          <div className="justify-self-center flex flex-col items-center">
             <img src="/logo-transparente.png" alt="Logo" className=" z-10 w-[67px] h-[50px]" />
             {start && (
               <div className="flex justify-center items-center mt-2">
@@ -109,7 +110,9 @@ const Nivel1 = ({ params }: { params: { theme: string } }) => {
               </div>
             )}
           </div>
-          <Avatar src={student?.avatar} />
+          <div className="justify-self-end">
+            <Avatar src={student?.avatar} />
+          </div>
         </div>
       </div>
       <div className="flex justify-center items-center w-full">
@@ -132,7 +135,10 @@ const Nivel1 = ({ params }: { params: { theme: string } }) => {
                     <button
                       key={vowel.key}
                       onClick={() => handleClick(vowel, handleSubmit)}
-                      className="flex justify-center items-center bg-white p-6 sm:p-8 md:p-11 rounded-full w-[100%] h-[100%] text-center font-medium text-2xl sm:text-3xl md:text-4xl"
+                      disabled={isProcessing}
+                      className={`flex justify-center items-center bg-white p-6 sm:p-8 md:p-11 rounded-full w-[100%] h-[100%] text-center font-medium text-2xl sm:text-3xl md:text-4xl ${
+                        isProcessing ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
                     >
                       {vowel.letter}
                     </button>
@@ -172,8 +178,11 @@ const Nivel1 = ({ params }: { params: { theme: string } }) => {
                     {hardVowels[hardPhase].map((vowel) => (
                       <div key={vowel.key}>
                         <button
-                          className="bg-[#e94d39] rounded-sm p-3 sm:p-4 md:p-5 lg:p-7 text-white font-medium text-xl"
+                          className={`bg-[#e94d39] rounded-sm p-3 sm:p-4 md:p-5 lg:p-7 text-white font-medium text-xl ${
+                            isProcessing ? "opacity-50 cursor-not-allowed" : ""
+                          }`}
                           onClick={() => handleClickLetter(vowel.letter, handleSubmit)}
+                          disabled={isProcessing}
                         >
                           {vowel.letter}
                         </button>

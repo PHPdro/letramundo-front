@@ -41,6 +41,7 @@ const Nivel9 = ({ params }: { params: { theme: string } }) => {
     targetLetters,
     handleClickWord,
     getStudentFromLocalStorage,
+    isProcessing,
   } = useGamePlay();
   const letters = ["B", "O", "I", "A", "F", "J", "U", "L", "E", "N", "M"];
   const router = useRouter();
@@ -87,9 +88,9 @@ const Nivel9 = ({ params }: { params: { theme: string } }) => {
     <div className={`min-h-screen bg-[#b6d5f0] ${bgClass}`}>
       {isCorrect && <Confetti width={window.innerWidth || 300} height={window.innerHeight || 200} />}
       <div className="p-3 sm:p-4 md:p-6">
-        <div className="flex justify-between z-10">
+        <div className="grid grid-cols-3 items-start z-10">
           <BackButton url={`nivel9/${theme}`} color={color} />
-          <div>
+          <div className="justify-self-center flex flex-col items-center">
             <img src="/logo-transparente.png" alt="Logo" className=" z-10 w-[67px] h-[50px]" />
             {start && (
               <div className="flex justify-center items-center mt-2">
@@ -100,7 +101,9 @@ const Nivel9 = ({ params }: { params: { theme: string } }) => {
               </div>
             )}
           </div>
-          <Avatar src={student?.avatar} />
+          <div className="justify-self-end">
+            <Avatar src={student?.avatar} />
+          </div>
         </div>
       </div>
       <div className="flex justify-center items-center w-full">
@@ -125,7 +128,10 @@ const Nivel9 = ({ params }: { params: { theme: string } }) => {
                         <button
                           key={vowel.key}
                           onClick={() => handleClick(vowel, handleSubmit)}
-                          className="flex justify-center items-center bg-white p-6 sm:p-8 md:p-11 rounded-full w-[100%] h-[100%] text-center font-medium text-2xl sm:text-3xl md:text-4xl"
+                          disabled={isProcessing}
+                          className={`flex justify-center items-center bg-white p-6 sm:p-8 md:p-11 rounded-full w-[100%] h-[100%] text-center font-medium text-2xl sm:text-3xl md:text-4xl ${
+                            isProcessing ? "opacity-50 cursor-not-allowed" : ""
+                          }`}
                         >
                           {vowel.letter}
                         </button>
@@ -162,8 +168,11 @@ const Nivel9 = ({ params }: { params: { theme: string } }) => {
                       ? letters.map((vowel, index) => (
                           <div key={index}>
                             <button
-                              className="bg-[#e94d39] rounded-sm p-3 sm:p-4 md:p-5 lg:p-7 text-white font-medium text-xl"
+                              className={`bg-[#e94d39] rounded-sm p-3 sm:p-4 md:p-5 lg:p-7 text-white font-medium text-xl ${
+                                isProcessing ? "opacity-50 cursor-not-allowed" : ""
+                              }`}
                               onClick={() => handleClickLetter(vowel, handleSubmit)}
+                              disabled={isProcessing}
                             >
                               {vowel}
                             </button>
@@ -172,8 +181,11 @@ const Nivel9 = ({ params }: { params: { theme: string } }) => {
                       : phrases[hardPhase][stage].map((phrase, index) => (
                           <div key={index}>
                             <button
-                              className="bg-[#e94d39] rounded-sm p-3 sm:p-4 md:p-5 lg:p-7 text-white font-medium text-xl"
+                              className={`bg-[#e94d39] rounded-sm p-3 sm:p-4 md:p-5 lg:p-7 text-white font-medium text-xl ${
+                                isProcessing ? "opacity-50 cursor-not-allowed" : ""
+                              }`}
                               onClick={() => handleClickWord(phrase, handleSubmit)}
+                              disabled={isProcessing}
                             >
                               {phrase}
                             </button>
