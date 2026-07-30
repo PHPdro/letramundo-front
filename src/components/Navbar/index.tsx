@@ -16,7 +16,7 @@ export const NavBar = () => {
           <div className="flex space-x-4 items-center">
             <Image
               className="mr-5 w-[60px] h-[60px] md:w-[100px] md:h-[100px]"
-              src="/LetraMundo.png"
+              src="/LetraMundo.webp"
               alt="logo"
               width={100}
               height={100}

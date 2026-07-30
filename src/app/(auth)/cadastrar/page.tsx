@@ -36,7 +36,7 @@ const SignUp = () => {
       </div>
       <div className="flex flex-col md:flex-row justify-between container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="hidden md:block">
-          <Image alt="logo" src="/LetraMundo.png" width={200} height={200} />
+          <Image alt="logo" src="/LetraMundo.webp" width={200} height={200} />
           <h2 className="mt-12 text-[33px] font-semibold">Aprender é para todos!</h2>
           <h3 className="mt-4 mb-8 text-[20px] font-light max-w-[28rem]">
             Acreditamos no poder da educação inclusiva para transformar vidas.

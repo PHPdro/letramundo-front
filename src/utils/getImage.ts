@@ -63,5 +63,5 @@ const LARGE_SET = new Set([
 ]);
 
 export const getImage = (theme: string, letter: string) => {
-  return LARGE_SET.has(letter) ? `/${theme}/${letter}.png` : `/${letter}.png`;
+  return LARGE_SET.has(letter) ? `/${theme}/${letter}.webp` : `/${letter}.webp`;
 };

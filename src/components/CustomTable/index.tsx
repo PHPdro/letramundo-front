@@ -75,7 +75,7 @@ export const CustomTable = ({ data }: CustomTableProps) => {
                 }}
               >
                 <Image
-                  src="/edit.png"
+                  src="/edit.webp"
                   alt="Botão de editar"
                   width={22}
                   height={22}
@@ -174,7 +174,7 @@ export const CustomTable = ({ data }: CustomTableProps) => {
                       }}
                     >
                       <Image
-                        src="/edit.png"
+                        src="/edit.webp"
                         alt="Botão de editar"
                         width={25}
                         height={25}

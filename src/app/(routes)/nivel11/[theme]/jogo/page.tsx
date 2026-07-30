@@ -91,7 +91,7 @@ const Nivel11 = ({ params }: { params: { theme: string } }) => {
         <div className="grid grid-cols-3 items-start z-10">
           <BackButton url={`nivel11/${theme}`} color={color} />
           <div className="justify-self-center flex flex-col items-center">
-            <img src="/logo-transparente.png" alt="Logo" className=" z-10 w-[67px] h-[50px]" />
+            <img src="/logo-transparente.webp" alt="Logo" className=" z-10 w-[67px] h-[50px]" />
             {start && (
               <div className="flex justify-center items-center mt-2">
                 <SoundOutlined
@@ -147,10 +147,14 @@ const Nivel11 = ({ params }: { params: { theme: string } }) => {
                   </div>
                   <div className="flex flex-col justify-center items-center w-full">
                     <div className="flex justify-center flex-col items-center w-full">
-                      <img
+                      <Image
                         src={getImage(theme, phases[phase - 1][stage][0].letter)}
                         alt={`${phases[phase - 1][stage][0].letter}`}
                         className="h-[100px] w-[100px] sm:h-[140px] sm:w-[140px] lg:h-[184px] lg:w-[184px] z-0 mt-2"
+                        width={184}
+                        height={184}
+                        sizes="184px"
+                        priority
                       />
                       <div className="flex flex-row mt-8 gap-3">
                         {correctStates.map((_, index) => (

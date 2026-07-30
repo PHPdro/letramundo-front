@@ -19,7 +19,7 @@ const Cowboy = () => {
       <div className="flex flex-col h-full p-3 sm:p-4 md:p-6">
         <div className="flex justify-between z-10">
           <BackButton url="inicio" color="orange" />
-          <img src="/logo-transparente.png" alt="Logo" className=" z-10 w-[67px] h-[50px]" />
+          <img src="/logo-transparente.webp" alt="Logo" className=" z-10 w-[67px] h-[50px]" />
           <Avatar src={student?.avatar} />
         </div>
         <h1 className="text-xl sm:text-2xl md:text-3xl font-medium text-center text-white mb-10 z-10">

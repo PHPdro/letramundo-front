@@ -40,10 +40,10 @@ const PasswordRecovery = () => {
             <Image alt="interrogação" src="/interrogaçao.svg" width={54} height={54} />
           </div>
           <div className="absolute left-[30%] bottom-11 z-10">
-            <Image alt="bola" src="/ball.png" width={54} height={54} />
+            <Image alt="bola" src="/ball.webp" width={54} height={54} />
           </div>
           <div className="absolute left-[50%] bottom-8 z-10">
-            <Image alt="brinquedo" src="/toy.png" width={64} height={81} />
+            <Image alt="brinquedo" src="/toy.webp" width={64} height={81} />
           </div>
           <div className="absolute bottom-5 z-0">
             <Image alt="tapete" src="/tapete.svg" width={482} height={90} />
