@@ -51,7 +51,7 @@ const Nivel1 = ({ params }: { params: { theme: string } }) => {
   const mutation = useMutation({
     mutationFn: studentProgress,
     onSuccess: () => {
-      message.success("Parabéns, você concluiu a fase!", 10);
+      message.success("Parabéns, você concluiu a fase!");
       setIsCorrect(true);
       setPhase((prev) => prev + 1);
       setStage(0);
@@ -66,6 +66,7 @@ const Nivel1 = ({ params }: { params: { theme: string } }) => {
         localStorage.setItem("aluno", JSON.stringify({ ...student, phase: phase + 1 }));
       }, 2000);
       setStart(false);
+      setIsCorrect(false);
     },
     onError: () => {
       message.error("Erro ao salvar progresso");
