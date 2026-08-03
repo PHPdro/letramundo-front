@@ -43,7 +43,7 @@ const Nivel11 = ({ params }: { params: { theme: string } }) => {
     getStudentFromLocalStorage,
     isProcessing,
   } = useGamePlay();
-  const letters = ["D", "I", "A", "E", "V", "O", "B", "L", "N", "M", "T"];
+  const letters = ["D", "A", "I", "E", "V", "O", "B", "L", "N", "M", "T", "U"];
   const router = useRouter();
   const mutation = useMutation({
     mutationFn: studentProgress,
