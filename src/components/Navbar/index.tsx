@@ -23,7 +23,7 @@ export const NavBar = () => {
             />
             <div className="hidden md:flex space-x-4 items-center">
               <a
-                href="#"
+                href="/inicio"
                 className="relative text-gray-700 hover:text-gray-900 px-3 py-2 text-base font-medium"
               >
                 Alunos
